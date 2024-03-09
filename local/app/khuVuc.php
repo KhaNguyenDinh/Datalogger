@@ -12,7 +12,7 @@ class khuVuc extends Model
     protected $dispatchesEvents = [
         'created' => \App\Events\KhuVucCreated::class,
     ];
-    protected $fillable = ['id_khuVuc','id_nhaMay','name_khuVuc','folder_TXT','type'];
+    protected $fillable = ['id_khuVuc','id_nhaMay','name_khuVuc','folder_TXT','type','nuoc_khi'];
     protected $primaryKey = 'id_khuVuc';
 }
 ?>

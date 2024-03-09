@@ -2,9 +2,26 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<?php 
+  $data=[];$ykeys=[];$name=[];
+  $th = json_decode($txt[0]->data, true);
+  foreach ($th as $key => $value) {
+    $name=array_merge($name,array($value['name']));
+  }
+
+  foreach ($txt as $key => $value) {
+    $time = $value->time;
+    $arrayData = json_decode($value->data, true);
+    foreach ($arrayData as $key => $value) {
+      $ykeys = array_merge($ykeys,array('year' => $time, $value['name']=>number_format($value['number'],4)) );
+    }
+    array_push($data, $ykeys);
+  }
+ ?>
+     
 
 <div class="graph">
-  <div id="myfirstchart" style="width: calc(100vw - 200px);"></div>
+  <div id="myfirstchart" class="a" style="width: 100%;"></div>
   <script>
   var data = <?php echo json_encode($data); ?>;
   var ykeys = <?php echo json_encode($name); ?>;
@@ -58,6 +75,10 @@
 var parentDiv = document.createElement('div');
 parentDiv.id = 'parentDivId';
 
+
+var parentDivClass = document.querySelector('.a');
+parentDivClass.appendChild(parentDiv);
+
 ykeys.forEach(function(line) {
     // Tạo các phần tử checkbox, label và container (phần tử <i>)
     var checkbox = document.createElement('input');
@@ -86,7 +107,6 @@ ykeys.forEach(function(line) {
 document.body.appendChild(parentDiv);
   </script>
 </div>
-
 <style>
 .graph{
   background: white;

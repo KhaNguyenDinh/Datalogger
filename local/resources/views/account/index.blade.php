@@ -3,12 +3,12 @@
 @section('action')
 
 <a href="{{URL::to('Admin/account/insert')}}">insert</a>
-<table class="table">
+<table class="table table-bordered">
 	<tr>
 		<th>STT</th>
 		<th>name_account</th>
 		<th>name_nhaMay</th>
-		<th></th>
+		<th>Action</th>
 	</tr>
 @foreach ($data as $key => $value)
 		<tr>

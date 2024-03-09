@@ -3,7 +3,7 @@
 @section('action')
 
 <a href="{{URL::to('Admin/nhaMay/insert')}}">insert</a>
-<table class="table">
+<table class="table table-bordered">
 	<tr>
 		<th>STT</th>
 		<!-- <th>id_nhaMay</th> -->
@@ -11,7 +11,7 @@
 		<th>link_map</th>
 		<th>khu Vuc</th>
 		<th>website</th>
-		<th></th>
+		<th>Action</th>
 	</tr>
 @foreach ($data as $key => $value)
 		<tr>
@@ -19,7 +19,7 @@
 			<!-- <td>{{$value->id_nhaMay}}</td> -->
 			<td>{{$value->name_nhaMay}}</td>
 			<td>{{$value->link_map}}</td>
-			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nhaMay)}}">show khu Vuc</a></td>
+			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nhaMay)}}">show</a></td>
 			<td><a href="{{URL::to('Admin/nhaMay/show/'.$value->id_nhaMay)}}">Show</a></td>
 			<td>
 				<a href="{{URL::to('Admin/nhaMay/update/'.$value->id_nhaMay)}}">update</a>

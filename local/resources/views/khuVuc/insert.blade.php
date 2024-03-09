@@ -13,6 +13,11 @@
 		<option value="ymd">ymd</option>
 		<option value="y/m/d">y/m/d</option>
 	</select>
+	<label>nước thải / khí thải </label>
+	<select name="nuoc_khi" required class="form-control">
+		<option value="nuocThai">nuocThai</option>
+		<option value="khiThai">khiThai</option>
+	</select>
 	<br>
 	<input type="submit"  value="Insert">
 </form>

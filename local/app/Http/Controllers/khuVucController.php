@@ -13,45 +13,24 @@ use Illuminate\Support\Facades\Storage;
 
 class khuVucController extends Controller
 {
-	public function newTime($table){
+	public function getNewTxt($table){
 		$results = DB::table($table)
-		    	->select('time')
-		    	->orderBy('time', 'desc')
-		    	->distinct() // loai bo time trung nhau
-		    	->limit(1)
-		    	->get()
-		    	->pluck('time');
-		if (count($results)==0) {
-			$results='';
-		}else{
-			$results = $results[0];
-		}
-		return $results;}
-	public function getTxt($table,$time){
-		$results = DB::table($table)
-			->where('time',$time)->get();
+                ->orderByDesc('time')
+                ->first();
 		return $results;
 	}
     public function index($id_nhaMay)
     {
- 		$results=[];
 		$nhaMayGetId = nhaMay::find($id_nhaMay);
 		$khuVuc = khuVuc::where('id_nhaMay', $id_nhaMay)->orderBy('id_khuVuc')->get();
-		$txt_khuVuc=[];
+		$results = [];
+		$result_khuVuc=[];
 		foreach ($khuVuc as $key => $value) {
-			$table = $value->folder_TXT;
-			$id_khuVuc = $value->id_khuVuc;
-			// $khuVucGetId = $this->khuVucGetId($id_khuVuc);
-			$alert =alert::where('id_khuVuc', $id_khuVuc)->get();
-			$newTime = $this->newTime($table);
-			if ($newTime!='') {
-				$getTxt = $this->getTxt($table,$newTime);
-				array_push($txt_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'time'=>$newTime,'getTxt'=>$getTxt]);
-			}else{
-				array_push($txt_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'time'=>null,'getTxt'=>null]);
-			}
+			$alert =alert::where('id_khuVuc', $value->id_khuVuc)->get();
+			$newTxt = $this->getNewTxt($value->folder_TXT);
+			array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'newTxt'=>$newTxt]);
 		}
-		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'txt_khuVuc'=>$txt_khuVuc]);
+		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'result_khuVuc'=>$result_khuVuc]);
 		// dd($results);
 		return view('khuVuc.index', compact('results'));
 	}
@@ -61,14 +40,13 @@ class khuVucController extends Controller
     	return view('khuVuc.insert', compact('id_nhaMay'));
     }
 
-    public function postinsert(Request $request, $id_nhaMay)
-    {
+    public function postinsert(Request $request, $id_nhaMay){
 		$validator = Validator::make(
 		    $request->all(),
 		    [
 		        'name_khuVuc' => 'required|min:1|max:100', // Đặt tên của trường và cung cấp quy tắc kiểm tra
-		        'folder_TXT' => 'required|min:1|max:30|regex:/^[a-zA-Z][a-zA-Z0-9_]*$/',
-		        'type' => 'required'
+		        'folder_TXT' => 'required|min:1|max:30|regex:/^[a-zA-Z][a-zA-Z0-9_]*$/'
+
 		    ]
 		);
         if ($validator->fails()) {
@@ -81,14 +59,17 @@ class khuVucController extends Controller
 				$path=0;$path_new=0;
 				if (!Storage::exists($folderPath)) { $path=1;}
 				if (!Storage::exists($folderPath_move)) { $path_new=1;}	
+				
 				if ($path==1 && $path_new==1) {
 					Storage::makeDirectory($folderPath);
 					Storage::makeDirectory($folderPath_move);
+
 			    	$insert = new khuVuc();
 			    	$insert->id_nhaMay = $id_nhaMay;
 			    	$insert->name_khuVuc = $request->name_khuVuc;
 			    	$insert->folder_TXT = $request->folder_TXT;
 			    	$insert->type = $request->type;
+			    	$insert->nuoc_khi = $request->nuoc_khi;
 			    	$insert->save();
 			    	return Redirect::to('Admin/khuVuc/'.$id_nhaMay);
 				}else{
@@ -100,7 +81,6 @@ class khuVucController extends Controller
         }
     }
 
-
     public function update($id_khuVuc)
     {
     	$data = khuVuc::find($id_khuVuc);
@@ -111,8 +91,7 @@ class khuVucController extends Controller
 		$validator = Validator::make(
 		    $request->all(),
 		    [
-		        'name_khuVuc' => 'required|min:1|max:100', // Đặt tên của trường và cung cấp quy tắc kiểm tra
-		        'type' => 'required|min:1|max:100'
+		        'name_khuVuc' => 'required|min:1|max:100'
 		    ]
 		);
         if ($validator->fails()) {
@@ -122,12 +101,10 @@ class khuVucController extends Controller
 	    	if ($count==0) {
 		    	$update = khuVuc::find($id_khuVuc);
 		    	$update->name_khuVuc = $request->name_khuVuc;
-		    	// $update->path = $request->path;
-		    	// $update->path_new = $request->path_new;
 		    	$update->type = $request->type;
+		    	$insert->nuoc_khi = $request->nuoc_khi;
 		    	$update->save();
 		    	return Redirect::to('Admin/khuVuc/'.$request->id_nhaMay);
-		    	// return Redirect()->back();
 	    	}else{
 	    		return response()->json(['success'=>$request->name.' dang ton tai']);
 	    	}

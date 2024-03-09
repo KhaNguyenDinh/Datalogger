@@ -25,19 +25,9 @@ $khuVuc = $results['khuVuc'];
         <div class="col-sm-2">
             <a href="{{URL::to('/')}}">Logo.icon</a> <br>
             <a href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay)}}">Trang Chu</a>
-<!--             <li>Khu Vuc <br>
-                @foreach ($khuVuc as $key => $value)
-                <a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc)}}">{{$value->name_khuVuc}}</a><br>
-                @endforeach
-            </li> -->
             <li>Khu Vuc <br>
                 @foreach ($khuVuc as $key => $value)
-                <a href="{{URL::to('User/table/'.$value->id_khuVuc)}}">{{$value->name_khuVuc}}</a><br>
-                @endforeach
-            </li>
-            <li>Graph <br>
-                @foreach ($khuVuc as $key => $value)
-                <a href="{{URL::to('User/graph/'.$value->id_khuVuc)}}">{{$value->name_khuVuc}}</a><br>
+                <a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc)}}">{{$value->name_khuVuc}}</a><br>
                 @endforeach
             </li>
 

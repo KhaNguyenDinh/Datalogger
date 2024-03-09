@@ -20,6 +20,7 @@ class CreateKhuVuc extends Migration
             $table->string('name_khuVuc');
             $table->string('folder_TXT');
             $table->string('type');
+            $table->string('nuoc_khi');
             $table->timestamps();
         });
     }

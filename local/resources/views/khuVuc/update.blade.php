@@ -9,13 +9,19 @@
 	<input type="text" name="name_khuVuc" value="{{$data->name_khuVuc}}" required class="form-control">
 	<label>Foder TXT</label>
 	<div class="form-control">{{$data->folder_TXT}}</div>
-	<label>Type</label>
-	<select name="type" required class="form-control">
-		<option value="ymd" <?php if($data->type=='ymd'){ echo 'selected';} ?> >ymd</option>
-		<option value="y/m/d" <?php if($data->type=='y/m/d'){ echo 'selected';} ?> >y/m/d</option>
+	<label>nước thải / khí thải </label>
+	<select name="nuoc_khi" required class="form-control">
+		<option value="nuocThai" <?php if($data->nuoc_khi=='nuocThai'){ echo 'selected';} ?>>nuocThai</option>
+		<option value="khiThai" <?php if($data->nuoc_khi=='khiThai'){ echo 'selected';} ?>>khiThai</option>
 	</select>
 	<br>
 	<input type="submit" value="update">
 </form>
 <a href="{{URL::to('Admin/khuVuc/'.$data->id_nhaMay)}}">back</a>
 @stop()
+
+	<label>nước thải / khí thải </label>
+	<select name="nuoc_khi" required class="form-control">
+		<option value="nuocThai">nuocThai</option>
+		<option value="khiThai">khiThai</option>
+	</select>

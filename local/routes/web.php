@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', 'dulieuTXTController@check');
 Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
@@ -30,13 +31,8 @@ Route::group(['prefix'=>'User'],function(){
 
 	Route::get('/{id_nhaMay}', 'dulieuTXTController@showTrangChu');
 	Route::get('khuVuc/{id_khuVuc}', 'dulieuTXTController@showKhuVuc');
-	Route::get('table/{id_khuVuc}','dulieuTXTController@showTable');
-	Route::post('postTable/{id_khuVuc}','dulieuTXTController@postShowTable');
-
-	Route::get('graph/{id_khuVuc}','dulieuTXTController@showGraph');
-	Route::post('postGraph/{id_khuVuc}','dulieuTXTController@postShowGraph');
-
-	Route::post('postExportExecel/{id_khuVuc}','dulieuTXTController@postExportExecel');
+	Route::post('postKhuVuc/{id_khuVuc}', 'dulieuTXTController@postShowKhuVuc');
+	// Route::post('postExportExecel/{id_khuVuc}','dulieuTXTController@postExportExecel');
 });
 
 // Admin
@@ -65,6 +61,15 @@ Route::group(['prefix'=>'Admin'],function(){
 		Route::get('update/{id_khuVuc}','khuVucController@update');
 		Route::post('postupdate/{id_khuVuc}','khuVucController@postupdate');
 		Route::get('delete/{id_khuVuc}','khuVucController@delete');
+	});
+
+	Route::group(['prefix'=>'camera'],function(){
+		Route::get('/{id_khuVuc}','cameraController@index');
+		Route::get('insert/{id_khuVuc}','cameraController@insert');
+		Route::post('postinsert/{id_khuVuc}','cameraController@postinsert');
+		Route::get('update/{id_camera}','cameraController@update');
+		Route::post('postupdate/{id_camera}','cameraController@postupdate');
+		Route::get('delete/{id_camera}','cameraController@delete');
 	});
 
 	Route::group(['prefix'=>'alert'],function(){
