@@ -84,14 +84,6 @@ class dulieuTXTController extends Controller
 							    foreach ($lines as $line) {
 							    	$elements = explode("\t", $line);
 							    	if (isset($elements[4])) {
-							    		if ($available=='') {
-							    			$existingRecord = DB::table($folder_TXT)
-											    ->where('time', date("Y-m-d H:i:s",strtotime($elements[3])))
-											    ->select('time')
-											    ->first();
-											if ($existingRecord) {	$available = "YES";
-											}else{ $available="NO";}
-							    		}
 							    		if ($mov=='') {
 							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
 									    		$mov = "NO";
@@ -321,14 +313,6 @@ class dulieuTXTController extends Controller
 							    foreach ($lines as $line) {
 							    	$elements = explode("\t", $line);
 							    	if (isset($elements[4])) {
-							    		if ($available=='') {
-							    			$existingRecord = DB::table($folder_TXT)
-											    ->where('time', date("Y-m-d H:i:s",strtotime($elements[3])))
-											    ->select('time')
-											    ->first();
-											if ($existingRecord) {	$available = "YES";
-											}else{ $available="NO";}
-							    		}
 							    		if ($mov=='') {
 							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
 									    		$mov = "NO";
