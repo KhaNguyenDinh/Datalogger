@@ -39,9 +39,21 @@
 				case 2:$status = 'red';break;
 			}
 		 ?>
-		<td style="color: {{$status}}; background: {{$background}}">{{$value['number']}}</td>
+		<td style="background: {{$background}}">
+			<div style="display: flex;">
+				{{$value['number']}}<div id="status" style="background: {{$status}}"></div>		
+			</div>
+		</td>
 		@endforeach
 	</tr>
 	@endforeach
 
 </table>
+<style type="text/css">
+
+#status{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+} 
+</style>

@@ -18,9 +18,9 @@
     array_push($data, $ykeys);
   }
  ?>
-     
 
 <div class="graph">
+  <br>
   <div id="myfirstchart" class="a" style="width: 100%;"></div>
   <script>
   var data = <?php echo json_encode($data); ?>;
@@ -108,14 +108,15 @@ document.body.appendChild(parentDiv);
   </script>
 </div>
 <style>
+
 .graph{
   background: white;
 }
 #parentDivId{
   position: absolute;
   z-index: 100;
-  top: 145px;
-  left: 260px;
+  bottom: 100px;
+  left: 300px;
 }
 #show_icon{
   border-radius: 5px;

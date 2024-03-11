@@ -23,9 +23,9 @@
 </body>
 </html>
 <!-- Trong view 'dulieuTXT.index' -->
-<!-- <script>
+<script>
     // Chuyển hướng sau 5 min
     setTimeout(function() {
         window.location.href = "{{URL::to('dulieuTXT')}}";
     }, 300000); // 1000 miligiây = 1 giây
-</script> -->
+</script>

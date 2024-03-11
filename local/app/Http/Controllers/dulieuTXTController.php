@@ -65,27 +65,35 @@ class dulieuTXTController extends Controller
 				    	$folderName = basename($subDirectory);
 				    	if (strlen($folderName)!=4) {
 							$files = Storage::files($subDirectory);
+
 							foreach ($files as $file) {
 								$time_file = substr($file,strlen($file)-18,14);
-								$time_file =date("Y-m-d H:i",strtotime($time_file));
+								$key =date("Y-m-d H:i",strtotime($time_file));
 							    $fileContents = Storage::disk('local')->get($file);
-							 	    // Tách nội dung thành các dòng
+
+				    			$existingRecord = DB::table($folder_TXT)
+								    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
+								    ->select('time')->first();
+								if ($existingRecord) {	$available = "YES";
+								}else{ $available="NO";}
+							// Tách nội dung thành các dòng
 							    $lines = explode("\n", $fileContents);
 							    // Xử lý từng dòng
-							    $mov=''; $available = '';$time_txt = '';
+							    $mov=''; $time_txt = '';
 							    $array = [];
 							    foreach ($lines as $line) {
 							    	$elements = explode("\t", $line);
 							    	if (isset($elements[4])) {
 							    		if ($available=='') {
-							    			$existingRecord = DB::table($folder_TXT)->where('id_khuVuc', $id_khuVuc)
+							    			$existingRecord = DB::table($folder_TXT)
 											    ->where('time', date("Y-m-d H:i:s",strtotime($elements[3])))
+											    ->select('time')
 											    ->first();
 											if ($existingRecord) {	$available = "YES";
 											}else{ $available="NO";}
 							    		}
 							    		if ($mov=='') {
-							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $time_file) {
+							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
 									    		$mov = "NO";
 									    	}else{
 									    		$mov = "YES";
@@ -107,6 +115,8 @@ class dulieuTXTController extends Controller
 
 							    	}
 							    }
+
+
 							    if ($mov =='YES') {
 							    	if ($available=="NO") {
 							    		$dataToInsert= [
@@ -171,25 +181,27 @@ class dulieuTXTController extends Controller
 										$files = Storage::files($subDirectory2);
 										foreach ($files as $file) {
 											$time_file = substr($file,strlen($file)-18,14);
-											$time_file =date("Y-m-d H:i",strtotime($time_file));
+											$key =date("Y-m-d H:i",strtotime($time_file));
+
+											$existingRecord = DB::table($folder_TXT)
+											    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
+											    ->select('time')->first();
+											if ($existingRecord) {	$available = "YES";
+											}else{ $available="NO";}
+
 										    $fileContents = Storage::disk('local')->get($file);
+
+
 										 	    // Tách nội dung thành các dòng
 										    $lines = explode("\n", $fileContents);
 										    // Xử lý từng dòng
-										    $mov=''; $available = '';$time_txt = '';
+										    $mov=''; ;$time_txt = '';
 										    $array = [];
 										    foreach ($lines as $line) {
 										    	$elements = explode("\t", $line);
 										    	if (isset($elements[4])) {
-										    		if ($available=='') {
-										    			$existingRecord = DB::table($folder_TXT)->where('id_khuVuc', $id_khuVuc)
-														    ->where('time', date("Y-m-d H:i:s",strtotime($elements[3])))
-														    ->first();
-														if ($existingRecord) {	$available = "YES";
-														}else{ $available="NO";}
-										    		}
 										    		if ($mov=='') {
-										    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $time_file) {
+										    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
 												    		$mov = "NO";
 												    	}else{
 												    		$mov = "YES";
@@ -290,27 +302,35 @@ class dulieuTXTController extends Controller
 				    	$folderName = basename($subDirectory);
 				    	if (strlen($folderName)!=4) {
 							$files = Storage::files($subDirectory);
+
 							foreach ($files as $file) {
 								$time_file = substr($file,strlen($file)-18,14);
-								$time_file =date("Y-m-d H:i",strtotime($time_file));
+								$key =date("Y-m-d H:i",strtotime($time_file));
 							    $fileContents = Storage::disk('local')->get($file);
-							 	    // Tách nội dung thành các dòng
+
+				    			$existingRecord = DB::table($folder_TXT)
+								    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
+								    ->select('time')->first();
+								if ($existingRecord) {	$available = "YES";
+								}else{ $available="NO";}
+							// Tách nội dung thành các dòng
 							    $lines = explode("\n", $fileContents);
 							    // Xử lý từng dòng
-							    $mov=''; $available = '';$time_txt = '';
+							    $mov=''; $time_txt = '';
 							    $array = [];
 							    foreach ($lines as $line) {
 							    	$elements = explode("\t", $line);
 							    	if (isset($elements[4])) {
 							    		if ($available=='') {
-							    			$existingRecord = DB::table($folder_TXT)->where('id_khuVuc', $id_khuVuc)
+							    			$existingRecord = DB::table($folder_TXT)
 											    ->where('time', date("Y-m-d H:i:s",strtotime($elements[3])))
+											    ->select('time')
 											    ->first();
 											if ($existingRecord) {	$available = "YES";
 											}else{ $available="NO";}
 							    		}
 							    		if ($mov=='') {
-							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $time_file) {
+							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
 									    		$mov = "NO";
 									    	}else{
 									    		$mov = "YES";
@@ -332,6 +352,8 @@ class dulieuTXTController extends Controller
 
 							    	}
 							    }
+
+
 							    if ($mov =='YES') {
 							    	if ($available=="NO") {
 							    		$dataToInsert= [
@@ -396,25 +418,27 @@ class dulieuTXTController extends Controller
 										$files = Storage::files($subDirectory2);
 										foreach ($files as $file) {
 											$time_file = substr($file,strlen($file)-18,14);
-											$time_file =date("Y-m-d H:i",strtotime($time_file));
+											$key =date("Y-m-d H:i",strtotime($time_file));
+
+											$existingRecord = DB::table($folder_TXT)
+											    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
+											    ->select('time')->first();
+											if ($existingRecord) {	$available = "YES";
+											}else{ $available="NO";}
+
 										    $fileContents = Storage::disk('local')->get($file);
+
+
 										 	    // Tách nội dung thành các dòng
 										    $lines = explode("\n", $fileContents);
 										    // Xử lý từng dòng
-										    $mov=''; $available = '';$time_txt = '';
+										    $mov=''; ;$time_txt = '';
 										    $array = [];
 										    foreach ($lines as $line) {
 										    	$elements = explode("\t", $line);
 										    	if (isset($elements[4])) {
-										    		if ($available=='') {
-										    			$existingRecord = DB::table($folder_TXT)->where('id_khuVuc', $id_khuVuc)
-														    ->where('time', date("Y-m-d H:i:s",strtotime($elements[3])))
-														    ->first();
-														if ($existingRecord) {	$available = "YES";
-														}else{ $available="NO";}
-										    		}
 										    		if ($mov=='') {
-										    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $time_file) {
+										    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
 												    		$mov = "NO";
 												    	}else{
 												    		$mov = "YES";
@@ -533,6 +557,9 @@ class dulieuTXTController extends Controller
 	} // ok
 
 //////////////////  
+	public function loadNewTxt(Requests $request){
+		dd($request);
+	}
 
 	public function showTrangChu($id_nhaMay){
 		$nhaMayGetId = nhaMay::find($id_nhaMay);
@@ -566,14 +593,15 @@ class dulieuTXTController extends Controller
                 ->get();
         }
         array_push($result_khuVuc, ['khuVucGetId'=>$khuVucGetId,'alert'=>$alert,'txt'=>$txt]);
-        $results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'result_khuVuc'=>$result_khuVuc]);
+        $results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'camera'=>$camera,'result_khuVuc'=>$result_khuVuc]);
         return $results;
 	} // ok
-	public function showKhuVuc($id_khuVuc){
+	public function showKhuVuc($id_khuVuc,$action){
 		$results = $this->dataKhuVuc($id_khuVuc,'NO','NO');
-		return view('User.khuVuc', compact('results'));
+		// dd($results);
+		return view('User.khuVuc', compact('results','action'));
 	}
-	public function postShowKhuVuc(Request $request, $id_khuVuc){
+	public function postShowKhuVuc(Request $request, $id_khuVuc,$action){
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -609,7 +637,7 @@ class dulieuTXTController extends Controller
 				}
 				return Excel::download(new UsersExport($data), 'data.xlsx');
         	}else{
-        		return view('User.khuVuc', compact('results','startTime','endTime'));
+        		return view('User.khuVuc', compact('results','startTime','endTime','actiom'));
         	}
         }
     }

@@ -16,6 +16,23 @@
 		$arrayData=null;
 		if ($newTxt!==null) {
 			$time = $newTxt->time;
+
+
+$currentDateTime = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+
+$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+$date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+
+$interval = $date1->diff($date2);
+// echo $interval->format('%R%a ngày %H giờ %i phút %S giây');
+$dulieu = "";
+if ($interval->y > 0) {$dulieu = "Mất dữ liệu";
+} elseif($interval->m > 0) {$dulieu = "Mất dữ liệu";
+} elseif($interval->d > 0) {$dulieu = "Mất dữ liệu";
+} elseif($interval->h > 0) {$dulieu = "Mất dữ liệu";
+} elseif($interval->i > 30) {$dulieu = "Mất dữ liệu";}
+
 			$data = $newTxt->data;
 			$arrayData = json_decode($data, true);
 		}
@@ -23,11 +40,11 @@
 
 	@if($arrayData!==null)
 		<table class="table table-bordered">
-			<label>{{$khuVucGetId['name_khuVuc']}}</label>
+			<div style="display: flex;" ><label>{{$khuVucGetId['name_khuVuc']}}</label> <h3 style="color: red">{{$dulieu}}</h3> </div>
 			<tr>
-				<th>Time</th>
+				<th>New Time</th>
 				@foreach ($arrayData as $key => $value)
-				<th>{{$value['name']}}<br>{{$value['unit']}} </th>
+				<th>{{$value['name']}}</th>
 				@endforeach
 			</tr>
 			<tr>
@@ -50,7 +67,11 @@
 						case 2:$status = 'red';break;
 					}
 				 ?>
-				<th style="color:{{$status}};background: {{$background}}">{{$value['number']}}</th>
+				<td style="background: {{$background}};">
+					<div style="display: flex;">
+						{{$value['number']}} <div id="status" style="background: {{$status}}"></div>
+					</div>
+				</td>
 				@endforeach
 			</tr>
 		</table>
@@ -60,6 +81,29 @@
 	<!-- /////////////// -->
 @endforeach
 
+<!-- <script>
+    setTimeout(function() {
+        window.location.href = "{{URL::to('User/loadTxtNhaMay/'.$nhaMayGetId->id_nhaMay)}}";
+    }, 300000);
+</script> -->
+
+<!-- <a href="{{ route('export.number') }}">Export Number to USB</a> -->
+
+
+<script type="text/javascript">
+	setTimeout(function(){
+	   window.location.reload(0);
+	}, 300000);
+</script>
+
 
 @stop()
 
+<style type="text/css">
+
+#status{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+} 
+</style>

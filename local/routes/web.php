@@ -13,13 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', 'dulieuTXTController@check');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/export-number', function () {
+//     $number = 1; // Số bạn muốn xuất
+//     Storage::put('exported-number.txt', $number);
+//     return Redirect()->back()->withInput();
+// })->name('export.number');
+
 Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
-
-
-
 
 
 Route::group(['prefix'=>'User'],function(){
@@ -30,8 +36,9 @@ Route::group(['prefix'=>'User'],function(){
 	Route::get('loadTxtNhaMay/{id_nhaMay}','dulieuTXTController@loadTxtNhaMay');
 
 	Route::get('/{id_nhaMay}', 'dulieuTXTController@showTrangChu');
-	Route::get('khuVuc/{id_khuVuc}', 'dulieuTXTController@showKhuVuc');
-	Route::post('postKhuVuc/{id_khuVuc}', 'dulieuTXTController@postShowKhuVuc');
+
+	Route::get('khuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@showKhuVuc');
+	Route::post('postKhuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@postShowKhuVuc');
 	// Route::post('postExportExecel/{id_khuVuc}','dulieuTXTController@postExportExecel');
 });
 
