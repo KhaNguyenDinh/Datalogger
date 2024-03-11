@@ -101,8 +101,6 @@ $tab = "__";
   border-radius: 50%;
 } 
 *{
-  font-family: Arial, sans-serif; /* Chọn font family mong muốn */
-  /*text-transform: uppercase;  Chuyển đổi thành chữ hoa */
-  /* Thêm các thuộc tính khác nếu cần */
+  font-family: Arial, sans-serif;
 }
 </style>

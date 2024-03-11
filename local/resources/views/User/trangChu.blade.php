@@ -81,18 +81,11 @@ if ($interval->y > 0) {$dulieu = "Mất dữ liệu";
 	<!-- /////////////// -->
 @endforeach
 
-<!-- <script>
+<script>
     setTimeout(function() {
         window.location.href = "{{URL::to('User/loadTxtNhaMay/'.$nhaMayGetId->id_nhaMay)}}";
     }, 300000);
-</script> -->
-
-<!-- <script type="text/javascript">
-	setTimeout(function(){
-	   window.location.reload(0);
-	}, 300000);
 </script>
- -->
 
 @stop()
 
