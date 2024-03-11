@@ -17,7 +17,7 @@
 		<th>nước / Khí</th>
 		<th>camera</th>
 		<th>alert</th>
-		<th>Action/th>
+		<th>Action</th>
 	</tr>
 @foreach ($khuVuc as $key => $value)
 	<tr>

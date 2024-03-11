@@ -87,15 +87,12 @@ if ($interval->y > 0) {$dulieu = "Mất dữ liệu";
     }, 300000);
 </script> -->
 
-<!-- <a href="{{ route('export.number') }}">Export Number to USB</a> -->
-
-
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	setTimeout(function(){
 	   window.location.reload(0);
 	}, 300000);
 </script>
-
+ -->
 
 @stop()
 
