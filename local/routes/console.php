@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Artisan;
 | simple approach to interacting with each command's IO methods.
 |
 */
-
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
+})->describe('Display an inspiring quote');
+
+Artisan::command('log_db', function () {
+	app(App\Services\LogService::class)->loadTxtAll();
 })->describe('Display an inspiring quote');

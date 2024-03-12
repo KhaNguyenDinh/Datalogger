@@ -25,7 +25,6 @@ $date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
 $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
 
 $interval = $date1->diff($date2);
-// echo $interval->format('%R%a ngày %H giờ %i phút %S giây');
 $dulieu = "";
 if ($interval->y > 0) {$dulieu = "Mất dữ liệu";
 } elseif($interval->m > 0) {$dulieu = "Mất dữ liệu";
@@ -78,15 +77,13 @@ if ($interval->y > 0) {$dulieu = "Mất dữ liệu";
 	@else
 		<h2>{{$nhaMayGetId->name_nhaMay}} NO TXT</h2>
 	@endif
-	<!-- /////////////// -->
 @endforeach
 
-<script>
-    setTimeout(function() {
-        window.location.href = "{{URL::to('User/loadTxtNhaMay/'.$nhaMayGetId->id_nhaMay)}}";
-    }, 300000);
+<script type="text/javascript">
+	setTimeout(function(){
+	   window.location.reload(0);
+	}, 300000);
 </script>
-
 @stop()
 
 <style type="text/css">
