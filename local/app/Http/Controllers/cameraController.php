@@ -76,13 +76,13 @@ class cameraController extends Controller
         }else{
 	    	$update = camera::query()->where('id_camera', $id_camera)->firstOrFail();
 
-	    	$update->name_camera = $request->name_camera;
-	    	$update->link_rtsp = $request->link_rtsp;
-
             $this->cameraService->update($update->name_camera, [
                 'name' => $request->name_camera,
                 'link' => $request->link_rtsp
             ]);
+
+            $update->name_camera = $request->name_camera;
+            $update->link_rtsp = $request->link_rtsp;
 
 	    	$update->save();
 	    	return Redirect::to('Admin/camera/'.$request->id_khuVuc);
