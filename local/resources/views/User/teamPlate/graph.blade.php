@@ -115,7 +115,7 @@ document.body.appendChild(parentDiv);
 #parentDivId{
   position: absolute;
   z-index: 100;
-  bottom: 100px;
+  bottom: 10px;
   left: 300px;
 }
 #show_icon{
