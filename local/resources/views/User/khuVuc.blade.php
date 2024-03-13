@@ -10,7 +10,9 @@
 	$txt = $results['result_khuVuc'][0]['txt'];
 
  ?>
-	
+@if($action === 'Camera')
+    <div class="col-sm-12">@include('User.teamPlate.camera')</div>
+@else
 	@if (!$txt->isEmpty())
 	<div class="row">
 		@if($action === 'Charts')
@@ -19,10 +21,9 @@
 		@elseif($action === 'Tables')
 			@include('User.teamPlate.time')
 			<div class="col-sm-12">@include('User.teamPlate.tbl')</div>
-		@elseif($action === 'Camera')
-		    <div class="col-sm-12">@include('User.teamPlate.camera')</div>
 		@endif
 	</div>
 	@else <h2>No TXT</h2>
 	@endif
+@endif
 @stop()
