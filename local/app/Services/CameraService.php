@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class CameraService
 {
-    protected $uri = 'http://127.0.0.1:4000';
+    protected $uri = 'https://live.cae.vn';
 
     protected $client;
 
@@ -23,7 +23,13 @@ class CameraService
             'json' => $data
         ]);
 
-        return json_decode($res->getBody()->read(1024), true);
+        $data = json_decode($res->getBody()->read(1024), true);
+
+        if ($data['status'] != '200') {
+            throw new \Exception('Error: '. $data['message']);
+        }
+
+        return $data;
     }
 
     public function create($data = [])
