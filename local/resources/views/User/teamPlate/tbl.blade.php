@@ -40,8 +40,8 @@
 			}
 		 ?>
 		<td style="background: {{$background}}">
-			<div style="display: flex;">
-				{{$value['number']}}<div id="status" style="background: {{$status}}"></div>		
+			<div style="display: flex;"><?=number_format($value['number'],2) ?>
+				<div id="status" style="background: {{$status}}"></div>		
 			</div>
 		</td>
 		@endforeach
