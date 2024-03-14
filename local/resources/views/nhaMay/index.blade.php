@@ -20,7 +20,8 @@
 			<td>{{$value->name_nhaMay}}</td>
 			<td>{{$value->link_map}}</td>
 			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nhaMay)}}">show</a></td>
-			<td><a href="{{URL::to('Admin/nhaMay/show/'.$value->id_nhaMay)}}">Show</a></td>
+			<td><a href="{{URL::to('Admin/nhaMay/show/'.$value->id_nhaMay)}}">Show</a>
+			</td>
 			<td>
 				<a href="{{URL::to('Admin/nhaMay/update/'.$value->id_nhaMay)}}">update</a>
 				<a href="{{URL::to('Admin/nhaMay/delete/'.$value->id_nhaMay)}}">delete</a>

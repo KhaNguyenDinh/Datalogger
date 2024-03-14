@@ -10,6 +10,7 @@ use App\account;
 
 class nhaMayController extends Controller
 {
+
     public function Website(Request $request, $id_nhaMay){
         $account = account::where('id_nhaMay',$id_nhaMay)->first();
         $request->session()->put('name_account', $account->name_account);

@@ -13,6 +13,11 @@ class accountController extends Controller
 {
     public $nameAdmin = 'Admin';
     public $passAdmin = 'Cae1999@';
+    public $passaction="Admin@caevn";
+    public function Admin_show($id_nhaMay){
+        $nhaMay = nhaMay::all();
+        return view('Admin_show')->with(compact('nhaMay','id_nhaMay'));
+    }
     public function userUpdate(Request $request){
         $data = account::where('name_account',session('name_account'))
               ->where('pass_account',session('pass_account'))
@@ -57,6 +62,9 @@ class accountController extends Controller
             if (session('nameAdmin')==$this->nameAdmin && session('passAdmin')==$this->passAdmin) {
                 return Redirect::to('Admin');
             }
+            if (session('nameAdmin')==$this->nameAdmin && session('passAdmin')==$this->passaction) {
+                return Redirect::to('Admin_show/0');
+            }
         }
         if ($request->session()->has('name_account')) {
             $check = account::where('name_account',session('name_account'))
@@ -83,6 +91,10 @@ class accountController extends Controller
                 $request->session()->put('nameAdmin', $request->name_account);
                 $request->session()->put('passAdmin', $request->pass_account);
                 return Redirect::to('Admin');
+            }elseif($request->name_account==$this->nameAdmin && $request->pass_account==$this->passaction) {
+                $request->session()->put('nameAdmin', $request->name_account);
+                $request->session()->put('passAdmin', $request->pass_account);
+               return Redirect::to('Admin_show/0');
             }else{                
                 $account = account::where('name_account',$request->name_account)
                                 ->where('pass_account',$request->pass_account)

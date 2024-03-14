@@ -17,6 +17,7 @@ Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
 
+Route::get('Admin_show/{id_nhaMay}', 'accountController@Admin_show');
 
 Route::group(['prefix'=>'User'],function(){
 
