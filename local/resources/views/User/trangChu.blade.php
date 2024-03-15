@@ -115,7 +115,11 @@
 	color: rgba(255, 255, 255, 0);
   border-radius: 50%;
   background: red;
-} 
+}
 </style>
-
+<script type="text/javascript">
+setTimeout(function(){
+   window.location.reload(0);
+}, 300000);
+</script>
 @stop()
