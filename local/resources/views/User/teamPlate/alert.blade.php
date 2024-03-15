@@ -1,10 +1,11 @@
 @if(isset($startTime))
-<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khuVuc)}}" enctype="multipart/form-data">
+<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khuVuc.'/'.$action)}}" enctype="multipart/form-data">
 	@csrf
 	<input type="hidden" name="action" value="execel">
 	<input type="hidden" name="startTime" value="{{$startTime}}">
 	<input type="hidden" name="endTime" value="{{$endTime}}">
-	<input type="submit"  value="Export">
+	<input type="hidden" name="Alert" value="{{$show_Alert}}">
+	<input type="submit"  value="Export execel" class="btn btn-primary">
 </form>
 @endif
 
@@ -17,6 +18,7 @@
 		<th>{{$value['name']}}</th>
 		@endforeach
 	</tr>
+
 	@foreach($txt as $key => $value)
 	<?php $arrayData = json_decode($value->data, true); ?>
 	<tr>
@@ -47,8 +49,8 @@
 		@endforeach
 	</tr>
 	@endforeach
-
 </table>
+
 <style type="text/css">
 
 #status{

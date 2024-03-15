@@ -1,7 +1,4 @@
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
 <?php 
   $data=[];$ykeys=[];$name=[];
   $th = json_decode($txt[0]->data, true);
@@ -20,8 +17,8 @@
  ?>
 
 <div class="graph">
-  <br>
-  <div id="myfirstchart" class="a" style="width: 100%;"></div>
+  <div class="row">
+    <div id="myfirstchart"></div>
   <script>
   var data = <?php echo json_encode($data); ?>;
   var ykeys = <?php echo json_encode($name); ?>;
@@ -75,10 +72,6 @@
 var parentDiv = document.createElement('div');
 parentDiv.id = 'parentDivId';
 
-
-var parentDivClass = document.querySelector('.a');
-parentDivClass.appendChild(parentDiv);
-
 ykeys.forEach(function(line) {
     // Tạo các phần tử checkbox, label và container (phần tử <i>)
     var checkbox = document.createElement('input');
@@ -104,26 +97,33 @@ ykeys.forEach(function(line) {
 });
 
 // Thêm phần tử <div> vào phần tử <body>
-document.body.appendChild(parentDiv);
+
+// Chọn phần tử có class "a"
+var parentElement = document.querySelector('.graph');
+// Thêm phần tử mới vào phần tử cha
+parentElement.appendChild(parentDiv);
+
   </script>
-</div>
+  </div>
+
+</div> <!-- //graph -->
+
 <style>
 
 .graph{
   background: white;
 }
 #parentDivId{
-  position: absolute;
+  position: relative;
   z-index: 100;
-  bottom: 10px;
-  left: 300px;
 }
 #show_icon{
   border-radius: 5px;
   padding: 1px;
-  margin: 5px;
-  background: #80808017;
+  margin: 1px;
+  background: #f5f5f5;
   z-index: 100;
+  border: solid #f5f5f5;
 }
 #show_icon:hover{
   background: #3f51b54f;

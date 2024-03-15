@@ -20,3 +20,7 @@ Artisan::command('inspire', function () {
 Artisan::command('log_db', function () {
 	app(App\Services\LogService::class)->loadTxtAll();
 })->describe('Display an inspiring quote');
+
+Artisan::command('reset_db', function () {
+	app(App\Services\LogService::class)->resetTxt();
+})->describe('Display an inspiring quote');

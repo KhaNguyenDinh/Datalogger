@@ -2,7 +2,7 @@
 @section('title','index')
 @section('action')
 
-<center><h1><a href="{{URL::to('Admin/khuVuc/'.$id_nhaMay)}}">OF : {{$name}}</a></h1></center>
+<center><h1><a href="{{URL::to('Admin/khuVuc/'.$id_nhaMay)}}">Of : {{$name}}</a></h1></center>
 
 <a href="{{URL::to('Admin/alert/insert/'.$id_khuVuc)}}">insert</a>
 <table class="table table-bordered">

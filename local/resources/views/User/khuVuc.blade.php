@@ -16,17 +16,16 @@
 	@include('User.teamPlate.time')
 @endif
 
-
 @if (!$txt->isEmpty())
 <div class="row">
 	@if($action === 'Charts')
 	    <div class="col-sm-12">@include('User.teamPlate.graph')</div>
 	@elseif($action === 'Tables')
-		<div class="col-sm-12">@include('User.teamPlate.tbl')</div>
+		<div class="col-sm-12">@include('User.teamPlate.table')</div>
+	@elseif($action === 'Alert')
+		<div class="col-sm-12">@include('User.teamPlate.alert')</div>
 	@endif
 </div>
-@else
-<h2>NO TXT</h2>
 @endif
 
 @stop()
