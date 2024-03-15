@@ -12,16 +12,18 @@
  ?>
 @if($action === 'Camera')
     <div class="col-sm-12">@include('User.teamPlate.camera')</div>
+@else
+	@include('User.teamPlate.time')
 @endif
 
 @if (!$txt->isEmpty())
 <div class="row">
 	@if($action === 'Charts')
-		@include('User.teamPlate.time')
 	    <div class="col-sm-12">@include('User.teamPlate.graph')</div>
 	@elseif($action === 'Tables')
-		@include('User.teamPlate.time')
-		<div class="col-sm-12">@include('User.teamPlate.tbl')</div>
+		<div class="col-sm-12">@include('User.teamPlate.table')</div>
+	@elseif($action === 'Alert')
+		<div class="col-sm-12">@include('User.teamPlate.alert')</div>
 	@endif
 </div>
 @endif

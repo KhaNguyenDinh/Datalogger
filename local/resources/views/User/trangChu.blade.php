@@ -2,95 +2,120 @@
 @section('title','trangChu')
 @section('content')
 
-<?php 
+<?php
 	$nhaMayGetId = $results['nhaMayGetId'];
 	$khuVuc = $results['khuVuc'];
 	$result_khuVuc = $results['result_khuVuc'];
+	$total = $results['total'];
+	$total_error = $results['total_error'];
+	$total_alert = $results['total_alert'];
+	$total_error_connect = $results['total_error_connect'];
+	$great = $total - $total_error - $total_alert;
+	$color_great='green'; $color_alert='#ff8400';$color_error="red";$color_connect='gray';
+	$tab = "__";
 ?>
 
-@foreach ($result_khuVuc as $key => $value)
-	<?php
-		$khuVucGetId = $value['khuVucGetId'];
-		$alert = $value['alert'];
-		$newTxt = $value['newTxt'];
-		$arrayData=null;
-		if ($newTxt!==null) {
-			$time = $newTxt->time;
 
+<div class="row">
+	<div class="col-sm-5">
+		<div class="col-sm-6">
+			<center>Tổng số trạm<br><h2>{{$total}}</h2> </center>
+			<i class="a" style="background: <?=$color_great ?>">---</i><span>{{$great}} Trong ngưỡng</span><br>
+			<i class="a" style="background: <?=$color_alert ?>">---</i><span>{{$total_alert}} Vượt ngưỡng NM </span><br>
+			<i class="a" style="background: <?=$color_error ?>">---</i><span>{{$total_error}} Vượt ngưỡng QCVN40</span><br>
+			<i class="a" style="background: <?=$color_connect ?>">---</i><span>{{$total_error_connect}} Mất tín hiệu</span><br>
+		</div>
+		<div class="col-sm-6">
+			<div id="donut-chart" style="height: 250px;"></div>
+			<script type="text/javascript">
+			Morris.Donut({
+			    element: 'donut-chart',
+			    data: [
+			        {label: "Great", value: <?=$great?>},
+			        {label: "Alert", value: <?=$total_alert ?>},
+			        {label: "Error", value: <?=$total_error ?> },
+			        {label: "Connect", value: <?=$total_error_connect?>}
+			    ],
+			    colors: ['<?=$color_great ?>', '<?=$color_alert ?>','<?=$color_error ?>','<?=$color_connect ?>'],
+			});
+			</script>
+		</div>
 
-$currentDateTime = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
-$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
-
-$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
-$date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
-
-$interval = $date1->diff($date2);
-$dulieu = "";
-if ($interval->y > 0) {$dulieu = "Mất dữ liệu";
-} elseif($interval->m > 0) {$dulieu = "Mất dữ liệu";
-} elseif($interval->d > 0) {$dulieu = "Mất dữ liệu";
-} elseif($interval->h > 0) {$dulieu = "Mất dữ liệu";
-} elseif($interval->i > 30) {$dulieu = "Mất dữ liệu";}
-
-			$data = $newTxt->data;
-			$arrayData = json_decode($data, true);
-		}
-	?>
-
-	@if($arrayData!==null)
+	</div>
+	<div class="col-sm-7">
 		<table class="table table-bordered">
-			<div style="display: flex;" ><label>{{$khuVucGetId['name_khuVuc']}}</label> <h3 style="color: red">{{$dulieu}}</h3> </div>
 			<tr>
-				<th>New Time</th>
-				@foreach ($arrayData as $key => $value)
-				<th>{{$value['name']}}</th>
-				@endforeach
+				<th>STT</th>
+				<th>Trạm</th>
+				<th>Nhà Máy</th>
+				<th>Loại</th>
+				<th>Trạng thái</th>
+				<th>connect</th>
 			</tr>
+			@foreach ($result_khuVuc as $key => $value)
 			<tr>
-				<td>{{$time}}</td>
-				@foreach ($arrayData as $key => $value)
-				<?php 
-					$status = 'green'; $background='white';
-					if ($alert!==null) {
-						foreach ($alert as $key1 => $value1) {
-							if ($value1['name_alert']==$value['name'] && $value1['enable']=="YES") {
-								if($value['number']<=$value1['minmin'] || $value['number']>= $value1['maxmax']){ $background = 'red';break; }
-								elseif($value['number'] >$value1['min'] && $value['number'] < $value1['max']){ $background = 'white';break; }
-								else{ $background = '#ff8400'; break;}
-							}
-						}
-					}
-					switch ($value['status']) {
-						case 0:$status = 'green';break;
-						case 1:$status = '#ff8400';break;
-						case 2:$status = 'red';break;
-					}
-				 ?>
-				<td style="background: {{$background}};">
-					<div style="display: flex;"> <?=number_format($value['number'],2) ?>
-						<div id="status" style="background: {{$status}}"></div>
-					</div>
+				<td>{{$key+1}}</td>
+				<td>{{$value['khuVucGetId']['name_khuVuc']}}</td>
+				<td>{{$nhaMayGetId->name_nhaMay}}</td>
+				<td>{{$value['khuVucGetId']['nuoc_khi']}}</td>
+				<td>
+					@if($value['status']=='norm')
+					<i class="a" style="background: <?=$color_great ?>">---</i>hoạt động tốt
+					@elseif($value['status']=='alert')
+					<i class="a" style="background: <?=$color_alert ?>">---</i>vượt tiêu chuẩn nhà máy
+					@elseif($value['status']=='error')
+					<i class="a" style="background: <?=$color_error ?>">---</i>vượt tiêu chuẩn QCVN40
+					@endif
 				</td>
-				@endforeach
+				<td>
+					@if($value['connect']=='')
+						<i class="a" style="background: green">---</i> hoạt động tốt
+					@else
+						<i class="a" style="background: <?=$color_connect ?>">---</i>{{$value['connect']}}
+					@endif
+				</td>
 			</tr>
+			@endforeach
+
 		</table>
-	@else
-		<h2>{{$nhaMayGetId->name_nhaMay}} NO TXT</h2>
-	@endif
-@endforeach
+	</div>
+</div>
+<div class="row">
 
-<script type="text/javascript">
-	setTimeout(function(){
-	   window.location.reload(0);
-	}, 300000);
-</script>
-@stop()
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+  <ul class="nav nav-tabs">
+  	@foreach ($result_khuVuc as $key => $value)
+  	<li><a data-toggle="tab" <?php if ($key==0) { echo 'class="active"';} ?> href="#{{$value['khuVucGetId']['name_khuVuc']}}">{{$value['khuVucGetId']['name_khuVuc']}}</a></li>
+  	@endforeach
+  </ul>
+
+  <div class="tab-content">
+  	@foreach ($result_khuVuc as $key => $value)
+    <div id="{{$value['khuVucGetId']['name_khuVuc']}}" class="tab-pane fade in active row">
+    	<?php 
+    	$alert = $value['alert'];
+    	$txt = $value['txt'];
+    	 ?>
+    	<div class="col-sm-12">
+    		@include('User.teamPlate.graph')
+    	</div>
+    	<div class="col-sm-12"> <br><br>
+    	@include('User.teamPlate.alert')</div>
+    </div>
+    @endforeach
+  </div>
+
+
+</div>
 <style type="text/css">
-
-#status{
-  width: 8px;
-  height: 8px;
+.a{
+	color: rgba(255, 255, 255, 0);
   border-radius: 50%;
+  background: red;
 } 
 </style>
+
+@stop()

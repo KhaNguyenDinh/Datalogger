@@ -2,15 +2,22 @@
 <script src="{{asset('public/bootstrap.min.js')}}"></script>
 <script src="{{asset('public/jquery.min.js')}}"></script>
 
-<center><h1>Update</h1></center>
-<form method="post" action="{{URL::to('User/postUpdate/'.$id_account)}}" enctype="multipart/form-data">
-	@csrf
-	<label>Name Account</label>
-	<input type="text" name="new_name_account" required class="form-control">
-	<label>pass word</label>
-	<input type="text" name="pass_account" required class="form-control">
-	<label>new pass word</label>
-	<input type="text" name="new_pass_account" required class="form-control">
-	<br>
-	<input type="submit" value="update">
-</form>
+<br><br><br>
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4" style="background: #eff7d9">
+		<center><h1>Update</h1></center>
+		<form method="post" action="{{URL::to('User/postUpdate/'.$id_account)}}" enctype="multipart/form-data">
+			@csrf
+			<label>Name</label>
+			<input type="text" name="new_name_account" required class="form-control">
+			<label>password</label>
+			<input type="text" name="pass_account" required class="form-control">
+			<label>new password</label>
+			<input type="text" name="new_pass_account" required class="form-control">
+			<br>
+			<input type="submit" value="update" class="btn btn-primary">
+		</form>
+	</div>
+	<div class="col-sm-4"></div>
+</div>

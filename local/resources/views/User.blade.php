@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -25,6 +26,14 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('public/assets/css/style.css')}}" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="{{asset('public/bootstrap.min.css')}}">
+    <script src="{{asset('public/bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/jquery.min.js')}}"></script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +45,7 @@ $tab = "__";
 
 
 <?php if (!isset($action)) {
-  $action= 'Dashboard';
+  $action= 'Trang Chủ';
 } ?>
   <!-- ======= Header ======= -->
 @include('User.header')
@@ -44,23 +53,9 @@ $tab = "__";
 @include('User.sidebar')
   <!-- main -->
   <main id="main" class="main">
-
     <div class="pagetitle">
-      <h1>{{$action}}</h1>
+      <!-- <h1>{{$action}}</h1> -->
     </div><!-- End Page Title -->
-    @if($action=='Tables'|| $action=='Dashboard')
-    <div style="display: flex;justify-content: flex-end;align-items: center;">
-      <i class="status" style="background: green"></i>Norm <div class="transparent">{{$tab}}</div> 
-      <i class="status" style="background: #ff8400"></i>Calib <div class="transparent">{{$tab}}</div>
-      <i class="status" style="background: red"></i>Error <div class="transparent">{{$tab}}</div>
-      
-      <i class="background" style="background: white"></i>Hoạt động tốt <div class="transparent">{{$tab}}</div>
-      <i class="background" style="background: #ff8400"></i>Vượt tiêu chuẩn {{$results['nhaMayGetId']->name_nhaMay}} <div class="transparent">{{$tab}}</div>
-      <i class="background" style="background: red"></i>Vượt tiêu chuẩn QCVN40 <div class="transparent">{{$tab}}</div>
-      
-    </div>
-    @endif
-
     <section class="section dashboard">
 
       <div class="row">@yield('content')</div>

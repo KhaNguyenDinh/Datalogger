@@ -9,17 +9,16 @@
 <tbody>
 
 <div class="col-sm-12">
-	<div class="col-sm-1">
-		<a href="{{URL::to('Admin/nhaMay')}}">nhaMay</a>
-		<a href="{{URL::to('Admin/account')}}">account</a> <br>
-		<a href="{{URL::to('Admin/loadTxt')}}">Load TXT</a>
-		<a href="{{URL::to('Admin/resetTxt')}}">reset TXT ( save 3 thang)</a>
-		<a href="{{URL::to('logout')}}" class=".btn-link">Logout</a>
-	</div>
-	<div class="col-sm-11">
-		@yield('action')
-	</div>
+	<nav class="navbar navbar-inverse">
+	  <ul class="nav navbar-nav">
+	    <li><a href="{{URL::to('Admin/nhaMay')}}">nhaMay</a></li>
+	   <li><a href="{{URL::to('Admin/account')}}">account</a></li>
+	    <li><a href="{{URL::to('Admin/resetTxt')}}">reset Txt</a></li>
+	    <li><a href="{{URL::to('logout')}}">logout</a></li>
+	  </ul>
+	</nav>
 </div>
+<div class="col-sm-12">@yield('action')</div>
 </body>
 </html>
 

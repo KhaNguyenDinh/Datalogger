@@ -8,6 +8,24 @@ use App\khuVuc;
 
 class LogService
 {
+    public function resetTxt(){
+    	$khuVucAll = khuVuc::all();
+    	foreach ($khuVucAll as $key => $khuVuc) {
+    		$count = DB::table($khuVuc->folder_TXT)->count();
+    		if ($count>25920) {
+    			DB::table($khuVuc->folder_TXT)
+			    ->orderByDesc('time')
+			    ->skip(25920) // Bỏ qua 25920 bản ghi đầu tiên (3 tháng)
+			    ->pluck('time')
+			    ->each(function ($time) use ($khuVuc) {
+			        DB::table($khuVuc->folder_TXT)
+			            ->where('time', $time)
+			            ->delete();
+			    });
+    		}
+    	}
+    	return Redirect()->back()->withInput();
+    } //ok
 	public function loadTxtAll(){
     	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {

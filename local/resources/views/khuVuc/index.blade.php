@@ -6,7 +6,7 @@
 	$khuVuc = $results['khuVuc'];
 	$result_khuVuc = $results['result_khuVuc'];
 ?>
-<center><h1>Wellcome to : {{$nhaMayGetId->name_nhaMay}}</h1></center>
+<center><h1>Of : {{$nhaMayGetId->name_nhaMay}}</h1></center>
 <a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nhaMay)}}">insert</a>
 <table class="table table-bordered">
 	<tr>
