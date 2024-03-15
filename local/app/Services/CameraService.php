@@ -12,7 +12,7 @@ class CameraService
 
     public function __construct()
     {
-        // Set the base uri
+        // Set the base uri camera url
         $this->uri = config('app.camera_url');
         $this->client = new Client(['base_uri' => $this->uri]);
     }
