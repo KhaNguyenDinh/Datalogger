@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'camera_url' => env('CAMERA_SERVICE_URI', 'https://live.cae.vn'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
