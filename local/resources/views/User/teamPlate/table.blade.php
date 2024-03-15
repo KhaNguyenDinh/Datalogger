@@ -1,9 +1,10 @@
 @if(isset($startTime))
-<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khuVuc)}}" enctype="multipart/form-data">
+<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khuVuc.'/'.$action)}}" enctype="multipart/form-data">
 	@csrf
 	<input type="hidden" name="action" value="execel">
 	<input type="hidden" name="startTime" value="{{$startTime}}">
 	<input type="hidden" name="endTime" value="{{$endTime}}">
+	<input type="hidden" name="Alert" value="">
 	<input type="submit"  value="Export execel" class="btn btn-primary">
 </form>
 @endif
