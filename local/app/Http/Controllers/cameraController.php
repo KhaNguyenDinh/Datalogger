@@ -90,13 +90,11 @@ class cameraController extends Controller
     }
     public function delete($id_camera)
     {
-    	// $data = camera::query()->where('id_camera', $id_camera)->firstOrFail();
+    	$data = camera::query()->where('id_camera', $id_camera)->firstOrFail();
 
-        // $this->cameraService->delete($data->name_camera);
+        $this->cameraService->delete($data->name_camera);
 
-        $this->cameraService->delete('demo');
-        $this->cameraService->delete('demo1');
-    	// $data->delete();
+    	$data->delete();
         return Redirect()->back()->withInput();
     }
 
