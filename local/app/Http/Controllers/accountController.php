@@ -107,7 +107,7 @@ class accountController extends Controller
                 $account = account::where('name_account',$request->name_account)
                                 ->where('pass_account',$request->pass_account)
                                 ->first();
-                if ($account->count()==1) {
+                if ($account) {
                     $request->session()->put('name_account', $account['name_account']);
                     $request->session()->put('pass_account', $account['pass_account']);
                     $request->session()->put('id_nhaMay', $account['id_nhaMay']);
