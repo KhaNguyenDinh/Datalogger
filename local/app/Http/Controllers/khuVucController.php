@@ -13,34 +13,44 @@ use Illuminate\Support\Facades\Storage;
 
 class khuVucController extends Controller
 {
-	public function getNewTxt($table){
-		$results = DB::table($table)
-                ->orderByDesc('time')
-                ->first();
-		return $results;
-	}
-    public function index($id_nhaMay)
-    {
+    private $nameMaster = 'Master';
+    private $passMaster = 'Cae1999@';
+
+    public function check($nameMaster,$passMaster){
+        if($nameMaster!=$this->nameMaster || $passMaster!=$this->passMaster) {
+            return Redirect::to('/');
+        }
+    }
+///////////////////////////
+    public function index($id_nhaMay){
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
 		$nhaMayGetId = nhaMay::find($id_nhaMay);
 		$khuVuc = khuVuc::where('id_nhaMay', $id_nhaMay)->orderBy('id_khuVuc')->get();
 		$results = [];
 		$result_khuVuc=[];
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khuVuc', $value->id_khuVuc)->get();
-			$newTxt = $this->getNewTxt($value->folder_TXT);
+			$newTxt = DB::table($value->folder_TXT)
+                ->orderByDesc('time')
+                ->first();
 			array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'newTxt'=>$newTxt]);
 		}
 		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'result_khuVuc'=>$result_khuVuc]);
 		// dd($results);
 		return view('khuVuc.index', compact('results'));
 	}
+    public function insert($id_nhaMay){
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
 
-    public function insert($id_nhaMay)
-    {
     	return view('khuVuc.insert', compact('id_nhaMay'));
     }
-
     public function postinsert(Request $request, $id_nhaMay){
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -80,14 +90,17 @@ class khuVucController extends Controller
 	    	}
         }
     }
+    public function update($id_khuVuc){
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
 
-    public function update($id_khuVuc)
-    {
     	$data = khuVuc::find($id_khuVuc);
     	return view('khuVuc.update')->with(compact('data'));
     }
-     public function postupdate(Request $request, $id_khuVuc)
-    {
+    public function postupdate(Request $request, $id_khuVuc){
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -110,8 +123,10 @@ class khuVucController extends Controller
 	    	}
         }
     }
-    public function delete($id_khuVuc)
-    {
+    public function delete($id_khuVuc){
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
     	$data = khuVuc::find($id_khuVuc);
     	$data->delete();
         return Redirect()->back()->withInput();

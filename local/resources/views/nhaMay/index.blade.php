@@ -2,14 +2,13 @@
 @section('title','index')
 @section('action')
 
-<a href="{{URL::to('Admin/nhaMay/insert')}}">insert</a>
+<a href="{{URL::to('Admin/nhaMay/insert')}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
 		<th>name_nhaMay</th>
 		<th>link_map</th>
 		<th>khu Vuc</th>
-		<th>website</th>
 		<th>Action</th>
 	</tr>
 @foreach ($data as $key => $value)
@@ -18,11 +17,11 @@
 			<td>{{$value->name_nhaMay}}</td>
 			<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
 			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nhaMay)}}">Show</a></td>
-			<td><a href="{{URL::to('Admin/nhaMay/show/'.$value->id_nhaMay)}}">Show</a>
 			</td>
 			<td>
-				<a href="{{URL::to('Admin/nhaMay/update/'.$value->id_nhaMay)}}">update</a>
-				<a href="{{URL::to('Admin/nhaMay/delete/'.$value->id_nhaMay)}}">delete</a>
+				<a href="{{URL::to('Admin/nhaMay/update/'.$value->id_nhaMay)}}" class="btn btn-primary">update</a>
+				<a href="{{URL::to('Admin/nhaMay/delete/'.$value->id_nhaMay)}}" class="btn btn-danger"
+					onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">delete</a>
 			</td>
 		</tr>
 @endforeach

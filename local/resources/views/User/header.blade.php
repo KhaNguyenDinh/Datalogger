@@ -25,7 +25,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{URL::to('User/update')}}">
-                <i class="bi bi-gear"></i> <span>Setting</span>
+                <i class="bi bi-gear"></i> <span>Update</span>
                 
               </a>
             </li>

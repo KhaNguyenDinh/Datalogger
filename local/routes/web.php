@@ -17,7 +17,6 @@ Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
 
-Route::get('Admin_show/{id_nhaMay}', 'accountController@Admin_show');
 
 Route::group(['prefix'=>'User'],function(){
 
@@ -38,8 +37,8 @@ Route::group(['prefix'=>'User'],function(){
 Route::group(['prefix'=>'Admin'],function(){
 	Route::get('/','nhaMayController@index');
 
-    Route::get('loadTxt','dulieuTXTController@loadTxtAll');
     Route::get('resetTxt','dulieuTXTController@resetTxt');
+     Route::get('show/{id_nhaMay}','nhaMayController@show');
 
 	Route::group(['prefix'=>'nhaMay'],function(){
 		Route::get('/','nhaMayController@index');

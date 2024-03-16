@@ -11,6 +11,15 @@ use App\camera;
 
 class cameraController extends Controller
 {
+    private $nameMaster = 'Master';
+    private $passMaster = 'Cae1999@';
+
+    public function check($nameMaster,$passMaster){
+        if($nameMaster!=$this->nameMaster || $passMaster!=$this->passMaster) {
+            return Redirect::to('/');
+        }
+    }
+
     protected $cameraService;
 
     public function __construct(CameraService $cameraService)
@@ -20,6 +29,9 @@ class cameraController extends Controller
 
     public function index($id_khuVuc)
     {
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
     	$khuVuc = khuVuc::find($id_khuVuc);
     	$name = $khuVuc->name_khuVuc;
     	$id_nhaMay = $khuVuc->id_nhaMay;
@@ -28,10 +40,16 @@ class cameraController extends Controller
     }
     public function insert($id_khuVuc)
     {
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
     	return view('camera.insert', compact('id_khuVuc'));
     }
     public function postinsert(Request $request, $id_khuVuc)
     {
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -58,11 +76,17 @@ class cameraController extends Controller
     }
     public function update($id_camera)
     {
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
     	$data = camera::find($id_camera);
     	return view('camera.update')->with(compact('data'));
     }
      public function postupdate(Request $request, $id_camera)
     {
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -90,6 +114,9 @@ class cameraController extends Controller
     }
     public function delete($id_camera)
     {
+        if (session('nameMaster')=='') {return Redirect::to('/');
+        }else{ $this->check(session('nameMaster'),session('passMaster'));}
+
     	$data = camera::query()->where('id_camera', $id_camera)->firstOrFail();
 
         $this->cameraService->delete($data->name_camera);

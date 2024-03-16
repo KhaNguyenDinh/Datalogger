@@ -7,51 +7,27 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Database\Eloquent\Collection;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\nhaMay;
 use App\khuVuc;
 use App\alert;
 use App\camera;
-use Illuminate\Database\Eloquent\Collection;
-use App\Exports\UsersExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\account;
 use DateTime;
 
 
 class dulieuTXTController extends Controller
 {
-	//////// select
-	public function nhaMay(){
-		$results = nhaMay::all();
-		return $results;
-	}// ok
-	public function nhaMayGetId($id_nhaMay){
-		$results = nhaMay::find($id_nhaMay);
-		return $results;
-	} // ok
-	public function khuVucAll(){
-		$results = khuVuc::all();
-		return $results;
-	} //ok	
-	public function khuVuc($id_nhaMay){
-		$results = khuVuc::where('id_nhaMay',$id_nhaMay)->get();
-		return $results;
-	} // ok
-	public function khuVucGetId($id_khuVuc){
-		$results = khuVuc::find($id_khuVuc);
-		return $results;
-	} //ok
-	public function alert($id_khuVuc){
-		$results = alert::find($id_khuVuc);
-		return $results;
-	} // ok
-	public function camera($id_khuVuc){
-		$results = camera::find($id_khuVuc);
-		return $results;
-	} // ok
-    // xoa txt qua 3 thang
-
+	public function check($name_account,$pass_account){
+		$account = account::where('name_account',$name_account)
+                 ->where('pass_account',$pass_account)->count();
+        if ($account==0) {return Redirect::to('/'); }
+	}
     public function resetTxt(){
-    	$khuVucAll = $this->khuVucAll();
+    	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {
     		$count = DB::table($khuVuc->folder_TXT)->count();
     		if ($count>25920) {
@@ -67,25 +43,12 @@ class dulieuTXTController extends Controller
     		}
     	}
     	return Redirect()->back()->withInput();
-    } //ok
-/////////////// Time
-	public function getNewTxt($table){
-		$results = DB::table($table)
-                ->orderByDesc('time')
-                ->first();
-		return $results;
-	} // ok
-	public function searchTXT($table,$startTime,$endTime){
-		$results = DB::table($table)
-			->whereBetween('time', [$startTime, $endTime])
-			->orderByDesc('time')
-            ->get();
-        return $results;
-	} // ok
-
-//////////////////  
-
+    }
 	public function showTrangChu($id_nhaMay,$key_view){
+		if (session('name_account')=='') {
+			return Redirect::to('/');
+		}
+		$this->check(session('name_account'),session('pass_account'));
 
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
@@ -100,11 +63,10 @@ class dulieuTXTController extends Controller
 		$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khuVuc', $value->id_khuVuc)->get();
-			$newTxt = $this->getNewTxt($value->folder_TXT);
+			$newTxt = DB::table($value->folder_TXT)
+                ->orderByDesc('time')->first();
 			$txt = DB::table($value->folder_TXT)
-                ->orderByDesc('time')
-                ->limit(12)
-                ->get();
+                ->orderByDesc('time')->limit(12)->get();
             if (count($txt)>0) {
 	            $time =  $newTxt->time;
 	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
@@ -150,7 +112,7 @@ class dulieuTXTController extends Controller
 		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
 
 		return view('User.trangChu', compact('results','key_view'));
-	} // ok
+	}
 	public function dataKhuVuc($id_khuVuc, $startTime, $endTime){
 		$khuVucGetId = khuVuc::find($id_khuVuc);
 		$nhaMayGetId = nhaMay::find($khuVucGetId['id_nhaMay']);
@@ -172,8 +134,13 @@ class dulieuTXTController extends Controller
         array_push($result_khuVuc, ['khuVucGetId'=>$khuVucGetId,'alert'=>$alert,'txt'=>$txt]);
         $results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'camera'=>$camera,'result_khuVuc'=>$result_khuVuc]);
         return $results;
-	} // ok
+	}
 	public function showKhuVuc($id_khuVuc,$action){
+		if (session('name_account')=='') {
+			return Redirect::to('/');
+		}
+		$this->check(session('name_account'),session('pass_account'));
+
 		$show_Alert='';
 		$results = $this->dataKhuVuc($id_khuVuc,'NO','NO');
 		if ($action=='Alert') {
@@ -183,6 +150,11 @@ class dulieuTXTController extends Controller
 		return view('User.khuVuc', compact('results','action','show_Alert'));
 	}
 	public function postShowKhuVuc(Request $request, $id_khuVuc,$action){
+		if (session('name_account')=='') {
+			return Redirect::to('/');
+		}
+		$this->check(session('name_account'),session('pass_account'));
+
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -270,6 +242,4 @@ class dulieuTXTController extends Controller
         	}
         }
     }
-
-
 }

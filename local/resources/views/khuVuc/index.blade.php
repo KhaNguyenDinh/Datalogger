@@ -7,7 +7,7 @@
 	$result_khuVuc = $results['result_khuVuc'];
 ?>
 <center><h1>Of : {{$nhaMayGetId->name_nhaMay}}</h1></center>
-<a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nhaMay)}}">insert</a>
+<a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nhaMay)}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
@@ -29,8 +29,9 @@
 		<td><a href="{{URL::to('Admin/camera/'.$value->id_khuVuc)}}">show</a></td>
 		<td><a href="{{URL::to('Admin/alert/'.$value->id_khuVuc)}}">show</a></td>
 		<td>
-			<a href="{{URL::to('Admin/khuVuc/update/'.$value->id_khuVuc)}}">update</a>
-			<a href="{{URL::to('Admin/khuVuc/delete/'.$value->id_khuVuc)}}">delete</a>
+			<a href="{{URL::to('Admin/khuVuc/update/'.$value->id_khuVuc)}}" class="btn btn-primary">update</a>
+			<a href="{{URL::to('Admin/khuVuc/delete/'.$value->id_khuVuc)}}" class="btn btn-danger"
+				onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">delete</a>
 		</td>
 	</tr>
 @endforeach

@@ -15,9 +15,8 @@
 	$tab = "__";
 ?>
 
-
 <div class="row">
-	<div class="col-sm-5">
+	<div class="col-sm-6">
 		<div class="col-sm-6">
 			<center>Tổng số trạm<br><h2>{{$total}}</h2> </center>
 			<i class="a" style="background: <?=$color_great ?>">---</i><span>{{$great}} Trong ngưỡng</span><br>
@@ -41,7 +40,7 @@
 			</script>
 		</div>
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-6">
 		<table class="table table-bordered">
 			<tr>
 				<th>STT</th>
@@ -81,13 +80,15 @@
 </div>  <!-- end row1 -->
 
 <div class="row">
-	<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<ul class="nav nav-tabs" id="myTab" role="tablist" >
 		@foreach ($result_khuVuc as $key => $value)
-		<li class="nav-item" role="presentation">
-		  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
-		  	<a href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">{{$value['khuVucGetId']['name_khuVuc']}}</a>
-		  </button>
-		</li>
+		<a  href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">
+			<li class="nav-item" role="presentation">
+			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
+			  	{{$value['khuVucGetId']['name_khuVuc']}}
+			  </button>
+			</li>
+		</a>
 		@endforeach
 	</ul>
 	<div class="tab-content pt-2">
@@ -97,8 +98,9 @@
 		    	$alert = $value['alert'];
 		    	$txt = $value['txt'];
 		    	 ?>
-		    	<div class="col-sm-12">@include('User.teamPlate.graph')</div>
-		    	<div class="col-sm-12">@include('User.teamPlate.alert')</div>
+		    	<div class="row">@include('User.teamPlate.graph')</div>
+		    	<div class="row">@include('User.teamPlate.status')</div>
+		    	<div class="row">@include('User.teamPlate.alert')</div>
 		    @endif
 	    @endforeach
 	</div><!-- End Default Tabs -->

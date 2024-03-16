@@ -4,7 +4,7 @@
 
 <center><h1><a href="{{URL::to('Admin/khuVuc/'.$id_nhaMay)}}">Of : {{$name}}</a></h1></center>
 
-<a href="{{URL::to('Admin/alert/insert/'.$id_khuVuc)}}">insert</a>
+<a href="{{URL::to('Admin/alert/insert/'.$id_khuVuc)}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
@@ -26,8 +26,9 @@
 		<td>{{$value->maxmax}}</td>
 		<td>{{$value->enable}}</td>
 		<td>
-			<a href="{{URL::to('Admin/alert/update/'.$value->id_alert)}}">update</a>
-			<a href="{{URL::to('Admin/alert/delete/'.$value->id_alert)}}">delete</a>
+			<a href="{{URL::to('Admin/alert/update/'.$value->id_alert)}}" class="btn btn-primary">update</a>
+			<a href="{{URL::to('Admin/alert/delete/'.$value->id_alert)}}" class="btn btn-danger"
+				onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">delete</a>
 		</td>
 	</tr>
 @endforeach
