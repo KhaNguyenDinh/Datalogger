@@ -19,6 +19,7 @@ class CreateAccount extends Migration
             $table->foreign('id_nhaMay')->references('id_nhaMay')->on('nhaMay')->onDelete('cascade');
             $table->string('name_account');
             $table->string('pass_account');
+            $table->string('level');
             $table->timestamps();
         });
     }

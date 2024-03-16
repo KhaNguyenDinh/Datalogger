@@ -85,11 +85,11 @@ class dulieuTXTController extends Controller
 
 //////////////////  
 
-	public function showTrangChu($id_nhaMay){
+	public function showTrangChu($id_nhaMay,$key_view){
 
-$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
-$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
-$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
 
 		////////////////////////////
 		$nhaMayGetId = nhaMay::find($id_nhaMay);
@@ -105,49 +105,51 @@ $date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
                 ->orderByDesc('time')
                 ->limit(12)
                 ->get();
-            $time =  $newTxt->time;
+            if (count($txt)>0) {
+	            $time =  $newTxt->time;
+	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+				$interval = $date1->diff($date2);
+				$connect = "";
+				if ($interval->y > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->i > 30) {$connect = "Mất tín hiệu";}
+				if ($connect!=='') {
+					$total_error_connect = $total_error_connect+1;
+				}
+				/////////////////////////////////////////////////////
+				$data = $newTxt->data;
+				$arrayData = json_decode($data, true);
 
-            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
-			$interval = $date1->diff($date2);
-			$connect = "";
-			if ($interval->y > 0) {$connect = "Mất tín hiệu";
-			} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
-			} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
-			} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
-			} elseif($interval->i > 30) {$connect = "Mất tín hiệu";}
-			if ($connect!=='') {
-				$total_error_connect = $total_error_connect+1;
-			}
-			/////////////////////////////////////////////////////
-			$data = $newTxt->data;
-			$arrayData = json_decode($data, true);
+				$arrayData = json_decode($newTxt->data, true);
+				$check_alert=false;$check_error=false; $status="norm";
+				foreach ($arrayData as $key1 => $value1) {
 
-			$arrayData = json_decode($newTxt->data, true);
-			$check_alert=false;$check_error=false; $status="norm";
-			foreach ($arrayData as $key1 => $value1) {
-
-				foreach ($alert as $key2 => $value2) {
-					if ($value2['name_alert']==$value1['name'] && $value2['enable']=="YES") {
-						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-							$check_error=true;
-						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-							$check_alert=true;
+					foreach ($alert as $key2 => $value2) {
+						if ($value2['name_alert']==$value1['name'] && $value2['enable']=="YES") {
+							if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+								$check_error=true;
+							}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+								$check_alert=true;
+							}
 						}
 					}
 				}
+				if ($check_error) {
+					$total_error=$total_error+1;
+					$status="error";
+				}
+				if ($check_alert) {
+					$total_alert=$total_alert+1;
+					$status="alert";
+				}
+				array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'newTxt'=>$newTxt,'txt'=>$txt,'status'=>$status,'connect'=>$connect]);
 			}
-			if ($check_error) {
-				$total_error=$total_error+1;
-				$status="error";
-			}
-			if ($check_alert) {
-				$total_alert=$total_alert+1;
-				$status="alert";
-			}
-			array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'newTxt'=>$newTxt,'txt'=>$txt,'status'=>$status,'connect'=>$connect]);
 		}
 		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
-		return view('User.trangChu', compact('results'));
+
+		return view('User.trangChu', compact('results','key_view'));
 	} // ok
 	public function dataKhuVuc($id_khuVuc, $startTime, $endTime){
 		$khuVucGetId = khuVuc::find($id_khuVuc);

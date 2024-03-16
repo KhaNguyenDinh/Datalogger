@@ -16,7 +16,7 @@ class nhaMayController extends Controller
         $request->session()->put('name_account', $account->name_account);
         $request->session()->put('pass_account', $account->pass_account);
         $request->session()->put('id_nhaMay', $id_nhaMay);
-        return Redirect::to('User/'.$id_nhaMay);
+        return Redirect::to('User/'.$id_nhaMay.'/0');
     }
     public function index()
     {

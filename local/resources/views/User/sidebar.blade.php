@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay)}}">
+        <a class="nav-link " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/0')}}">
           <i class="bi bi-grid"></i>
           <span>Trang chủ</span>
         </a>

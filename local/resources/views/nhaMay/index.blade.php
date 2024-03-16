@@ -16,7 +16,7 @@
 		<tr>
 			<td>{{$key}}</td>
 			<td>{{$value->name_nhaMay}}</td>
-			<td>{{$value->link_map}}</td>
+			<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
 			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nhaMay)}}">Show</a></td>
 			<td><a href="{{URL::to('Admin/nhaMay/show/'.$value->id_nhaMay)}}">Show</a>
 			</td>

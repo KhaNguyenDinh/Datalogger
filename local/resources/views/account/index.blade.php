@@ -8,6 +8,7 @@
 		<th>STT</th>
 		<th>name_account</th>
 		<th>name_nhaMay</th>
+		<th>level</th>
 		<th>Action</th>
 	</tr>
 @foreach ($data as $key => $value)
@@ -15,6 +16,7 @@
 			<td>{{$key}}</td>
 			<td>{{$value->name_account}}</td>
 			<td>{{$value->name_nhaMay}}</td>
+			<td>{{$value->level}}</td>
 			<td>
 				<a href="{{URL::to('Admin/account/update/'.$value->id_account)}}">update</a>
 				<a href="{{URL::to('Admin/account/delete/'.$value->id_account)}}">delete</a>

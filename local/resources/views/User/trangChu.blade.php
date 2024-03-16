@@ -34,13 +34,12 @@
 			        {label: "Great", value: <?=$great?>},
 			        {label: "Alert", value: <?=$total_alert ?>},
 			        {label: "Error", value: <?=$total_error ?> },
-			        {label: "Connect", value: <?=$total_error_connect?>}
+			        {label: "Diconnect", value: <?=$total_error_connect?>}
 			    ],
 			    colors: ['<?=$color_great ?>', '<?=$color_alert ?>','<?=$color_error ?>','<?=$color_connect ?>'],
 			});
 			</script>
 		</div>
-
 	</div>
 	<div class="col-sm-7">
 		<table class="table table-bordered">
@@ -79,37 +78,32 @@
 
 		</table>
 	</div>
-</div>
+</div>  <!-- end row1 -->
+
 <div class="row">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <ul class="nav nav-tabs">
-  	@foreach ($result_khuVuc as $key => $value)
-  	<li><a data-toggle="tab" <?php if ($key==0) { echo 'class="active"';} ?> href="#{{$value['khuVucGetId']['name_khuVuc']}}">{{$value['khuVucGetId']['name_khuVuc']}}</a></li>
-  	@endforeach
-  </ul>
-
-  <div class="tab-content">
-  	@foreach ($result_khuVuc as $key => $value)
-    <div id="{{$value['khuVucGetId']['name_khuVuc']}}" class="tab-pane fade in active row">
-    	<?php 
-    	$alert = $value['alert'];
-    	$txt = $value['txt'];
-    	 ?>
-    	<div class="col-sm-12">
-    		@include('User.teamPlate.graph')
-    	</div>
-    	<div class="col-sm-12"> <br><br>
-    	@include('User.teamPlate.alert')</div>
-    </div>
-    @endforeach
-  </div>
-
-
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		@foreach ($result_khuVuc as $key => $value)
+		<li class="nav-item" role="presentation">
+		  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
+		  	<a href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">{{$value['khuVucGetId']['name_khuVuc']}}</a>
+		  </button>
+		</li>
+		@endforeach
+	</ul>
+	<div class="tab-content pt-2">
+	  	@foreach ($result_khuVuc as $key => $value)
+	  		@if($key==$key_view)
+		    	<?php 
+		    	$alert = $value['alert'];
+		    	$txt = $value['txt'];
+		    	 ?>
+		    	<div class="col-sm-12">@include('User.teamPlate.graph')</div>
+		    	<div class="col-sm-12">@include('User.teamPlate.alert')</div>
+		    @endif
+	    @endforeach
+	</div><!-- End Default Tabs -->
 </div>
+
 <style type="text/css">
 .a{
 	color: rgba(255, 255, 255, 0);

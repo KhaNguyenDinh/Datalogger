@@ -72,7 +72,7 @@ class accountController extends Controller
                             ->where('id_nhaMay',session('id_nhaMay'))
                             ->count();
             if ($check==1) {
-                return Redirect::to('User/'.session('id_nhaMay'));
+                return Redirect::to('User/'.session('id_nhaMay').'/0');
             }
         }
         return view('login.index');
@@ -103,7 +103,7 @@ class accountController extends Controller
                     $request->session()->put('name_account', $account[0]['name_account']);
                     $request->session()->put('pass_account', $account[0]['pass_account']);
                     $request->session()->put('id_nhaMay', $account[0]['id_nhaMay']);
-                    return Redirect::to('User/'.$account[0]['id_nhaMay']);
+                    return Redirect::to('User/'.$account[0]['id_nhaMay'].'/0');
                 }else{
                     return response()->json(['error']);
                 }
@@ -141,6 +141,7 @@ class accountController extends Controller
 		    	$insert->id_nhaMay = $request->id_nhaMay;
 		    	$insert->name_account = $request->name_account;
 		    	$insert->pass_account = $request->pass_account;
+                $insert->level = $request->level;
 		    	$insert->save();
 		    	return Redirect::to('Admin/account');
 	    	}else{
@@ -174,6 +175,7 @@ class accountController extends Controller
 		    	$update->name_account = $request->name_account;
 		    	$update->pass_account = $request->pass_account;
 		    	$update->id_nhaMay = $request->id_nhaMay;
+                $update->level = $request->level;
 		    	$update->save();
 		    	return Redirect::to('Admin/account');
 	    	}else{

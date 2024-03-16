@@ -26,7 +26,7 @@ Route::group(['prefix'=>'User'],function(){
 
 	Route::get('loadTxtNhaMay/{id_nhaMay}','dulieuTXTController@loadTxtNhaMay');
 
-	Route::get('/{id_nhaMay}', 'dulieuTXTController@showTrangChu');
+	Route::get('/{id_nhaMay}/{key_view}', 'dulieuTXTController@showTrangChu');
 
 	Route::get('khuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@showKhuVuc');
 	Route::post('postKhuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@postShowKhuVuc');
