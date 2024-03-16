@@ -6,8 +6,9 @@
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
-		<th>name_account</th>
-		<th>name_nhaMay</th>
+		<th>name</th>
+		<th>Password</th>
+		<th>name nhaMay</th>
 		<th>level</th>
 		<th>Action</th>
 	</tr>
@@ -15,6 +16,7 @@
 		<tr>
 			<td>{{$key}}</td>
 			<td>{{$value->name_account}}</td>
+			<td>{{$value->pass_account}}</td>
 			<td>{{$value->name_nhaMay}}</td>
 			<td>{{$value->level}}</td>
 			<td>
