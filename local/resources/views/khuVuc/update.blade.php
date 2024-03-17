@@ -12,16 +12,16 @@
 			<label>Name Khu Vuc</label>
 			<input type="text" name="name_khuVuc" value="{{$data->name_khuVuc}}" required class="form-control">
 			<label>Foder TXT</label>
-			<div class="form-control">{{$data->folder_TXT}}</div>
+			<!-- <div class="form-control">{{$data->folder_TXT}}</div> -->
 			<label>nước thải / khí thải </label>
 			<select name="nuoc_khi" required class="form-control">
-				<option value="nuocThai" <?php if($data->nuoc_khi=='nuocThai'){ echo 'selected';} ?>>nuocThai</option>
-				<option value="khiThai" <?php if($data->nuoc_khi=='khiThai'){ echo 'selected';} ?>>khiThai</option>
+				<option value="Nước Thải" <?php if($data->nuoc_khi=='Nước Thải'){ echo 'selected';} ?>>Nước Thải</option>
+				<option value="Khí Thải" <?php if($data->nuoc_khi=='Khí Thải'){ echo 'selected';} ?>>Khí Thải</option>
 			</select>
 			<br>
 			<input type="submit" value="update">
 		</form>
-		<a href="{{URL::to('Admin/khuVuc/'.$data->id_nhaMay)}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/khuVuc/'.$data->id_nhaMay)}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

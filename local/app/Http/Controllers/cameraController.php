@@ -11,15 +11,6 @@ use App\camera;
 
 class cameraController extends Controller
 {
-    private $nameMaster = 'Master';
-    private $passMaster = 'Cae1999@';
-
-    public function check($nameMaster,$passMaster){
-        if($nameMaster!=$this->nameMaster || $passMaster!=$this->passMaster) {
-            return Redirect::to('/');
-        }
-    }
-
     protected $cameraService;
 
     public function __construct(CameraService $cameraService)
@@ -27,29 +18,17 @@ class cameraController extends Controller
         $this->cameraService = $cameraService;
     }
 
-    public function index($id_khuVuc)
-    {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
+    public function index($id_khuVuc){
     	$khuVuc = khuVuc::find($id_khuVuc);
     	$name = $khuVuc->name_khuVuc;
     	$id_nhaMay = $khuVuc->id_nhaMay;
 	    $data = camera::where('id_khuVuc', $id_khuVuc)->orderBy('id_camera')->get();
 	    return view('camera.index', compact('data', 'id_khuVuc', 'id_nhaMay' ,'name'));
     }
-    public function insert($id_khuVuc)
-    {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
+    public function insert($id_khuVuc){
     	return view('camera.insert', compact('id_khuVuc'));
     }
-    public function postinsert(Request $request, $id_khuVuc)
-    {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
+    public function postinsert(Request $request, $id_khuVuc){
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -74,19 +53,11 @@ class cameraController extends Controller
 	    	return Redirect::to('Admin/camera/'.$id_khuVuc);
         }
     }
-    public function update($id_camera)
-    {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
+    public function update($id_camera){
     	$data = camera::find($id_camera);
     	return view('camera.update')->with(compact('data'));
     }
-     public function postupdate(Request $request, $id_camera)
-    {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
+    public function postupdate(Request $request, $id_camera){
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -112,15 +83,9 @@ class cameraController extends Controller
 	    	return Redirect::to('Admin/camera/'.$request->id_khuVuc);
         }
     }
-    public function delete($id_camera)
-    {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
+    public function delete($id_camera){
     	$data = camera::query()->where('id_camera', $id_camera)->firstOrFail();
-
         $this->cameraService->delete($data->name_camera);
-
     	$data->delete();
         return Redirect()->back()->withInput();
     }

@@ -19,13 +19,13 @@
 			</select>
 			<label>nước thải / khí thải </label>
 			<select name="nuoc_khi" required class="form-control">
-				<option value="nuocThai">nuocThai</option>
-				<option value="khiThai">khiThai</option>
+				<option value="Nước Thải">Nước Thải</option>
+				<option value="Khí Thải">Khí Thải</option>
 			</select>
 			<br>
 			<input type="submit"  value="Insert" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/khuVuc/'.$id_nhaMay)}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/khuVuc/'.$id_nhaMay)}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

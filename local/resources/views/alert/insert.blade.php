@@ -26,7 +26,7 @@
 			<br>
 			<input type="submit"  value="Insert" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/alert/'.$id_khuVuc)}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/alert/'.$id_khuVuc)}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

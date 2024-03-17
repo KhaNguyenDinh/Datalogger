@@ -20,13 +20,14 @@
 			</select>
 			<label>level</label>
 			<select name="level" class="form-control">
-				<option value="User" >User</option>
+				<option value="View" >View</option>
+				<option value="User" <?php if($data->level=='User' ){ echo 'selected';} ?>>User</option>
 				<option value="Admin" <?php if($data->level=='Admin' ){ echo 'selected';} ?>>Admin</option>
 			</select>
 			<br>
 			<input type="submit" value="update" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/account/')}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/account/')}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

@@ -21,11 +21,6 @@ use DateTime;
 
 class dulieuTXTController extends Controller
 {
-	public function check($name_account,$pass_account){
-		$account = account::where('name_account',$name_account)
-                 ->where('pass_account',$pass_account)->count();
-        if ($account==0) {return Redirect::to('/'); }
-	}
     public function resetTxt(){
     	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {
@@ -45,11 +40,6 @@ class dulieuTXTController extends Controller
     	return Redirect()->back()->withInput();
     }
 	public function showTrangChu($id_nhaMay,$key_view){
-		if (session('name_account')=='') {
-			return Redirect::to('/');
-		}
-		$this->check(session('name_account'),session('pass_account'));
-
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
 		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
@@ -136,11 +126,6 @@ class dulieuTXTController extends Controller
         return $results;
 	}
 	public function showKhuVuc($id_khuVuc,$action){
-		if (session('name_account')=='') {
-			return Redirect::to('/');
-		}
-		$this->check(session('name_account'),session('pass_account'));
-
 		$show_Alert='';
 		$results = $this->dataKhuVuc($id_khuVuc,'NO','NO');
 		if ($action=='Alert') {
@@ -150,11 +135,6 @@ class dulieuTXTController extends Controller
 		return view('User.khuVuc', compact('results','action','show_Alert'));
 	}
 	public function postShowKhuVuc(Request $request, $id_khuVuc,$action){
-		if (session('name_account')=='') {
-			return Redirect::to('/');
-		}
-		$this->check(session('name_account'),session('pass_account'));
-
 		$validator = Validator::make(
 		    $request->all(),
 		    [

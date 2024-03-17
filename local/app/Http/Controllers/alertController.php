@@ -10,20 +10,8 @@ use App\alert;
 
 class alertController extends Controller
 {
-    private $nameMaster = 'Master';
-    private $passMaster = 'Cae1999@';
-
-    public function check($nameMaster,$passMaster){
-        if($nameMaster!=$this->nameMaster || $passMaster!=$this->passMaster) {
-            return Redirect::to('/');
-        }
-    }
-
     public function index($id_khuVuc)
     {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-        
     	$khuVuc = khuVuc::find($id_khuVuc);
     	$name = $khuVuc->name_khuVuc;
     	$id_nhaMay = $khuVuc->id_nhaMay;
@@ -32,16 +20,10 @@ class alertController extends Controller
     }
     public function insert($id_khuVuc)
     {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
     	return view('alert.insert', compact('id_khuVuc'));
     }
     public function postinsert(Request $request, $id_khuVuc)
     {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -75,17 +57,11 @@ class alertController extends Controller
     }
     public function update($id_alert)
     {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
     	$data = alert::find($id_alert);
     	return view('alert.update')->with(compact('data'));
     }
      public function postupdate(Request $request, $id_alert)
     {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -119,9 +95,6 @@ class alertController extends Controller
     }
     public function delete($id_alert)
     {
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
     	$data = alert::find($id_alert);
     	$data->delete();
         return Redirect()->back()->withInput();

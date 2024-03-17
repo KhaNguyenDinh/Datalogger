@@ -8,7 +8,6 @@
 		<a href="{{URL::to('Admin/show/'.$value->id_nhaMay)}}" class="btn btn-default">{{$value->name_nhaMay}}</a><br>
 	@endforeach
 	</div>
-	<?php $id_nhaMay=session('id_nhaMay'); ?>
 	<div class="col-sm-11">
 		@if($id_nhaMay!=0)
 		<iframe src="{{URL::to('User/'.$id_nhaMay.'/0')}}"></iframe>

@@ -15,7 +15,7 @@
 			<br>
 			<input type="submit" value="update"class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/nhaMay/')}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/nhaMay/')}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

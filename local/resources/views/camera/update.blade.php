@@ -15,7 +15,7 @@
 			<input type="text" name="link_rtsp" value="{{$data->link_rtsp}}" required class="form-control">
 			<input type="submit" value="update" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/camera/'.$data->id_khuVuc)}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/camera/'.$data->id_khuVuc)}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

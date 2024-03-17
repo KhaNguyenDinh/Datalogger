@@ -18,27 +18,20 @@ Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
 
 
-Route::group(['prefix'=>'User'],function(){
-
+Route::group(['prefix'=>'User','middleware' => 'check-account'],function(){
 	Route::get('update', 'accountController@userUpdate');
 	Route::post('postUpdate/{id_account}', 'accountController@UserPostUpdate');
-
-	Route::get('loadTxtNhaMay/{id_nhaMay}','dulieuTXTController@loadTxtNhaMay');
-
 	Route::get('/{id_nhaMay}/{key_view}', 'dulieuTXTController@showTrangChu');
-
 	Route::get('khuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@showKhuVuc');
 	Route::post('postKhuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@postShowKhuVuc');
-	// Route::post('postExportExecel/{id_khuVuc}','dulieuTXTController@postExportExecel');
 });
 
-// Admin
-
-Route::group(['prefix'=>'Admin'],function(){
+Route::group(['prefix'=>'Admin','middleware' => 'check-master'],function(){
+	
 	Route::get('/','nhaMayController@index');
 
     Route::get('resetTxt','dulieuTXTController@resetTxt');
-     Route::get('show/{id_nhaMay}','nhaMayController@show');
+    Route::get('show/{id_nhaMay}','nhaMayController@show');
 
 	Route::group(['prefix'=>'nhaMay'],function(){
 		Route::get('/','nhaMayController@index');
@@ -47,8 +40,6 @@ Route::group(['prefix'=>'Admin'],function(){
 		Route::get('update/{id_nhaMay}','nhaMayController@update');
 		Route::post('postupdate/{id_nhaMay}','nhaMayController@postupdate');
 		Route::get('delete/{id_nhaMay}','nhaMayController@delete');
-
-		Route::get('show/{id_nhaMay}','nhaMayController@Website');
 	});
 
 	Route::group(['prefix'=>'khuVuc'],function(){
@@ -86,4 +77,8 @@ Route::group(['prefix'=>'Admin'],function(){
 		Route::post('postupdate/{id_account}','accountController@postupdate');
 		Route::get('delete/{id_account}','accountController@delete');
 	});
+});
+
+Route::group(['prefix'=>'Admin','middleware' => 'check-admin'],function(){
+    Route::get('show/{id_nhaMay}','nhaMayController@show');
 });

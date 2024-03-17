@@ -11,12 +11,12 @@
 <div class="col-sm-12">
 	<nav class="navbar navbar-inverse">
 	  <ul class="nav navbar-nav">
-	  	@if(session('nameMaster')!='')
+	  	@if(session('level')=='Master')
 	    <li><a href="{{URL::to('Admin/nhaMay')}}">nhaMay</a></li>
 	    <li><a href="{{URL::to('Admin/account')}}">account</a></li>
+	    <li><a href="{{URL::to('Admin/resetTxt')}}">reset Txt</a></li>
 	    @endif
 	    <li><a href="{{URL::to('Admin/show/0')}}">Show</a></li>
-	    <li><a href="{{URL::to('Admin/resetTxt')}}">reset Txt</a></li>
 	    <li><a href="{{URL::to('logout')}}">logout</a></li>
 	  </ul>
 	</nav>

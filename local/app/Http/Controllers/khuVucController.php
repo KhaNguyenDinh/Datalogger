@@ -13,19 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class khuVucController extends Controller
 {
-    private $nameMaster = 'Master';
-    private $passMaster = 'Cae1999@';
-
-    public function check($nameMaster,$passMaster){
-        if($nameMaster!=$this->nameMaster || $passMaster!=$this->passMaster) {
-            return Redirect::to('/');
-        }
-    }
-///////////////////////////
     public function index($id_nhaMay){
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
 		$nhaMayGetId = nhaMay::find($id_nhaMay);
 		$khuVuc = khuVuc::where('id_nhaMay', $id_nhaMay)->orderBy('id_khuVuc')->get();
 		$results = [];
@@ -42,15 +30,9 @@ class khuVucController extends Controller
 		return view('khuVuc.index', compact('results'));
 	}
     public function insert($id_nhaMay){
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
     	return view('khuVuc.insert', compact('id_nhaMay'));
     }
     public function postinsert(Request $request, $id_nhaMay){
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -91,16 +73,10 @@ class khuVucController extends Controller
         }
     }
     public function update($id_khuVuc){
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
     	$data = khuVuc::find($id_khuVuc);
     	return view('khuVuc.update')->with(compact('data'));
     }
     public function postupdate(Request $request, $id_khuVuc){
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -114,8 +90,7 @@ class khuVucController extends Controller
 	    	if ($count==0) {
 		    	$update = khuVuc::find($id_khuVuc);
 		    	$update->name_khuVuc = $request->name_khuVuc;
-		    	$update->type = $request->type;
-		    	$insert->nuoc_khi = $request->nuoc_khi;
+		    	$update->nuoc_khi = $request->nuoc_khi;
 		    	$update->save();
 		    	return Redirect::to('Admin/khuVuc/'.$request->id_nhaMay);
 	    	}else{
@@ -124,9 +99,6 @@ class khuVucController extends Controller
         }
     }
     public function delete($id_khuVuc){
-        if (session('nameMaster')=='') {return Redirect::to('/');
-        }else{ $this->check(session('nameMaster'),session('passMaster'));}
-
     	$data = khuVuc::find($id_khuVuc);
     	$data->delete();
         return Redirect()->back()->withInput();

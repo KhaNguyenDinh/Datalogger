@@ -19,13 +19,14 @@
 			</select>
 			<label>level</label>
 			<select name="level" class="form-control">
+				<option value="View">View</option>
 				<option value="User">User</option>
 				<option value="Admin">Admin</option>
 			</select>
 			<br>
 			<input type="submit"  value="Insert" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/account/')}}" class="btn btn-primary">back</a>
+		<a href="{{URL::to('Admin/account/')}}">back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>
