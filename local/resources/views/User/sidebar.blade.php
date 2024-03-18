@@ -54,7 +54,7 @@
         </ul>
       </li><!-- End Tables Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/map')}}">
+        <a class="nav-link collapsed" href="{{URL::to('User/khuVuc/0/map')}}">
           <i class="bi bi-pin-map"></i><span>Map</span>
         </a>
       </li><!-- End Tables Nav -->

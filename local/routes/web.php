@@ -17,7 +17,6 @@ Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
 
-
 Route::group(['prefix'=>'User','middleware' => 'check-account'],function(){
 	Route::get('update', 'accountController@userUpdate');
 	Route::post('postUpdate/{id_account}', 'accountController@UserPostUpdate');

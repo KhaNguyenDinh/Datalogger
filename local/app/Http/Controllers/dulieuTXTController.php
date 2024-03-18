@@ -76,15 +76,21 @@ class dulieuTXTController extends Controller
 
 				$arrayData = json_decode($newTxt->data, true);
 				$check_alert=false;$check_error=false; $status="norm";
+				$list_alert = [];
+				if ($alert) {
+					foreach ($alert as $key => $value) {
+						if ($value['enable']=="YES") {
+							$list_alert[$value['name_alert']]=$value;
+						}
+					}
+				}
 				foreach ($arrayData as $key1 => $value1) {
-
-					foreach ($alert as $key2 => $value2) {
-						if ($value2['name_alert']==$value1['name'] && $value2['enable']=="YES") {
-							if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-								$check_error=true;
-							}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-								$check_alert=true;
-							}
+					if (array_key_exists($value1['name'], $list_alert)) {
+						$value2 = $list_alert[$value1['name']];
+						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+							$check_error=true;
+						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+							$check_alert=true;
 						}
 					}
 				}
@@ -100,7 +106,7 @@ class dulieuTXTController extends Controller
 			}
 		}
 		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
-
+// dd($results);
 		return view('User.trangChu', compact('results','key_view'));
 	}
 	public function dataKhuVuc($id_khuVuc, $startTime, $endTime){
@@ -155,6 +161,13 @@ class dulieuTXTController extends Controller
 
         	if ($action=='Alert') {
         		$alert = $results['result_khuVuc'][0]['alert'];
+				if ($alert) {
+					foreach ($alert as $key => $value) {
+						if ($value['enable']=="YES") {
+							$list_alert[$value['name_alert']]=$value;
+						}
+					}
+				}
         		$txt = $results['result_khuVuc'][0]['txt'];
         		if ($alert==null) {
         			$results['result_khuVuc'][0]['txt']=null;
@@ -163,29 +176,21 @@ class dulieuTXTController extends Controller
 					foreach ($txt as $key => $value) {
 						$arrayData = json_decode($value->data, true);
 						$result_alert=false; $result_error=false;
+
 						foreach ($arrayData as $key1 => $value1) {
-							
-							if ($alert!==null) {
-								foreach ($alert as $key2=> $value2) {
-									if ($value2['name_alert']==$value1['name'] && $value2['enable']=="YES") {
-										if (!$result_alert) {
-											if ($value1['number']<$value2['min'] || $value1['number']>$value2['max']) {
-												$result_alert=true;
-											}
-										}
-										if (!$result_error) {
-											if ($value1['number']<$value2['minmin'] || $value1['number']>$value2['maxmax']) {
-												$result_error=true;
-											}
-										}
-									}
+							if (array_key_exists($value1['name'], $list_alert)) {
+								$value2 = $list_alert[$value1['name']];
+								if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+									$result_alert=true;
+								}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+									$result_error=true;
 								}
-							}
+							}							
 						}
-						if ($request->Alert=='Alert' && $result_alert==true) {
-							array_push($result_txt,$txt[$key]);
-						}
-						if ($request->Alert=='Error' && $result_error==true) {
+						
+						if ($request->Alert=='Alert' && ( $result_error==true || $result_alert==true ) ) {
+							array_push($result_txt,$value);
+						}elseif ($request->Alert=='Error' && $result_alert==true) {
 							array_push($result_txt,$txt[$key]);
 						}
 					}	

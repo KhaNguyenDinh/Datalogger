@@ -18,31 +18,43 @@
 		<th>{{$value['name']}}</th>
 		@endforeach
 	</tr>
-
+<?php 
+if ($alert) {
+	foreach ($alert as $key => $value) {
+		if ($value['enable']=="YES") {
+			$list_alert[$value['name_alert']]=$value;
+		}
+	}
+}
+ ?>
 	@foreach($txt as $key => $value)
 	<?php $arrayData = json_decode($value->data, true); ?>
 	<tr>
 		<td>{{$value->time}}</td>
-		@foreach($arrayData as $key => $value)
+		@foreach($arrayData as $key1 => $value1)
 		<?php 
 			$status = 'green'; $background='white';
-			if ($alert!==null) {
-				foreach ($alert as $key1 => $value1) {
-					if ($value1['name_alert']==$value['name'] && $value1['enable']=="YES") {
-						if($value['number'] <$value1['minmin'] || $value['number'] > $value1['maxmax']){ $background = 'red'; }
-						if(($value['number'] >$value1['minmin'] && $value['number'] < $value1['min'] )
-							||($value['number'] >$value1['max'] && $value['number'] < $value1['maxmax'])){ $background = '#ff8400'; }
+			if (array_key_exists($value1['name'], $list_alert)) {
+				$value2 = $list_alert[$value1['name']];
+				if ($value2['name_alert']==$value1['name']) {
+					if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+						$background = 'red';
+					}
+					if(($value1['number'] >$value2['minmin'] && $value1['number'] < $value2['min'] )
+							||($value1['number'] >$value2['max'] && $value1['number'] < $value2['maxmax'])){ 
+						$background = '#ff8400'; 
 					}
 				}
 			}
-			switch ($value['status']) {
+
+			switch ($value1['status']) {
 				case 0:$status = 'green';break;
 				case 1:$status = '#ff8400';break;
 				case 2:$status = 'red';break;
 			}
 		 ?>
 		<td style="background: {{$background}}">
-			<div style="display: flex;justify-content: space-between;"><?=number_format($value['number'],2) ?>  
+			<div style="display: flex;justify-content: space-between;"><?=number_format($value1['number'],2) ?>  
 				<div id="status" style="background: {{$status}}"></div>		
 			</div>
 		</td>
