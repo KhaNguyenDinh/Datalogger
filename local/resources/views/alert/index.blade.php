@@ -8,7 +8,7 @@
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
-		<th>name_alert</th>
+		<th>name</th>
 		<th>minmin</th>
 		<th>min</th>
 		<th>max</th>

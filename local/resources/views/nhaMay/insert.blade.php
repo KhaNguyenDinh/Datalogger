@@ -8,7 +8,7 @@
 		<center><h1>Insert</h1></center>
 		<form method="post" action="{{URL::to('Admin/nhaMay/postinsert')}}" enctype="multipart/form-data">
 			@csrf
-			<label>Name Nha May</label>
+			<label>Nha May</label>
 			<input type="text" name="name_nhaMay" placeholder="name_nhaMay" required class="form-control">
 			<label>Link Map</label>
 			<input type="text" name="link_map" placeholder="link_map" required class="form-control">

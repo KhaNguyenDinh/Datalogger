@@ -7,7 +7,7 @@
 	<tr>
 		<th>STT</th>
 		<th>name</th>
-		<th>name nhaMay</th>
+		<th>nhaMay</th>
 		<th>level</th>
 		<th>Action</th>
 	</tr>

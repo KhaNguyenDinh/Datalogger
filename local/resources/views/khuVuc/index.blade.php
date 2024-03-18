@@ -11,7 +11,7 @@
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
-		<th>name_khuVuc</th>
+		<th>khuVuc</th>
 		<th>folder_TXT</th>
 		<th>type</th>
 		<th>nước / Khí</th>

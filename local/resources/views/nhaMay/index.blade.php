@@ -6,8 +6,8 @@
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
-		<th>name_nhaMay</th>
-		<th>link_map</th>
+		<th>nhaMay</th>
+		<th>link map</th>
 		<th>khu Vuc</th>
 		<th>Action</th>
 	</tr>

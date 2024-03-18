@@ -8,8 +8,8 @@
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
-		<th>name_camera</th>
-		<th>link_rtsp</th>
+		<th>name</th>
+		<th>rtsp</th>
 		<th>Action</th>
 	</tr>
 @foreach ($data as $key => $value)
