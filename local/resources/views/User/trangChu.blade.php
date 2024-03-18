@@ -114,6 +114,6 @@
 <script type="text/javascript">
 setTimeout(function(){
    window.location.reload(0);
-}, 1000);
+}, 300000);
 </script>
 @stop()
