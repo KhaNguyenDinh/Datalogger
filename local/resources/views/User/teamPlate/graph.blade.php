@@ -15,10 +15,26 @@
     array_push($data, $ykeys);
   }
  ?>
+ <script src="{{asset('public/html2canvas.min.js')}}"></script>
+<script type="text/javascript">
+    function saveImage(){
+        if (confirm("Save Image")) {
+            var chartCanvas = document.getElementById('myfirstchart');
+            // Set white background for the canvas
+            chartCanvas.style.backgroundColor = "white";
+            html2canvas(chartCanvas).then(function(canvas) {
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                link.download = 'chart.png';
+                link.click();
+            });
+        }   
+    }
+</script>
 
 <div class="graph">
   <div class="row">
-    <div id="myfirstchart"></div>
+    <div id="myfirstchart" ondblclick="saveImage()" ></div>
   <script>
   var data = <?php echo json_encode($data); ?>;
   var ykeys = <?php echo json_encode($name); ?>;
