@@ -130,7 +130,7 @@ class dulieuTXTController extends Controller
 		$results = $this->dataKhuVuc($id_khuVuc,'NO','NO');
 		if ($action=='Alert') {
 			$result_txt = [];
-			$results['result_khuVuc'][0]['txt']=new Collection($result_txt);;
+			$results['result_khuVuc'][0]['txt']=new Collection($result_txt);
 		}
 		return view('User.khuVuc', compact('results','action','show_Alert'));
 	}

@@ -16,8 +16,8 @@
         </a>
         <ul id="Tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-      <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Tables')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
-      @endforeach
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Tables')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          @endforeach
         </ul>
       </li><!-- End Tables Nav -->
 
@@ -27,8 +27,8 @@
         </a>
         <ul id="Alert-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-      <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Alert')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
-      @endforeach
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Alert')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          @endforeach
         </ul>
       </li><!-- End Tables Nav -->
 
@@ -38,8 +38,8 @@
         </a>
         <ul id="Charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         	@foreach ($khuVuc as $key => $value)
-			<li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Charts')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
-			@endforeach
+    			<li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Charts')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+    			@endforeach
         </ul>
       </li><!-- End Tables Nav -->
 
@@ -49,11 +49,15 @@
         </a>
         <ul id="Camera-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-      <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Camera')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
-      @endforeach
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Camera')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          @endforeach
         </ul>
       </li><!-- End Tables Nav -->
-
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/map')}}">
+          <i class="bi bi-collection-play"></i><span>Map</span>
+        </a>
+      </li><!-- End Tables Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->

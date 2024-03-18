@@ -1,7 +1,6 @@
 @extends('User')
 @section('title','trangChu')
 @section('content')
-
 <?php
 	$nhaMayGetId = $results['nhaMayGetId'];
 	$khuVuc = $results['khuVuc'];
@@ -14,7 +13,6 @@
 	$color_great='green'; $color_alert='#ff8400';$color_error="red";$color_connect='gray';
 	$tab = "__";
 ?>
-
 <div class="row">
 	<div class="col-sm-6">
 		<div class="col-sm-6">

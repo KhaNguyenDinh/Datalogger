@@ -2,6 +2,7 @@
 @section('title','table')
 @section('content')
 <?php
+	$nhaMayGetId = $results['nhaMayGetId'];
 	$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId'];
 	$id_khuVuc = $khuVucGetId['id_khuVuc'];
 
@@ -12,6 +13,8 @@
  ?>
 @if($action === 'Camera')
     <div class="col-sm-12">@include('User.teamPlate.camera')</div>
+@elseif($action=='map')
+	<?=$nhaMayGetId->link_map ?>
 @else
 	@include('User.teamPlate.time')
 @endif
