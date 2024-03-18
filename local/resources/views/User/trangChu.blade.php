@@ -17,10 +17,10 @@
 	<div class="col-sm-6">
 		<div class="col-sm-6">
 			<center>Tổng số trạm<br><h2>{{$total}}</h2> </center>
-			<i class="a" style="background: <?=$color_great ?>">---</i><span>{{$great}} Trong ngưỡng</span><br>
-			<i class="a" style="background: <?=$color_alert ?>">---</i><span>{{$total_alert}} Vượt ngưỡng NM </span><br>
-			<i class="a" style="background: <?=$color_error ?>">---</i><span>{{$total_error}} Vượt ngưỡng QCVN40</span><br>
-			<i class="a" style="background: <?=$color_connect ?>">---</i><span>{{$total_error_connect}} Mất tín hiệu</span><br>
+			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Trong ngưỡng</span><br>
+			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Vượt ngưỡng NM </span><br>
+			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng QCVN40</span><br>
+			<i class="a" style="background: <?=$color_connect ?>">---</i><span> {{$total_error_connect}} Mất tín hiệu</span><br>
 		</div>
 		<div class="col-sm-6">
 			<div id="donut-chart" style="height: 250px;"></div>
@@ -56,18 +56,18 @@
 				<td>{{$value['khuVucGetId']['nuoc_khi']}}</td>
 				<td>
 					@if($value['status']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i>hoạt động tốt
+					<i class="a" style="background: <?=$color_great ?>">---</i> Hoạt động tốt
 					@elseif($value['status']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i>vượt tiêu chuẩn nhà máy
+					<i class="a" style="background: <?=$color_alert ?>">---</i> vượt tiêu chuẩn nhà máy
 					@elseif($value['status']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i>vượt tiêu chuẩn QCVN40
+					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt tiêu chuẩn QCVN40
 					@endif
 				</td>
 				<td>
 					@if($value['connect']=='')
-						<i class="a" style="background: green">---</i> hoạt động tốt
+						<i class="a" style="background: green">---</i> Hoạt động tốt
 					@else
-						<i class="a" style="background: <?=$color_connect ?>">---</i>{{$value['connect']}}
+						<i class="a" style="background: <?=$color_connect ?>">---</i> {{$value['connect']}}
 					@endif
 				</td>
 			</tr>

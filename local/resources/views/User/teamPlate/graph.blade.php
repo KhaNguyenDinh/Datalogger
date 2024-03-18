@@ -1,19 +1,22 @@
 <br>
 <?php 
-  $data=[];$ykeys=[];$name=[];
+  $data=[];$ykeys=[];$name=[];$units=[];
   $th = json_decode($txt[0]->data, true);
   foreach ($th as $key => $value) {
     $name=array_merge($name,array($value['name']));
+    $units=array_merge($units,array($value['name']=>$value['unit']));
   }
 
+// dd($units);
   foreach ($txt as $key => $value) {
     $time = $value->time;
     $arrayData = json_decode($value->data, true);
     foreach ($arrayData as $key => $value) {
-      $ykeys = array_merge($ykeys,array('year' => $time, $value['name']=>number_format($value['number'],4)) );
+      $ykeys = array_merge($ykeys,array('year' => $time, $value['name']=>number_format($value['number'],2)) );
     }
     array_push($data, $ykeys);
   }
+  // dd($data);
  ?>
  <script src="{{asset('public/html2canvas.min.js')}}"></script>
 <script type="text/javascript">
@@ -38,6 +41,8 @@
   <script>
   var data = <?php echo json_encode($data); ?>;
   var ykeys = <?php echo json_encode($name); ?>;
+  var units = <?php echo json_encode($units); ?>;
+
   new Morris.Line({
     element: 'myfirstchart',
     data: data,
@@ -45,7 +50,10 @@
     // parseTime:false,
     curve: "none",
     ykeys: ykeys,
-    labels: ykeys,
+    // labels: ykeys,
+    labels: ykeys.map(function(label) {
+      return `${label} (${units[label]})`; // Thêm đơn vị vào nhãn
+    }),
     LineColors:['green','red'],
     pointSize:0,
     lineWidth:2,
@@ -75,7 +83,10 @@
       xkey: 'year',
       // parseTime:false,
       ykeys: selectedLines,
-      labels: selectedLines,
+      // labels: selectedLines,
+      labels: selectedLines.map(function(label) {
+        return `${label} (${units[label]})`; // Thêm đơn vị vào nhãn
+      }),
       curve: "none",
       pointSize: 0,
       lineWidth: 2,

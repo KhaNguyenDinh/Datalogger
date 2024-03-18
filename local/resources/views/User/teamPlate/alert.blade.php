@@ -42,7 +42,7 @@
 			}
 		 ?>
 		<td style="background: {{$background}}">
-			<div style="display: flex;"><?=number_format($value['number'],2) ?>
+			<div style="display: flex;justify-content: space-between;"><?=number_format($value['number'],2) ?>  
 				<div id="status" style="background: {{$status}}"></div>		
 			</div>
 		</td>
