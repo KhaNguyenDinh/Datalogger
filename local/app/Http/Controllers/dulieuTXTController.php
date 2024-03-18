@@ -161,6 +161,7 @@ class dulieuTXTController extends Controller
 
         	if ($action=='Alert') {
         		$alert = $results['result_khuVuc'][0]['alert'];
+        		$list_alert = [];
 				if ($alert) {
 					foreach ($alert as $key => $value) {
 						if ($value['enable']=="YES") {

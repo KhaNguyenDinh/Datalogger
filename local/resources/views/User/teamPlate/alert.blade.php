@@ -19,6 +19,7 @@
 		@endforeach
 	</tr>
 <?php 
+$list_alert = [];
 if ($alert) {
 	foreach ($alert as $key => $value) {
 		if ($value['enable']=="YES") {
