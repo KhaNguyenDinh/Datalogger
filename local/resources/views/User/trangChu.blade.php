@@ -16,7 +16,21 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="col-sm-6">
-			<center>Tổng số trạm<br><h2>{{$total}}</h2> </center>
+			<center>
+				<h3>Tổng số trạm</h3>
+				<div class="circle" style="font-size: 40px"><?=$total?></div>
+			</center>
+			
+<style type="text/css">
+.circle {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #ffdf7e;
+}
+</style>
 			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Trong ngưỡng</span><br>
 			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Vượt ngưỡng NM </span><br>
 			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng QCVN40</span><br>
