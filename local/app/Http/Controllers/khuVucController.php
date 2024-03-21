@@ -37,7 +37,8 @@ class khuVucController extends Controller
 		    $request->all(),
 		    [
 		        'name_khuVuc' => 'required|min:1|max:100', // Đặt tên của trường và cung cấp quy tắc kiểm tra
-		        'folder_TXT' => 'required|min:1|max:30|regex:/^[a-zA-Z][a-zA-Z0-9_]*$/'
+		        'folder_TXT' => 'required|min:1|max:30|regex:/^[a-zA-Z][a-zA-Z0-9_]*$/',
+		        'link_map' =>'required',
 
 		    ]
 		);
@@ -61,7 +62,8 @@ class khuVucController extends Controller
 			    	$insert->name_khuVuc = $request->name_khuVuc;
 			    	$insert->folder_TXT = $request->folder_TXT;
 			    	$insert->type = $request->type;
-			    	$insert->nuoc_khi = $request->nuoc_khi;
+			    	$insert->Loai = $request->Loai;
+			    	$insert->link_map = $request->link_map;
 			    	$insert->save();
 			    	return Redirect::to('Admin/khuVuc/'.$id_nhaMay);
 				}else{
@@ -80,7 +82,8 @@ class khuVucController extends Controller
 		$validator = Validator::make(
 		    $request->all(),
 		    [
-		        'name_khuVuc' => 'required|min:1|max:100'
+		        'name_khuVuc' => 'required|min:1|max:100',
+		        'link_map' => 'required'
 		    ]
 		);
         if ($validator->fails()) {
@@ -90,7 +93,8 @@ class khuVucController extends Controller
 	    	if ($count==0) {
 		    	$update = khuVuc::find($id_khuVuc);
 		    	$update->name_khuVuc = $request->name_khuVuc;
-		    	$update->nuoc_khi = $request->nuoc_khi;
+		    	$update->Loai = $request->Loai;
+		    	$update->link_map = $request->link_map;
 		    	$update->save();
 		    	return Redirect::to('Admin/khuVuc/'.$request->id_nhaMay);
 	    	}else{

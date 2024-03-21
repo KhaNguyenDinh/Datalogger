@@ -18,10 +18,12 @@
 				<option value="y/m/d">y/m/d</option>
 			</select>
 			<label>Loại </label>
-			<select name="nuoc_khi" required class="form-control">
+			<select name="Loai" required class="form-control">
 				<option value="Nước Thải">Nước Thải</option>
 				<option value="Khí Thải">Khí Thải</option>
 			</select>
+			<label>Map</label>
+			<input type="text" name="link_map" placeholder="link_map" required class="form-control">
 			<br>
 			<input type="submit"  value="Insert" class="btn btn-primary">
 		</form>

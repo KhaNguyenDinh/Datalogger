@@ -9,7 +9,7 @@ class nhaMay extends Model
    	public $timestamps = true;
     protected $keyType = 'string';
     protected $table = 'nhaMay';
-    protected $fillable = ['id_nhaMay','name_nhaMay','link_map'];
+    protected $fillable = ['id_nhaMay','name_nhaMay'];
     protected $primaryKey = 'id_nhaMay';
 }
 ?>

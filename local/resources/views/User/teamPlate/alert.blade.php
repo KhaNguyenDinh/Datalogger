@@ -37,7 +37,7 @@ if ($alert) {
 			$status = 'green'; $background='white';
 			if (array_key_exists($value1['name'], $list_alert)) {
 				$value2 = $list_alert[$value1['name']];
-				if ($value2['name_alert']==$value1['name']) {
+
 					if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
 						$background = 'red';
 					}
@@ -45,7 +45,6 @@ if ($alert) {
 							||($value1['number'] >$value2['max'] && $value1['number'] < $value2['maxmax'])){ 
 						$background = '#ff8400'; 
 					}
-				}
 			}
 
 			switch ($value1['status']) {

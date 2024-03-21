@@ -34,7 +34,6 @@ class nhaMayController extends Controller
 	    	if ($count==0) {
 		    	$insert = new nhaMay();
 		    	$insert->name_nhaMay = $request->name_nhaMay;
-		    	$insert->link_map = $request->link_map;
 		    	$insert->save();
 		    	return Redirect::to('Admin/nhaMay');
 	    	}else{
@@ -58,7 +57,6 @@ class nhaMayController extends Controller
 	    	if ($count==0) {
 		    	$update = nhaMay::find($id_nhaMay);
 		    	$update->name_nhaMay = $request->name_nhaMay;
-		    	$update->link_map = $request->link_map;
 		    	$update->save();
 		    	return Redirect::to('Admin/nhaMay');
 	    	}else{

@@ -18,7 +18,7 @@ function Get($time){
 	    $thongbao = $interval->format('%R%a ngày %h giờ %i phút %S giây');
 	} elseif($interval->h > 0) {
 	    // $thongbao = $interval->format('%R%H giờ %i phút %S giây');
-	} elseif($interval->i > 30) {
+	} elseif($interval->i > 15) {
 	    // $thongbao = $interval->format('%R%i phút %S giây');
 	}
 

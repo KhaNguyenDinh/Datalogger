@@ -53,10 +53,16 @@
           @endforeach
         </ul>
       </li><!-- End Tables Nav -->
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{URL::to('User/khuVuc/'.$khuVuc[0]['id_khuVuc'].'/map')}}">
-          <i class="bi bi-pin-map"></i><span>Map</span>
+        <a class="nav-link collapsed" data-bs-target="#map-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi bi-pin-map"></i><span>Map</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="map-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          @foreach ($khuVuc as $key => $value)
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/map')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          @endforeach
+        </ul>
       </li><!-- End Tables Nav -->
     </ul>
 

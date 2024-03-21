@@ -52,29 +52,40 @@
 			</script>
 		</div>
 	</div>
+
 	<div class="col-sm-6">
 		<table class="table table-bordered">
 			<tr>
 				<th>STT</th>
 				<th>Trạm</th>
-				<th>Nhà Máy</th>
+				<!-- <th>Nhà Máy</th> -->
 				<th>Loại</th>
 				<th>Trạng thái</th>
+				<th>Tình trạng</th>
 				<th>connect</th>
 			</tr>
 			@foreach ($result_khuVuc as $key => $value)
 			<tr>
 				<td>{{$key+1}}</td>
 				<td>{{$value['khuVucGetId']['name_khuVuc']}}</td>
-				<td>{{$nhaMayGetId->name_nhaMay}}</td>
-				<td>{{$value['khuVucGetId']['nuoc_khi']}}</td>
+<!-- 				<td>{{$nhaMayGetId->name_nhaMay}}</td> -->
+				<td>{{$value['khuVucGetId']['Loai']}}</td>
 				<td>
 					@if($value['status']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i> Hoạt động tốt
+					<i class="a" style="background: <?=$color_great ?>">---</i> Đang hoạt động
 					@elseif($value['status']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i> vượt tiêu chuẩn nhà máy
+					<i class="a" style="background: <?=$color_alert ?>">---</i> Hiệu Chuẩn
 					@elseif($value['status']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt tiêu chuẩn QCVN40
+					<i class="a" style="background: <?=$color_error ?>">---</i> Thiết bị lỗi
+					@endif
+				</td>
+				<td>
+					@if($value['TrangThai']=='norm')
+					<i class="a" style="background: <?=$color_great ?>">---</i> Trong ngưỡng
+					@elseif($value['TrangThai']=='alert')
+					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt
+					@elseif($value['TrangThai']=='error')
+					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng
 					@endif
 				</td>
 				<td>

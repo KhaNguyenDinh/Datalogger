@@ -16,8 +16,6 @@ class CreateNhaMay extends Migration
         Schema::create('nhaMay', function (Blueprint $table) {
             $table->increments('id_nhaMay');
             $table->string('name_nhaMay')->unique();
-            $table->longText('link_map')->nullable()->change();
-            // $table->rememberToken();
             $table->timestamps();
         });
     }

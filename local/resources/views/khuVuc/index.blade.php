@@ -14,7 +14,8 @@
 		<th>khuVuc</th>
 		<th>folder_TXT</th>
 		<th>type</th>
-		<th>nước / Khí</th>
+		<th>Loại</th>
+		<th>Map</th>
 		<th>camera</th>
 		<th>alert</th>
 		<th>Action</th>
@@ -25,7 +26,8 @@
 		<td>{{$value->name_khuVuc}}</td>
 		<td>{{$value->folder_TXT}}</td>
 		<td>{{$value->type}}</td>
-		<td>{{$value->nuoc_khi}}</td>
+		<td>{{$value->Loai}}</td>
+		<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
 		<td><a href="{{URL::to('Admin/camera/'.$value->id_khuVuc)}}">show</a></td>
 		<td><a href="{{URL::to('Admin/alert/'.$value->id_khuVuc)}}">show</a></td>
 		<td>

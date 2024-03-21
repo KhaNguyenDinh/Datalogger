@@ -31,7 +31,6 @@ class accountController extends Controller
             }else{
                 $insert = new nhaMay();
                 $insert->name_nhaMay = Str::random(6);
-                $insert->link_map = Str::random(6);
                 $insert->save();
                 return Redirect::to('/');
             }
