@@ -11,14 +11,14 @@ class LogService
     public function resetTxt(){
     	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {
-    		$count = DB::table($khuVuc->folder_TXT)->count();
+    		$count = DB::table($khuVuc->folder_txt)->count();
     		if ($count>25920) {
-    			DB::table($khuVuc->folder_TXT)
+    			DB::table($khuVuc->folder_txt)
 			    ->orderByDesc('time')
 			    ->skip(25920) // Bỏ qua 25920 bản ghi đầu tiên (3 tháng)
 			    ->pluck('time')
 			    ->each(function ($time) use ($khuVuc) {
-			        DB::table($khuVuc->folder_TXT)
+			        DB::table($khuVuc->folder_txt)
 			            ->where('time', $time)
 			            ->delete();
 			    });
@@ -30,11 +30,11 @@ class LogService
     	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {
 			$type = $khuVuc->type;
-			$id_khuVuc = $khuVuc->id_khuVuc;
-			$folder_TXT = $khuVuc->folder_TXT;
+			$id_khu_vuc = $khuVuc->id_khu_vuc;
+			$folder_txt = $khuVuc->folder_txt;
 
 			if ($type=='ymd') {
-				$directoryPath = 'public/TXT/'.$folder_TXT;
+				$directoryPath = 'public/TXT/'.$folder_txt;
 				$subDirectories = Storage::directories($directoryPath);
 
 				if (!empty($subDirectories)) { // check thu muc
@@ -49,7 +49,7 @@ class LogService
 								$key =date("Y-m-d H:i",strtotime($time_file));
 							    $fileContents = Storage::disk('local')->get($file);
 
-				    			$existingRecord = DB::table($folder_TXT)
+				    			$existingRecord = DB::table($folder_txt)
 								    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
 								    ->select('time')->first();
 								if ($existingRecord) {	$available = "YES";
@@ -71,7 +71,7 @@ class LogService
 							    		}
 							    		if ($available=="NO") {
 							    			$array[] = [
-												'id_khuVuc' => $id_khuVuc,
+												'id_khu_vuc' => $id_khu_vuc,
 												'name' => $elements[0],
 												'number' => $elements[1],
 												'unit' => $elements[2],
@@ -90,11 +90,11 @@ class LogService
 							    if ($mov =='YES') {
 							    	if ($available=="NO") {
 							    		$dataToInsert= [
-											'id_khuVuc' => $id_khuVuc,
+											'id_khu_vuc' => $id_khu_vuc,
 											'time'=>$time_txt,
 											'data'=>json_encode($array)
 										];
-									    DB::table($folder_TXT)->insert($dataToInsert);
+									    DB::table($folder_txt)->insert($dataToInsert);
 							    	}
 									// Tách đoạn đường dẫn dựa trên dấu /
 									$parts = explode('/', $file);
@@ -104,9 +104,9 @@ class LogService
 									$relativePath = str_replace($directoryPath . '/', '', $file);
 
 
-									$sourcePath = storage_path('app/public/TXT/'.$folder_TXT.'/'.$relativePath);
+									$sourcePath = storage_path('app/public/TXT/'.$folder_txt.'/'.$relativePath);
 
-									$destinationPath = storage_path('app/public/TXT_mov/'.$folder_TXT.'/'.$relativePath);
+									$destinationPath = storage_path('app/public/TXT_mov/'.$folder_txt.'/'.$relativePath);
 
 									// Tạo thư mục B nếu nó chưa tồn tại
 									if (!File::isDirectory(dirname($destinationPath))) {
@@ -134,7 +134,7 @@ class LogService
 				}
 			}
 			if ($type='y/m/d') {
-				$directoryPath = 'public/TXT/'.$folder_TXT;
+				$directoryPath = 'public/TXT/'.$folder_txt;
 				$subDirectories = Storage::directories($directoryPath);
 
 				if (!empty($subDirectories)) { // check thu muc nam
@@ -153,7 +153,7 @@ class LogService
 											$time_file = substr($file,strlen($file)-18,14);
 											$key =date("Y-m-d H:i",strtotime($time_file));
 
-											$existingRecord = DB::table($folder_TXT)
+											$existingRecord = DB::table($folder_txt)
 											    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
 											    ->select('time')->first();
 											if ($existingRecord) {	$available = "YES";
@@ -179,7 +179,7 @@ class LogService
 										    		}
 										    		if ($available=="NO") {
 										    			$array[] = [
-															'id_khuVuc' => $id_khuVuc,
+															'id_khu_vuc' => $id_khu_vuc,
 															'name' => $elements[0],
 															'number' => $elements[1],
 															'unit' => $elements[2],
@@ -196,11 +196,11 @@ class LogService
 										    if ($mov =='YES') {
 										    	if ($available=="NO") {
 										    		$dataToInsert= [
-														'id_khuVuc' => $id_khuVuc,
+														'id_khu_vuc' => $id_khu_vuc,
 														'time'=>$time_txt,
 														'data'=>json_encode($array)
 													];
-												    DB::table($folder_TXT)->insert($dataToInsert);
+												    DB::table($folder_txt)->insert($dataToInsert);
 										    	}
 												// Tách đoạn đường dẫn dựa trên dấu /
 												$parts = explode('/', $file);
@@ -210,9 +210,9 @@ class LogService
 												$relativePath = str_replace($directoryPath . '/', '', $file);
 
 
-												$sourcePath = storage_path('app/public/TXT/'.$folder_TXT.'/'.$relativePath);
+												$sourcePath = storage_path('app/public/TXT/'.$folder_txt.'/'.$relativePath);
 
-												$destinationPath = storage_path('app/public/TXT_mov/'.$folder_TXT.'/'.$relativePath);
+												$destinationPath = storage_path('app/public/TXT_mov/'.$folder_txt.'/'.$relativePath);
 
 												// Tạo thư mục B nếu nó chưa tồn tại
 												if (!File::isDirectory(dirname($destinationPath))) {

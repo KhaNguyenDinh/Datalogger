@@ -5,67 +5,67 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
-use App\nhaMay;
+use App\nhamay;
 use App\account;
 
-class nhaMayController extends Controller
+class nhamayController extends Controller
 {
-    public function show(Request $request, $id_nhaMay){
-        $nhaMay = nhaMay::all();
-        return view('show.index')->with(compact('nhaMay','id_nhaMay'));
+    public function show(Request $request, $id_nha_may){
+        $nhamay = nhamay::all();
+        return view('show.index')->with(compact('nhamay','id_nha_may'));
     }
     public function index(){
-    	$data = nhaMay::all();
-    	$nhaMay = nhaMay::orderby('id_nhaMay')->get();
-    	return view('nhaMay.index')->with(compact('data','nhaMay'));
+    	$data = nhamay::all();
+    	$nhamay = nhamay::orderby('id_nha_may')->get();
+    	return view('nhamay.index')->with(compact('data','nhamay'));
     }
     public function insert(){
-    	return view('nhaMay.insert');
+    	return view('nhamay.insert');
     }
     public function postinsert(Request $request){
     	$validator = Validator::make(
 		    $request->all(),
-		    ['name_nhaMay' => 'required|min:1|max:100'],
+		    ['name_nha_may' => 'required|min:1|max:100'],
     	);
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$count = nhaMay::where('name_nhaMay',$request->name_nhaMay)->count();
+	    	$count = nhamay::where('name_nha_may',$request->name_nha_may)->count();
 	    	if ($count==0) {
-		    	$insert = new nhaMay();
-		    	$insert->name_nhaMay = $request->name_nhaMay;
+		    	$insert = new nhamay();
+		    	$insert->name_nha_may = $request->name_nha_may;
 		    	$insert->save();
-		    	return Redirect::to('Admin/nhaMay');
+		    	return Redirect::to('Admin/nhamay');
 	    	}else{
 	    		return response()->json(['success'=>$request->name.' dang ton tai']);
 	    	}
         }
     }
-    public function update($id_nhaMay){
-    	$data = nhaMay::find($id_nhaMay);
-    	return view('nhaMay.update')->with(compact('data'));
+    public function update($id_nha_may){
+    	$data = nhamay::find($id_nha_may);
+    	return view('nhamay.update')->with(compact('data'));
     }
-    public function postupdate(Request $request, $id_nhaMay){
+    public function postupdate(Request $request, $id_nha_may){
     	$validator = Validator::make(
 		    $request->all(),
-		    ['name_nhaMay' => 'required|min:1|max:100'],
+		    ['name_nha_may' => 'required|min:1|max:100'],
     	);
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$count = nhaMay::where('name_nhaMay',$request->name_nhaMay)->where('id_nhaMay','!=',$id_nhaMay)->count();
+	    	$count = nhamay::where('name_nha_may',$request->name_nha_may)->where('id_nha_may','!=',$id_nha_may)->count();
 	    	if ($count==0) {
-		    	$update = nhaMay::find($id_nhaMay);
-		    	$update->name_nhaMay = $request->name_nhaMay;
+		    	$update = nhamay::find($id_nha_may);
+		    	$update->name_nha_may = $request->name_nha_may;
 		    	$update->save();
-		    	return Redirect::to('Admin/nhaMay');
+		    	return Redirect::to('Admin/nhamay');
 	    	}else{
 	    		return response()->json(['success'=>$request->name.' dang ton tai']);
 	    	}
         }
     }
-    public function delete($id_nhaMay){
-    	$data = nhaMay::find($id_nhaMay);
+    public function delete($id_nha_may){
+    	$data = nhamay::find($id_nha_may);
     	$data->delete();
         return Redirect()->back()->withInput();
     }

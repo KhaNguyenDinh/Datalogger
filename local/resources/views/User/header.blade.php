@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{URL::to('/')}}" class="logo d-flex align-items-center">
         <img src="{{asset('public/assets/img/logo.png')}}" style="width: 80px" alt="">
-        <span class="d-none d-lg-block">{{$nhaMayGetId->name_nhaMay}}</span>
+        <span class="d-none d-lg-block">{{$nhamayGetId->name_nha_may}}</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

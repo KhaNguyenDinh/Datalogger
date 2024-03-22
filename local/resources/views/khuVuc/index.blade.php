@@ -2,17 +2,17 @@
 @section('title','index')
 @section('action')
 <?php 
-	$nhaMayGetId = $results['nhaMayGetId'];
-	$khuVuc = $results['khuVuc'];
-	$result_khuVuc = $results['result_khuVuc'];
+	$nhamayGetId = $results['nhamayGetId'];
+	$khuvuc = $results['khuvuc'];
+	$result_khuvuc = $results['result_khuvuc'];
 ?>
-<center><h1>Of : {{$nhaMayGetId->name_nhaMay}}</h1></center>
-<a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nhaMay)}}" class="btn btn-primary">insert</a>
+<center><h1>Of : {{$nhamayGetId->name_nha_may}}</h1></center>
+<a href="{{URL::to('Admin/khuvuc/insert/'.$nhamayGetId->id_nha_may)}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
-		<th>khuVuc</th>
-		<th>folder_TXT</th>
+		<th>khuvuc</th>
+		<th>folder_txt</th>
 		<th>type</th>
 		<th>Loại</th>
 		<th>Map</th>
@@ -20,28 +20,28 @@
 		<th>alert</th>
 		<th>Action</th>
 	</tr>
-@foreach ($khuVuc as $key => $value)
+@foreach ($khuvuc as $key => $value)
 	<tr>
 		<td>{{$key}}</td>
-		<td>{{$value->name_khuVuc}}</td>
-		<td>{{$value->folder_TXT}}</td>
+		<td>{{$value->name_khu_vuc}}</td>
+		<td>{{$value->folder_txt}}</td>
 		<td>{{$value->type}}</td>
-		<td>{{$value->Loai}}</td>
+		<td>{{$value->loai}}</td>
 		<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
-		<td><a href="{{URL::to('Admin/camera/'.$value->id_khuVuc)}}">show</a></td>
-		<td><a href="{{URL::to('Admin/alert/'.$value->id_khuVuc)}}">show</a></td>
+		<td><a href="{{URL::to('Admin/camera/'.$value->id_khu_vuc)}}">show</a></td>
+		<td><a href="{{URL::to('Admin/alert/'.$value->id_khu_vuc)}}">show</a></td>
 		<td>
-			<a href="{{URL::to('Admin/khuVuc/update/'.$value->id_khuVuc)}}" class="btn btn-primary">update</a>
-			<a href="{{URL::to('Admin/khuVuc/delete/'.$value->id_khuVuc)}}" class="btn btn-danger"
+			<a href="{{URL::to('Admin/khuvuc/update/'.$value->id_khu_vuc)}}" class="btn btn-primary">update</a>
+			<a href="{{URL::to('Admin/khuvuc/delete/'.$value->id_khu_vuc)}}" class="btn btn-danger"
 				onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">delete</a>
 		</td>
 	</tr>
 @endforeach
 </table>
 
-@foreach ($result_khuVuc as $key => $value)
+@foreach ($result_khuvuc as $key => $value)
 	<?php
-		$khuVucGetId = $value['khuVucGetId'];
+		$khuvucGetId = $value['khuvucGetId'];
 		$alert = $value['alert'];
 		$newTxt = $value['newTxt'];
 		$arrayData=null;
@@ -54,7 +54,7 @@
 
 	@if($arrayData!==null)
 		<table class="table table-bordered">
-			<label>{{$key}} ) {{$khuVucGetId['name_khuVuc']}}</label>
+			<label>{{$key}} ) {{$khuvucGetId['name_khu_vuc']}}</label>
 			<tr>
 				<th>New Time</th>
 				@foreach ($arrayData as $key => $value)
@@ -86,7 +86,7 @@
 			</tr>
 		</table>
 	@else
-		<h2>{{$nhaMayGetId->name_nhaMay}} NO TXT</h2>
+		<h2>{{$nhamayGetId->name_nha_may}} NO TXT</h2>
 	@endif
 	<!-- /////////////// -->
 @endforeach

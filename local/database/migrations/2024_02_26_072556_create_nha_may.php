@@ -13,9 +13,9 @@ class CreateNhaMay extends Migration
      */
     public function up()
     {
-        Schema::create('nhaMay', function (Blueprint $table) {
-            $table->increments('id_nhaMay');
-            $table->string('name_nhaMay')->unique();
+        Schema::create('nhamay', function (Blueprint $table) {
+            $table->increments('id_nha_may');
+            $table->string('name_nha_may')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateNhaMay extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nhaMay');
+        Schema::dropIfExists('nhamay');
     }
 }

@@ -3,19 +3,18 @@
 @section('content')
 
 <?php
-	$nhaMayGetId = $results['nhaMayGetId'];
-	$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId'];
-	$id_khuVuc = $khuVucGetId['id_khuVuc'];
-
+	$nhamayGetId = $results['nhamayGetId'];
+	$khuvucGetId = $results['result_khuvuc'][0]['khuvucGetId'];
+	$id_khu_vuc = $khuvucGetId['id_khu_vuc'];
 	$camera = $results['camera'];
-	$alert = $results['result_khuVuc'][0]['alert'];
-	$txt = $results['result_khuVuc'][0]['txt'];
+	$alert = $results['result_khuvuc'][0]['alert'];
+	$txt = $results['result_khuvuc'][0]['txt'];
  ?>
 @if($action === 'Camera')
     <div class="col-sm-12">@include('User.teamPlate.camera')</div>
 @elseif($action=='map')
-<?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['name_khuVuc']; ?> <hr>
-<?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['link_map']; ?> <hr>
+<?=$khuvucGetId = $results['result_khuvuc'][0]['khuvucGetId']['name_khu_vuc']; ?> <hr>
+<?=$khuvucGetId = $results['result_khuvuc'][0]['khuvucGetId']['link_map']; ?> <hr>
 @else
 	@include('User.teamPlate.time')
 @endif

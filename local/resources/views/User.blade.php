@@ -38,8 +38,8 @@
 
 <body>
 <?php 
-$nhaMayGetId = $results['nhaMayGetId'];
-$khuVuc = $results['khuVuc'];
+$nhamayGetId = $results['nhamayGetId'];
+$khuvuc = $results['khuvuc'];
 $tab = "__";
  ?>
 

@@ -2,9 +2,9 @@
 @section('title','trangChu')
 @section('content')
 <?php
-	$nhaMayGetId = $results['nhaMayGetId'];
-	$khuVuc = $results['khuVuc'];
-	$result_khuVuc = $results['result_khuVuc'];
+	$nhamayGetId = $results['nhamayGetId'];
+	$khuvuc = $results['khuvuc'];
+	$result_khuvuc = $results['result_khuvuc'];
 	$total = $results['total'];
 	$total_error = $results['total_error'];
 	$total_alert = $results['total_alert'];
@@ -64,12 +64,12 @@
 				<th>Tình trạng</th>
 				<th>connect</th>
 			</tr>
-			@foreach ($result_khuVuc as $key => $value)
+			@foreach ($result_khuvuc as $key => $value)
 			<tr>
 				<td>{{$key+1}}</td>
-				<td>{{$value['khuVucGetId']['name_khuVuc']}}</td>
-<!-- 				<td>{{$nhaMayGetId->name_nhaMay}}</td> -->
-				<td>{{$value['khuVucGetId']['Loai']}}</td>
+				<td>{{$value['khuvucGetId']['name_khu_vuc']}}</td>
+<!-- 				<td>{{$nhamayGetId->name_nhaMay}}</td> -->
+				<td>{{$value['khuvucGetId']['loai']}}</td>
 				<td>
 					@if($value['status']=='norm')
 					<i class="a" style="background: <?=$color_great ?>">---</i> Đang hoạt động
@@ -104,18 +104,18 @@
 
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
-		@foreach ($result_khuVuc as $key => $value)
-		<a  href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">
+		@foreach ($result_khuvuc as $key => $value)
+		<a  href="{{URL::to('User/'.$nhamayGetId->id_nha_may.'/'.$key)}}">
 			<li class="nav-item" role="presentation">
-			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
-			  	{{$value['khuVucGetId']['name_khuVuc']}}
+			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhamayGetId->id_nha_may.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
+			  	[ {{$value['khuvucGetId']['name_khu_vuc']}} ]
 			  </button>
 			</li>
 		</a>
 		@endforeach
 	</ul>
 	<div class="tab-content pt-2">
-	  	@foreach ($result_khuVuc as $key => $value)
+	  	@foreach ($result_khuvuc as $key => $value)
 	  		@if($key==$key_view)
 		    	<?php 
 		    	$alert = $value['alert'];

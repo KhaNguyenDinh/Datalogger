@@ -15,8 +15,8 @@ class CreateCamera extends Migration
     {
         Schema::create('camera', function (Blueprint $table) {
             $table->increments('id_camera');
-            $table->integer('id_khuVuc')->unsigned();
-            $table->foreign('id_khuVuc')->references('id_khuVuc')->on('khuVuc')->onDelete('cascade');
+            $table->integer('id_khu_vuc')->unsigned();
+            $table->foreign('id_khu_vuc')->references('id_khu_vuc')->on('khuvuc')->onDelete('cascade');
             $table->string('name_camera');
             $table->string('link_rtsp');
             $table->timestamps();
