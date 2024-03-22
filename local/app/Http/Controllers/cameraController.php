@@ -19,14 +19,6 @@ class cameraController extends Controller
     }
 
     public function index($id_khuVuc){
-        
-        $this->cameraService->delete('camera1');
-        $this->cameraService->delete('camera2');
-        $this->cameraService->delete('rtsp://ilotusland:ill$12345@113.175.240.67:554/Media/Live/Normal?camera=C_1&streamindex=1');
-        $this->cameraService->delete('nguyen');
-        
-
-
     	$khuVuc = khuVuc::find($id_khuVuc);
     	$name = $khuVuc->name_khuVuc;
     	$id_nhaMay = $khuVuc->id_nhaMay;
