@@ -1,10 +1,10 @@
 @extends('User')
-@section('title','Trang chủ')
+@section('title','trangChu')
 @section('content')
 <?php
-	$nhamayGetId = $results['nhamayGetId'];
-	$khuvuc = $results['khuvuc'];
-	$result_khuvuc = $results['result_khuvuc'];
+	$nhaMayGetId = $results['nhaMayGetId'];
+	$khuVuc = $results['khuVuc'];
+	$result_khuVuc = $results['result_khuVuc'];
 	$total = $results['total'];
 	$total_error = $results['total_error'];
 	$total_alert = $results['total_alert'];
@@ -31,9 +31,9 @@
     background-color: #ffdf7e;
 }
 </style>
-			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Bình thường</span><br>
-			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Chuẩn bị vượt ngưỡng</span><br>
-			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng xả thải</span><br>
+			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Trong ngưỡng</span><br>
+			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Vượt ngưỡng NM </span><br>
+			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng QCVN40</span><br>
 			<i class="a" style="background: <?=$color_connect ?>">---</i><span> {{$total_error_connect}} Mất tín hiệu</span><br>
 		</div>
 		<div class="col-sm-6">
@@ -64,12 +64,12 @@
 				<th>Tình trạng</th>
 				<th>connect</th>
 			</tr>
-			@foreach ($result_khuvuc as $key => $value)
+			@foreach ($result_khuVuc as $key => $value)
 			<tr>
 				<td>{{$key+1}}</td>
-				<td>{{$value['khuvucGetId']['name_khu_vuc']}}</td>
-<!-- 				<td>{{$nhamayGetId->name_nhaMay}}</td> -->
-				<td>{{$value['khuvucGetId']['loai']}}</td>
+				<td>{{$value['khuVucGetId']['name_khuVuc']}}</td>
+<!-- 				<td>{{$nhaMayGetId->name_nhaMay}}</td> -->
+				<td>{{$value['khuVucGetId']['Loai']}}</td>
 				<td>
 					@if($value['status']=='norm')
 					<i class="a" style="background: <?=$color_great ?>">---</i> Đang hoạt động
@@ -81,11 +81,11 @@
 				</td>
 				<td>
 					@if($value['TrangThai']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i> Bình thường
+					<i class="a" style="background: <?=$color_great ?>">---</i> Trong ngưỡng
 					@elseif($value['TrangThai']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt ngưỡng
+					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt
 					@elseif($value['TrangThai']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng xả thải
+					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng
 					@endif
 				</td>
 				<td>
@@ -104,23 +104,18 @@
 
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
-		@foreach ($result_khuvuc as $key => $value)
-		<a  href="{{URL::to('User/'.$nhamayGetId->id_nha_may.'/'.$key)}}">
+		@foreach ($result_khuVuc as $key => $value)
+		<a  href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">
 			<li class="nav-item" role="presentation">
-<<<<<<< HEAD
-			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhamayGetId->id_nha_may.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
-			  	[ {{$value['khuvucGetId']['name_khu_vuc']}} ]
-=======
 			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
-			  	[ {{$value['khuVucGetId']['name_khuVuc']}} ]
->>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
+			  	{{$value['khuVucGetId']['name_khuVuc']}}
 			  </button>
 			</li>
 		</a>
 		@endforeach
 	</ul>
 	<div class="tab-content pt-2">
-	  	@foreach ($result_khuvuc as $key => $value)
+	  	@foreach ($result_khuVuc as $key => $value)
 	  		@if($key==$key_view)
 		    	<?php 
 		    	$alert = $value['alert'];

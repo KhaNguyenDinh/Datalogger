@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@yield('title')</title>
+    <title>blog</title>
     <link rel="stylesheet" type="text/css" href="{{asset('public/bootstrap.min.css')}}">
     <script src="{{asset('public/bootstrap.min.js')}}"></script>
     <script src="{{asset('public/jquery.min.js')}}"></script>
@@ -12,7 +12,7 @@
 	<nav class="navbar navbar-inverse">
 	  <ul class="nav navbar-nav">
 	  	@if(session('level')=='Master')
-	    <li><a href="{{URL::to('Admin/nhamay')}}">nha May</a></li>
+	    <li><a href="{{URL::to('Admin/nhaMay')}}">nhaMay</a></li>
 	    <li><a href="{{URL::to('Admin/account')}}">account</a></li>
 	    <li><a href="{{URL::to('Admin/resetTxt')}}">reset Txt</a></li>
 	    @endif

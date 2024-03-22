@@ -13,14 +13,14 @@ class CreateKhuVuc extends Migration
      */
     public function up()
     {
-        Schema::create('khuvuc', function (Blueprint $table) {
-            $table->increments('id_khu_vuc');
-            $table->integer('id_nha_may')->unsigned();
-            $table->foreign('id_nha_may')->references('id_nha_may')->on('nhamay')->onDelete('cascade');
-            $table->string('name_khu_vuc');
-            $table->string('folder_txt');
+        Schema::create('khuVuc', function (Blueprint $table) {
+            $table->increments('id_khuVuc');
+            $table->integer('id_nhaMay')->unsigned();
+            $table->foreign('id_nhaMay')->references('id_nhaMay')->on('nhaMay')->onDelete('cascade');
+            $table->string('name_khuVuc');
+            $table->string('folder_TXT');
             $table->string('type');
-            $table->string('loai');
+            $table->string('Loai');
             $table->longText('link_map');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateKhuVuc extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('khuvuc');
+        Schema::dropIfExists('khuVuc');
     }
 }

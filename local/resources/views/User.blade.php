@@ -5,7 +5,8 @@
 
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>@yield('title')</title>
+
+  <title>Dashboard</title>
   <!-- Favicons -->
   <link href="{{asset('public/assets/img/favicon.png')}}" rel="icon">
   <link href="{{asset('public/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
@@ -37,8 +38,8 @@
 
 <body>
 <?php 
-$nhamayGetId = $results['nhamayGetId'];
-$khuvuc = $results['khuvuc'];
+$nhaMayGetId = $results['nhaMayGetId'];
+$khuVuc = $results['khuVuc'];
 $tab = "__";
  ?>
 

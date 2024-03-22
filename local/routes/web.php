@@ -20,10 +20,9 @@ Route::get('logout', 'accountController@logout');
 Route::group(['prefix'=>'User','middleware' => 'check-account'],function(){
 	Route::get('update', 'accountController@userUpdate');
 	Route::post('postUpdate/{id_account}', 'accountController@UserPostUpdate');
-	
-	Route::get('/{id_nha_may}/{key_view}', 'dulieuTXTController@showTrangChu');
-	Route::get('khuvuc/{id_khu_vuc}/{action}', 'dulieuTXTController@showkhuvuc');
-	Route::post('postkhuvuc/{id_khu_vuc}/{action}', 'dulieuTXTController@postShowkhuvuc');
+	Route::get('/{id_nhaMay}/{key_view}', 'dulieuTXTController@showTrangChu');
+	Route::get('khuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@showKhuVuc');
+	Route::post('postKhuVuc/{id_khuVuc}/{action}', 'dulieuTXTController@postShowKhuVuc');
 });
 
 Route::group(['prefix'=>'Admin','middleware' => 'check-master'],function(){
@@ -31,39 +30,39 @@ Route::group(['prefix'=>'Admin','middleware' => 'check-master'],function(){
 	Route::get('/','nhaMayController@index');
 
     Route::get('resetTxt','dulieuTXTController@resetTxt');
-    Route::get('show/{id_nha_may}','nhaMayController@show');
+    Route::get('show/{id_nhaMay}','nhaMayController@show');
 
-	Route::group(['prefix'=>'nhamay'],function(){
+	Route::group(['prefix'=>'nhaMay'],function(){
 		Route::get('/','nhaMayController@index');
 		Route::get('insert','nhaMayController@insert');
 		Route::post('postinsert','nhaMayController@postinsert');
-		Route::get('update/{id_nha_may}','nhaMayController@update');
-		Route::post('postupdate/{id_nha_may}','nhaMayController@postupdate');
-		Route::get('delete/{id_nha_may}','nhaMayController@delete');
+		Route::get('update/{id_nhaMay}','nhaMayController@update');
+		Route::post('postupdate/{id_nhaMay}','nhaMayController@postupdate');
+		Route::get('delete/{id_nhaMay}','nhaMayController@delete');
 	});
 
-	Route::group(['prefix'=>'khuvuc'],function(){
-		Route::get('/{id_nha_may}','khuVucController@index');
-		Route::get('insert/{id_nha_may}','khuVucController@insert');
-		Route::post('postinsert/{id_nha_may}','khuVucController@postinsert');
-		Route::get('update/{id_khu_vuc}','khuVucController@update');
-		Route::post('postupdate/{id_khu_vuc}','khuVucController@postupdate');
-		Route::get('delete/{id_khu_vuc}','khuVucController@delete');
+	Route::group(['prefix'=>'khuVuc'],function(){
+		Route::get('/{id_nhaMay}','khuVucController@index');
+		Route::get('insert/{id_nhaMay}','khuVucController@insert');
+		Route::post('postinsert/{id_nhaMay}','khuVucController@postinsert');
+		Route::get('update/{id_khuVuc}','khuVucController@update');
+		Route::post('postupdate/{id_khuVuc}','khuVucController@postupdate');
+		Route::get('delete/{id_khuVuc}','khuVucController@delete');
 	});
 
 	Route::group(['prefix'=>'camera'],function(){
-		Route::get('/{id_khu_vuc}','cameraController@index');
-		Route::get('insert/{id_khu_vuc}','cameraController@insert');
-		Route::post('postinsert/{id_khu_vuc}','cameraController@postinsert');
+		Route::get('/{id_khuVuc}','cameraController@index');
+		Route::get('insert/{id_khuVuc}','cameraController@insert');
+		Route::post('postinsert/{id_khuVuc}','cameraController@postinsert');
 		Route::get('update/{id_camera}','cameraController@update');
 		Route::post('postupdate/{id_camera}','cameraController@postupdate');
 		Route::get('delete/{id_camera}','cameraController@delete');
 	});
 
 	Route::group(['prefix'=>'alert'],function(){
-		Route::get('/{id_khu_vuc}','alertController@index');
-		Route::get('insert/{id_khu_vuc}','alertController@insert');
-		Route::post('postinsert/{id_khu_vuc}','alertController@postinsert');
+		Route::get('/{id_khuVuc}','alertController@index');
+		Route::get('insert/{id_khuVuc}','alertController@insert');
+		Route::post('postinsert/{id_khuVuc}','alertController@postinsert');
 		Route::get('update/{id_alert}','alertController@update');
 		Route::post('postupdate/{id_alert}','alertController@postupdate');
 		Route::get('delete/{id_alert}','alertController@delete');
@@ -80,5 +79,5 @@ Route::group(['prefix'=>'Admin','middleware' => 'check-master'],function(){
 });
 
 Route::group(['prefix'=>'Admin','middleware' => 'check-admin'],function(){
-    Route::get('show/{id_nha_may}','nhaMayController@show');
+    Route::get('show/{id_nhaMay}','nhaMayController@show');
 });

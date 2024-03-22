@@ -1,5 +1,5 @@
 @if(isset($startTime))
-<form method="post" action="{{URL::to('User/postkhuvuc/'.$id_khu_vuc.'/'.$action)}}" enctype="multipart/form-data">
+<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khuVuc.'/'.$action)}}" enctype="multipart/form-data">
 	@csrf
 	<input type="hidden" name="action" value="execel">
 	<input type="hidden" name="startTime" value="{{$startTime}}">
@@ -177,11 +177,10 @@ table,tr,th,td{
  }
 table {
   position: relative;
-  /*overflow-y:scroll;*/
-  /*overflow-x:scroll;*/
-  overflow: auto;
+  overflow-y:scroll;
+  overflow-x:scroll;
   display:block;
-  max-height: 450px;
+  height: 450px;
 }
 /*table::-webkit-scrollbar {
     display: none;

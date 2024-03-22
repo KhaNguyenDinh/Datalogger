@@ -8,7 +8,7 @@
 		<center><h1>Update</h1></center>
 		<form method="post" action="{{URL::to('Admin/alert/postupdate/'.$data->id_alert)}}" enctype="multipart/form-data">
 			@csrf
-			<input type="hidden" name="id_khu_vuc" value="{{$data->id_khu_vuc}}" required class="form-control">
+			<input type="hidden" name="id_khuVuc" value="{{$data->id_khuVuc}}" required class="form-control">
 			<label>Name</label>
 			<input type="text" name="name_alert" value="{{$data->name_alert}}" required class="form-control">
 			<label>Min Min</label>
@@ -27,7 +27,7 @@
 			<br>
 			<input type="submit" value="update" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/alert/'.$data->id_khu_vuc)}}" >back</a>
+		<a href="{{URL::to('Admin/alert/'.$data->id_khuVuc)}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

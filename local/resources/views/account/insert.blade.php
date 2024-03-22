@@ -12,9 +12,9 @@
 			<label>password</label>
 			<input type="text" name="pass_account" placeholder="password" required class="form-control">
 			<label>Nha May</label>
-			<select name="id_nha_may" class="form-control">
-				@foreach ($nhamay as $key => $value)
-				<option value="{{$value->id_nha_may}}">{{$value->name_nha_may}}</option>
+			<select name="id_nhaMay" class="form-control">
+				@foreach ($nhaMay as $key => $value)
+				<option value="{{$value->id_nhaMay}}">{{$value->name_nhaMay}}</option>
 				@endforeach
 			</select>
 			<label>level</label>

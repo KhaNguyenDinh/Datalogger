@@ -6,7 +6,7 @@
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4" style="background: #eff7d9">
 		<center><h1>Insert</h1></center>
-		<form method="post" action="{{URL::to('Admin/alert/postinsert/'.$id_khu_vuc)}}" enctype="multipart/form-data">
+		<form method="post" action="{{URL::to('Admin/alert/postinsert/'.$id_khuVuc)}}" enctype="multipart/form-data">
 			@csrf
 			<label>Name</label>
 			<input type="text" name="name_alert" placeholder="name_alert" required class="form-control">
@@ -26,7 +26,7 @@
 			<br>
 			<input type="submit"  value="Insert" class="btn btn-primary">
 		</form>
-		<a href="{{URL::to('Admin/alert/'.$id_khu_vuc)}}" >back</a>
+		<a href="{{URL::to('Admin/alert/'.$id_khuVuc)}}" >back</a>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

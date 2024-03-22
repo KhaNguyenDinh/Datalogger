@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class khuvuc extends Model
+class khuVuc extends Model
 {
    	public $timestamps = true;
     protected $keyType = 'string';
-    protected $table = 'khuvuc';
+    protected $table = 'khuVuc';
     protected $dispatchesEvents = [
-        'created' => \App\Events\khuvucCreated::class,
+        'created' => \App\Events\KhuVucCreated::class,
     ];
-    protected $fillable = ['id_khu_vuc','id_nha_may','name_khu_vuc','folder_txt','type','loai','link_map'];
-    protected $primaryKey = 'id_khu_vuc';
+    protected $fillable = ['id_khuVuc','id_nhaMay','name_khuVuc','folder_TXT','type','Loai','link_map'];
+    protected $primaryKey = 'id_khuVuc';
 }
 ?>

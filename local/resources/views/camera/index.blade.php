@@ -2,9 +2,9 @@
 @section('title','index')
 @section('action')
 
-<center><h1><a href="{{URL::to('Admin/khuvuc/'.$id_nha_may)}}"> Of : {{$name}}</a></h1></center>
+<center><h1><a href="{{URL::to('Admin/khuVuc/'.$id_nhaMay)}}"> Of : {{$name}}</a></h1></center>
 
-<a href="{{URL::to('Admin/camera/insert/'.$id_khu_vuc)}}" class="btn btn-primary">insert</a>
+<a href="{{URL::to('Admin/camera/insert/'.$id_khuVuc)}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
