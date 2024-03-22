@@ -140,9 +140,11 @@ parentElement.appendChild(parentDiv);
 .graph{
   background: white;
 }
-#parentDivId{
+#parentDivId , #myfirstchart{
   position: relative;
   z-index: 100;
+  display: flex;
+  justify-content: center;
 }
 #show_icon{
   border-radius: 5px;
