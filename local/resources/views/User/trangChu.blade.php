@@ -31,9 +31,9 @@
     background-color: #ffdf7e;
 }
 </style>
-			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Trong ngưỡng</span><br>
-			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Vượt ngưỡng NM </span><br>
-			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng QCVN40</span><br>
+			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Bình thường</span><br>
+			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Chuẩn bị vượt ngưỡng</span><br>
+			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng xả thải</span><br>
 			<i class="a" style="background: <?=$color_connect ?>">---</i><span> {{$total_error_connect}} Mất tín hiệu</span><br>
 		</div>
 		<div class="col-sm-6">
@@ -81,11 +81,11 @@
 				</td>
 				<td>
 					@if($value['TrangThai']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i> Trong ngưỡng
+					<i class="a" style="background: <?=$color_great ?>">---</i> Bình thường
 					@elseif($value['TrangThai']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt
+					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt ngưỡng
 					@elseif($value['TrangThai']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng
+					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng xả thải
 					@endif
 				</td>
 				<td>
@@ -108,7 +108,7 @@
 		<a  href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">
 			<li class="nav-item" role="presentation">
 			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
-			  	{{$value['khuVucGetId']['name_khuVuc']}}
+			  	[ {{$value['khuVucGetId']['name_khuVuc']}} ]
 			  </button>
 			</li>
 		</a>
