@@ -5,8 +5,7 @@
 
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Dashboard</title>
+  <title>@yield('title')</title>
   <!-- Favicons -->
   <link href="{{asset('public/assets/img/favicon.png')}}" rel="icon">
   <link href="{{asset('public/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">

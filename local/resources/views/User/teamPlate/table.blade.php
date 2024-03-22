@@ -177,10 +177,11 @@ table,tr,th,td{
  }
 table {
   position: relative;
-  overflow-y:scroll;
-  overflow-x:scroll;
+  /*overflow-y:scroll;*/
+  /*overflow-x:scroll;*/
+  overflow: auto;
   display:block;
-  height: 450px;
+  max-height: 450px;
 }
 /*table::-webkit-scrollbar {
     display: none;

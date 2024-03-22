@@ -23,8 +23,13 @@ class khuvucCreated
 
         \Schema::create($tableName, function ($table) {
             $table->increments('id');
+<<<<<<< HEAD
             $table->integer('id_khu_vuc')->unsigned();
             $table->foreign('id_khu_vuc')->references('id_khu_vuc')->on('khuvuc')->onDelete('cascade');
+=======
+            $table->integer('id_khuVuc')->unsigned();
+            $table->foreign('id_khuVuc')->references('id_khuVuc')->on('khuVuc')->onDelete('cascade');
+>>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
             $table->dateTime('time');
             $table->json('data');
         });

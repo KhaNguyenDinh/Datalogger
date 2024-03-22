@@ -1,5 +1,5 @@
 @extends('User')
-@section('title','trangChu')
+@section('title','Trang chủ')
 @section('content')
 <?php
 	$nhamayGetId = $results['nhamayGetId'];
@@ -31,9 +31,9 @@
     background-color: #ffdf7e;
 }
 </style>
-			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Trong ngưỡng</span><br>
-			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Vượt ngưỡng NM </span><br>
-			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng QCVN40</span><br>
+			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Bình thường</span><br>
+			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Chuẩn bị vượt ngưỡng</span><br>
+			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng xả thải</span><br>
 			<i class="a" style="background: <?=$color_connect ?>">---</i><span> {{$total_error_connect}} Mất tín hiệu</span><br>
 		</div>
 		<div class="col-sm-6">
@@ -81,11 +81,11 @@
 				</td>
 				<td>
 					@if($value['TrangThai']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i> Trong ngưỡng
+					<i class="a" style="background: <?=$color_great ?>">---</i> Bình thường
 					@elseif($value['TrangThai']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt
+					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt ngưỡng
 					@elseif($value['TrangThai']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng
+					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng xả thải
 					@endif
 				</td>
 				<td>
@@ -107,8 +107,13 @@
 		@foreach ($result_khuvuc as $key => $value)
 		<a  href="{{URL::to('User/'.$nhamayGetId->id_nha_may.'/'.$key)}}">
 			<li class="nav-item" role="presentation">
+<<<<<<< HEAD
 			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhamayGetId->id_nha_may.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
 			  	[ {{$value['khuvucGetId']['name_khu_vuc']}} ]
+=======
+			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
+			  	[ {{$value['khuVucGetId']['name_khuVuc']}} ]
+>>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
 			  </button>
 			</li>
 		</a>

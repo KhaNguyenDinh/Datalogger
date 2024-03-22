@@ -39,18 +39,35 @@ class cameraController extends Controller
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
+<<<<<<< HEAD
 	    	$insert = new camera();
 	    	$insert->id_khu_vuc = $id_khu_vuc;
 	    	$insert->name_camera = $request->name_camera;
 	    	$insert->link_rtsp = $request->link_rtsp;
+=======
+            $check = camera::where('name_camera',$request->name_camera)->first();
+            if (!$check) {
+                $insert = new camera();
+                $insert->id_khuVuc = $id_khuVuc;
+                $insert->name_camera = $request->name_camera;
+                $insert->link_rtsp = $request->link_rtsp;
+>>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
 
-            $this->cameraService->create([
-                'name' => $request->name_camera,
-                'link' => $request->link_rtsp
-            ]);
+                $this->cameraService->create([
+                    'name' => $request->name_camera,
+                    'link' => $request->link_rtsp
+                ]);
 
+<<<<<<< HEAD
 	    	$insert->save();
 	    	return Redirect::to('Admin/camera/'.$id_khu_vuc);
+=======
+                $insert->save();
+            }else{
+                return response()->json(['success'=>$request->name.' path/ path_new dang ton tai']);
+            }
+	    	return Redirect::to('Admin/camera/'.$id_khuVuc);
+>>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
         }
     }
     public function update($id_camera){
@@ -69,18 +86,29 @@ class cameraController extends Controller
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$update = camera::query()->where('id_camera', $id_camera)->firstOrFail();
+            $check = camera::where('name_camera',$request->name_camera)->where('id_camera','!=',$id_camera)->first();
+            if (!$check) {
+                $update = camera::query()->where('id_camera', $id_camera)->firstOrFail();
 
-            $this->cameraService->update($update->name_camera, [
-                'name' => $request->name_camera,
-                'link' => $request->link_rtsp
-            ]);
+                $this->cameraService->update($update->name_camera, [
+                    'name' => $request->name_camera,
+                    'link' => $request->link_rtsp
+                ]);
 
-            $update->name_camera = $request->name_camera;
-            $update->link_rtsp = $request->link_rtsp;
+                $update->name_camera = $request->name_camera;
+                $update->link_rtsp = $request->link_rtsp;
 
+                $update->save();
+            }else{
+                return response()->json(['success'=>$request->name.' path/ path_new dang ton tai']);
+            }
+
+<<<<<<< HEAD
 	    	$update->save();
 	    	return Redirect::to('Admin/camera/'.$request->id_khu_vuc);
+=======
+	    	return Redirect::to('Admin/camera/'.$request->id_khuVuc);
+>>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
         }
     }
     public function delete($id_camera){

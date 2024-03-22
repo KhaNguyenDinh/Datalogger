@@ -26,10 +26,17 @@
 		<td>{{$value->name_khu_vuc}}</td>
 		<td>{{$value->folder_txt}}</td>
 		<td>{{$value->type}}</td>
+<<<<<<< HEAD
 		<td>{{$value->loai}}</td>
 		<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
 		<td><a href="{{URL::to('Admin/camera/'.$value->id_khu_vuc)}}">show</a></td>
 		<td><a href="{{URL::to('Admin/alert/'.$value->id_khu_vuc)}}">show</a></td>
+=======
+		<td>{{$value->Loai}}</td>
+		<td class="map">{{$value->link_map}}</td>
+		<td><a href="{{URL::to('Admin/camera/'.$value->id_khuVuc)}}">show</a></td>
+		<td><a href="{{URL::to('Admin/alert/'.$value->id_khuVuc)}}">show</a></td>
+>>>>>>> 055ea115722d8d62f9cb442bf39246714ebc4cd0
 		<td>
 			<a href="{{URL::to('Admin/khuvuc/update/'.$value->id_khu_vuc)}}" class="btn btn-primary">update</a>
 			<a href="{{URL::to('Admin/khuvuc/delete/'.$value->id_khu_vuc)}}" class="btn btn-danger"
@@ -92,3 +99,11 @@
 @endforeach
 <!-- /// -->
 @stop()
+<style type="text/css">
+.map {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>

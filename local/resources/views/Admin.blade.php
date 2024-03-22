@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>blog</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" type="text/css" href="{{asset('public/bootstrap.min.css')}}">
     <script src="{{asset('public/bootstrap.min.js')}}"></script>
     <script src="{{asset('public/jquery.min.js')}}"></script>

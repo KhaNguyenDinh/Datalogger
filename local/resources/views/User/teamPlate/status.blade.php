@@ -2,9 +2,9 @@
   <i class="status" style="background: green"></i> Norm 
   <i class="status" style="background: #ff8400"></i> Calib  
   <i class="status" style="background: red"></i> Error 
-  <i class="background" style="background: white"></i> Hoạt động tốt 
-  <i class="background" style="background: #ff8400"></i> Vượt tiêu chuẩn nhà máy
-  <i class="background" style="background: red"></i> Vượt tiêu chuẩn QCVN40 
+  <i class="background" style="background: white"></i> Bình thường
+  <i class="background" style="background: #ff8400"></i> Chuẩn bị vượt ngưỡng
+  <i class="background" style="background: red"></i> Vượt ngưỡng xả thải
   
 </div>
 <style type="text/css">
