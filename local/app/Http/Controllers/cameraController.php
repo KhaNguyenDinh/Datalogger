@@ -39,17 +39,22 @@ class cameraController extends Controller
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$insert = new camera();
-	    	$insert->id_khuVuc = $id_khuVuc;
-	    	$insert->name_camera = $request->name_camera;
-	    	$insert->link_rtsp = $request->link_rtsp;
+            $check = camera::where('name_camera',$request->name_camera)->first();
+            if (!$check) {
+                $insert = new camera();
+                $insert->id_khuVuc = $id_khuVuc;
+                $insert->name_camera = $request->name_camera;
+                $insert->link_rtsp = $request->link_rtsp;
 
-            $this->cameraService->create([
-                'name' => $request->name_camera,
-                'link' => $request->link_rtsp
-            ]);
+                $this->cameraService->create([
+                    'name' => $request->name_camera,
+                    'link' => $request->link_rtsp
+                ]);
 
-	    	$insert->save();
+                $insert->save();
+            }else{
+                return response()->json(['success'=>$request->name.' path/ path_new dang ton tai']);
+            }
 	    	return Redirect::to('Admin/camera/'.$id_khuVuc);
         }
     }
@@ -69,17 +74,23 @@ class cameraController extends Controller
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$update = camera::query()->where('id_camera', $id_camera)->firstOrFail();
+            $check = camera::where('name_camera',$request->name_camera)->where('id_camera','!=',$id_camera)->first();
+            if (!$check) {
+                $update = camera::query()->where('id_camera', $id_camera)->firstOrFail();
 
-            $this->cameraService->update($update->name_camera, [
-                'name' => $request->name_camera,
-                'link' => $request->link_rtsp
-            ]);
+                $this->cameraService->update($update->name_camera, [
+                    'name' => $request->name_camera,
+                    'link' => $request->link_rtsp
+                ]);
 
-            $update->name_camera = $request->name_camera;
-            $update->link_rtsp = $request->link_rtsp;
+                $update->name_camera = $request->name_camera;
+                $update->link_rtsp = $request->link_rtsp;
 
-	    	$update->save();
+                $update->save();
+            }else{
+                return response()->json(['success'=>$request->name.' path/ path_new dang ton tai']);
+            }
+
 	    	return Redirect::to('Admin/camera/'.$request->id_khuVuc);
         }
     }
