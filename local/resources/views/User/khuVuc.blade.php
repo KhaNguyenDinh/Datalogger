@@ -1,5 +1,5 @@
 @extends('User')
-@section('title','table')
+@section('title',$action)
 @section('content')
 
 <?php

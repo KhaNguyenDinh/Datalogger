@@ -1,5 +1,5 @@
 @extends('User')
-@section('title','trangChu')
+@section('title','Trang chủ')
 @section('content')
 <?php
 	$nhaMayGetId = $results['nhaMayGetId'];
