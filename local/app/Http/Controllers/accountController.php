@@ -18,6 +18,7 @@ class accountController extends Controller
        return Redirect::to('/');
     }
     public function login(Request $request){
+ 
         $check = account::where('level','Master')->first();
         if (!$check) {
             $idnhamayRandom = nhamay::inRandomOrder()->value('id_nha_may');
