@@ -92,3 +92,11 @@
 @endforeach
 <!-- /// -->
 @stop()
+<style type="text/css">
+td {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>
