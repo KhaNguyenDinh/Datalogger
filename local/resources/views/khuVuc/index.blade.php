@@ -27,7 +27,7 @@
 		<td>{{$value->folder_TXT}}</td>
 		<td>{{$value->type}}</td>
 		<td>{{$value->Loai}}</td>
-		<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
+		<td class="map">{{$value->link_map}}</td>
 		<td><a href="{{URL::to('Admin/camera/'.$value->id_khuVuc)}}">show</a></td>
 		<td><a href="{{URL::to('Admin/alert/'.$value->id_khuVuc)}}">show</a></td>
 		<td>
@@ -93,7 +93,7 @@
 <!-- /// -->
 @stop()
 <style type="text/css">
-td {
+.map {
     max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
