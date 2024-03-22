@@ -25,8 +25,8 @@ class KhuVucCreated
             $table->increments('id');
             $table->integer('id_khuVuc')->unsigned();
             $table->foreign('id_khuVuc')->references('id_khuVuc')->on('khuVuc')->onDelete('cascade');
-            $table->dateTime('time')->unique();
-            $table->json('data')->unique();
+            $table->dateTime('time');
+            $table->json('data');
         });
     }
 
