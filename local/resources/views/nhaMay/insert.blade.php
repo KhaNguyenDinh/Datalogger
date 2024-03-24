@@ -9,7 +9,7 @@
 		<form method="post" action="{{URL::to('Admin/nhaMay/postinsert')}}" enctype="multipart/form-data">
 			@csrf
 			<label>Nha May</label>
-			<input type="text" name="name_nhaMay" placeholder="name_nhaMay" required class="form-control">
+			<input type="text" name="name_nha_may" placeholder="name_nhaMay" required class="form-control">
 			<br>
 			<input type="submit"  value="Insert"class="btn btn-primary">
 		</form>

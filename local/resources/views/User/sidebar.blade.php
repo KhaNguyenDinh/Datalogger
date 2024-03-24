@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/0')}}">
+        <a class="nav-link " href="{{URL::to('User/'.$nhaMayGetId->id_nha_may.'/0')}}">
           <i class="bi bi-grid"></i>
           <span>Trang chủ</span>
         </a>
@@ -16,7 +16,7 @@
         </a>
         <ul id="Tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Tables')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khu_vuc.'/Tables')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khu_vuc}}</span></a></li>
           @endforeach
         </ul>
       </li><!-- End Tables Nav -->
@@ -27,7 +27,7 @@
         </a>
         <ul id="Alert-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Alert')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khu_vuc.'/Alert')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khu_vuc}}</span></a></li>
           @endforeach
         </ul>
       </li><!-- End Tables Nav -->
@@ -38,7 +38,7 @@
         </a>
         <ul id="Charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         	@foreach ($khuVuc as $key => $value)
-    			<li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Charts')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+    			<li><a href="{{URL::to('User/khuVuc/'.$value->id_khu_vuc.'/Charts')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khu_vuc}}</span></a></li>
     			@endforeach
         </ul>
       </li><!-- End Tables Nav -->
@@ -49,7 +49,7 @@
         </a>
         <ul id="Camera-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/Camera')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khu_vuc.'/Camera')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khu_vuc}}</span></a></li>
           @endforeach
         </ul>
       </li><!-- End Tables Nav -->
@@ -60,7 +60,7 @@
         </a>
         <ul id="map-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
-          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khuVuc.'/map')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khuVuc}}</span></a></li>
+          <li><a href="{{URL::to('User/khuVuc/'.$value->id_khu_vuc.'/map')}}"><i class="bi bi-bar-chart"></i><span>{{$value->name_khu_vuc}}</span></a></li>
           @endforeach
         </ul>
       </li><!-- End Tables Nav -->

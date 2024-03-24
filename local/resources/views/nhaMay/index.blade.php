@@ -13,12 +13,12 @@
 @foreach ($data as $key => $value)
 		<tr>
 			<td>{{$key}}</td>
-			<td>{{$value->name_nhaMay}}</td>
-			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nhaMay)}}">Show</a></td>
+			<td>{{$value->name_nha_may}}</td>
+			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nha_may)}}">Show</a></td>
 			</td>
 			<td>
-				<a href="{{URL::to('Admin/nhaMay/update/'.$value->id_nhaMay)}}" class="btn btn-primary">update</a>
-				<a href="{{URL::to('Admin/nhaMay/delete/'.$value->id_nhaMay)}}" class="btn btn-danger"
+				<a href="{{URL::to('Admin/nhaMay/update/'.$value->id_nha_may)}}" class="btn btn-primary">update</a>
+				<a href="{{URL::to('Admin/nhaMay/delete/'.$value->id_nha_may)}}" class="btn btn-danger"
 					onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">delete</a>
 			</td>
 		</tr>

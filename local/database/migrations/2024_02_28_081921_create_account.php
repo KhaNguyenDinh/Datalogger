@@ -15,8 +15,8 @@ class CreateAccount extends Migration
     {
         Schema::create('account', function (Blueprint $table) {
             $table->increments('id_account');
-            $table->integer('id_nhaMay')->unsigned();
-            $table->foreign('id_nhaMay')->references('id_nhaMay')->on('nhaMay')->onDelete('cascade');
+            $table->integer('id_nha_may')->unsigned();
+            $table->foreign('id_nha_may')->references('id_nha_may')->on('nhaMay')->onDelete('cascade');
             $table->string('name_account');
             $table->string('pass_account');
             $table->string('level');

@@ -18,17 +18,17 @@ class cameraController extends Controller
         $this->cameraService = $cameraService;
     }
 
-    public function index($id_khuVuc){
-    	$khuVuc = khuVuc::find($id_khuVuc);
-    	$name = $khuVuc->name_khuVuc;
-    	$id_nhaMay = $khuVuc->id_nhaMay;
-	    $data = camera::where('id_khuVuc', $id_khuVuc)->orderBy('id_camera')->get();
-	    return view('camera.index', compact('data', 'id_khuVuc', 'id_nhaMay' ,'name'));
+    public function index($id_khu_vuc){
+    	$khuVuc = khuVuc::find($id_khu_vuc);
+    	$name = $khuVuc->name_khu_vuc;
+    	$id_nha_may = $khuVuc->id_nha_may;
+	    $data = camera::where('id_khu_vuc', $id_khu_vuc)->orderBy('id_camera')->get();
+	    return view('camera.index', compact('data', 'id_khu_vuc', 'id_nha_may' ,'name'));
     }
-    public function insert($id_khuVuc){
-    	return view('camera.insert', compact('id_khuVuc'));
+    public function insert($id_khu_vuc){
+    	return view('camera.insert', compact('id_khu_vuc'));
     }
-    public function postinsert(Request $request, $id_khuVuc){
+    public function postinsert(Request $request, $id_khu_vuc){
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -40,7 +40,7 @@ class cameraController extends Controller
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
 	    	$insert = new camera();
-	    	$insert->id_khuVuc = $id_khuVuc;
+	    	$insert->id_khu_vuc = $id_khu_vuc;
 	    	$insert->name_camera = $request->name_camera;
 	    	$insert->link_rtsp = $request->link_rtsp;
 
@@ -50,7 +50,7 @@ class cameraController extends Controller
             ]);
 
 	    	$insert->save();
-	    	return Redirect::to('Admin/camera/'.$id_khuVuc);
+	    	return Redirect::to('Admin/camera/'.$id_khu_vuc);
         }
     }
     public function update($id_camera){
@@ -61,7 +61,7 @@ class cameraController extends Controller
 		$validator = Validator::make(
 		    $request->all(),
 		    [
-		    	'id_khuVuc' => 'required',
+		    	'id_khu_vuc' => 'required',
 		        'name_camera' => 'required|min:1|max:100', // Đặt tên của trường và cung cấp quy tắc kiểm tra
 		        'link_rtsp' => 'required'
 		    ]
@@ -80,7 +80,7 @@ class cameraController extends Controller
             $update->link_rtsp = $request->link_rtsp;
 
 	    	$update->save();
-	    	return Redirect::to('Admin/camera/'.$request->id_khuVuc);
+	    	return Redirect::to('Admin/camera/'.$request->id_khu_vuc);
         }
     }
     public function delete($id_camera){

@@ -10,13 +10,13 @@ use App\account;
 
 class nhaMayController extends Controller
 {
-    public function show(Request $request, $id_nhaMay){
+    public function show(Request $request, $id_nha_may){
         $nhaMay = nhaMay::all();
-        return view('show.index')->with(compact('nhaMay','id_nhaMay'));
+        return view('show')->with(compact('nhaMay','id_nha_may'));
     }
     public function index(){
     	$data = nhaMay::all();
-    	$nhaMay = nhaMay::orderby('id_nhaMay')->get();
+    	$nhaMay = nhaMay::orderby('id_nha_may')->get();
     	return view('nhaMay.index')->with(compact('data','nhaMay'));
     }
     public function insert(){
@@ -25,15 +25,15 @@ class nhaMayController extends Controller
     public function postinsert(Request $request){
     	$validator = Validator::make(
 		    $request->all(),
-		    ['name_nhaMay' => 'required|min:1|max:100'],
+		    ['name_nha_may' => 'required|min:1|max:100'],
     	);
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$count = nhaMay::where('name_nhaMay',$request->name_nhaMay)->count();
+	    	$count = nhaMay::where('name_nha_may',$request->name_nha_may)->count();
 	    	if ($count==0) {
 		    	$insert = new nhaMay();
-		    	$insert->name_nhaMay = $request->name_nhaMay;
+		    	$insert->name_nha_may = $request->name_nha_may;
 		    	$insert->save();
 		    	return Redirect::to('Admin/nhaMay');
 	    	}else{
@@ -41,22 +41,22 @@ class nhaMayController extends Controller
 	    	}
         }
     }
-    public function update($id_nhaMay){
-    	$data = nhaMay::find($id_nhaMay);
+    public function update($id_nha_may){
+    	$data = nhaMay::find($id_nha_may);
     	return view('nhaMay.update')->with(compact('data'));
     }
-    public function postupdate(Request $request, $id_nhaMay){
+    public function postupdate(Request $request, $id_nha_may){
     	$validator = Validator::make(
 		    $request->all(),
-		    ['name_nhaMay' => 'required|min:1|max:100'],
+		    ['name_nha_may' => 'required|min:1|max:100'],
     	);
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$count = nhaMay::where('name_nhaMay',$request->name_nhaMay)->where('id_nhaMay','!=',$id_nhaMay)->count();
+	    	$count = nhaMay::where('name_nha_may',$request->name_nha_may)->where('id_nha_may','!=',$id_nha_may)->count();
 	    	if ($count==0) {
-		    	$update = nhaMay::find($id_nhaMay);
-		    	$update->name_nhaMay = $request->name_nhaMay;
+		    	$update = nhaMay::find($id_nha_may);
+		    	$update->name_nha_may = $request->name_nha_may;
 		    	$update->save();
 		    	return Redirect::to('Admin/nhaMay');
 	    	}else{
@@ -64,8 +64,8 @@ class nhaMayController extends Controller
 	    	}
         }
     }
-    public function delete($id_nhaMay){
-    	$data = nhaMay::find($id_nhaMay);
+    public function delete($id_nha_may){
+    	$data = nhaMay::find($id_nha_may);
     	$data->delete();
         return Redirect()->back()->withInput();
     }

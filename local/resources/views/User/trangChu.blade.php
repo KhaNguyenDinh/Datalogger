@@ -67,8 +67,8 @@
 			@foreach ($result_khuVuc as $key => $value)
 			<tr>
 				<td>{{$key+1}}</td>
-				<td>{{$value['khuVucGetId']['name_khuVuc']}}</td>
-<!-- 				<td>{{$nhaMayGetId->name_nhaMay}}</td> -->
+				<td>{{$value['khuVucGetId']['name_khu_vuc']}}</td>
+<!-- 				<td>{{$nhaMayGetId->name_nha_may}}</td> -->
 				<td>{{$value['khuVucGetId']['Loai']}}</td>
 				<td>
 					@if($value['status']=='norm')
@@ -105,10 +105,10 @@
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
 		@foreach ($result_khuVuc as $key => $value)
-		<a  href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}">
+		<a  href="{{URL::to('User/'.$nhaMayGetId->id_nha_may.'/'.$key)}}">
 			<li class="nav-item" role="presentation">
-			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nhaMay.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
-			  	{{$value['khuVucGetId']['name_khuVuc']}}
+			  <button class="nav-link <?php if($key==$key_view){echo'active';} ?> " href="{{URL::to('User/'.$nhaMayGetId->id_nha_may.'/'.$key)}}" id="home-tab" data-bs-toggle="tab" type="button" role="tab" aria-controls="home" aria-selected="true">
+			  	{{$value['khuVucGetId']['name_khu_vuc']}}
 			  </button>
 			</li>
 		</a>

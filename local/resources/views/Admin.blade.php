@@ -9,8 +9,8 @@
 <tbody>
 
 <div class="col-sm-12">
-	<nav class="navbar navbar-inverse">
-	  <ul class="nav navbar-nav">
+	<!-- <nav class="navbar navbar-inverse"> -->
+	  <ul class="nav nav-tabs">
 	  	@if(session('level')=='Master')
 	    <li><a href="{{URL::to('Admin/nhaMay')}}">nhaMay</a></li>
 	    <li><a href="{{URL::to('Admin/account')}}">account</a></li>
@@ -19,8 +19,9 @@
 	    <li><a href="{{URL::to('Admin/show/0')}}">Show</a></li>
 	    <li><a href="{{URL::to('logout')}}">logout</a></li>
 	  </ul>
-	</nav>
+	<!-- </nav> -->
 </div>
+<br>
 <div class="col-sm-12">@yield('action')</div>
 </body>
 </html>

@@ -14,13 +14,13 @@ class CreateKhuVuc extends Migration
     public function up()
     {
         Schema::create('khuVuc', function (Blueprint $table) {
-            $table->increments('id_khuVuc');
-            $table->integer('id_nhaMay')->unsigned();
-            $table->foreign('id_nhaMay')->references('id_nhaMay')->on('nhaMay')->onDelete('cascade');
-            $table->string('name_khuVuc');
-            $table->string('folder_TXT');
+            $table->increments('id_khu_vuc');
+            $table->integer('id_nha_may')->unsigned();
+            $table->foreign('id_nha_may')->references('id_nha_may')->on('nhaMay')->onDelete('cascade');
+            $table->string('name_khu_vuc');
+            $table->string('folder_txt');
             $table->string('type');
-            $table->string('Loai');
+            $table->string('loai');
             $table->longText('link_map');
             $table->timestamps();
         });

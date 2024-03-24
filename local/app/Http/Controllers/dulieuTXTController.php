@@ -26,14 +26,14 @@ class dulieuTXTController extends Controller
     public function resetTxt(){
     	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {
-    		$count = DB::table($khuVuc->folder_TXT)->count();
+    		$count = DB::table($khuVuc->folder_txt)->count();
     		if ($count>25920) {
-    			DB::table($khuVuc->folder_TXT)
+    			DB::table($khuVuc->folder_txt)
 			    ->orderByDesc('time')
 			    ->skip(25920) // Bỏ qua 25920 bản ghi đầu tiên (3 tháng)
 			    ->pluck('time')
 			    ->each(function ($time) use ($khuVuc) {
-			        DB::table($khuVuc->folder_TXT)
+			        DB::table($khuVuc->folder_txt)
 			            ->where('time', $time)
 			            ->delete();
 			    });
@@ -41,23 +41,23 @@ class dulieuTXTController extends Controller
     	}
     	return Redirect()->back()->withInput();
     }
-	public function showTrangChu($id_nhaMay,$key_view){
+	public function showTrangChu($id_nha_may,$key_view){
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
 		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
 		////////////////////////////
-		$nhaMayGetId = nhaMay::find($id_nhaMay);
-		$khuVuc = khuVuc::where('id_nhaMay', $id_nhaMay)->orderBy('id_khuVuc')->get();
+		$nhaMayGetId = nhaMay::find($id_nha_may);
+		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
 
 		$results = [];
 		$result_khuVuc=[];
 		$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;
 
 		foreach ($khuVuc as $key => $value) {
-			$alert =alert::where('id_khuVuc', $value->id_khuVuc)->get();
-			$newTxt = DB::table($value->folder_TXT)
+			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
+			$newTxt = DB::table($value->folder_txt)
                 ->orderByDesc('time')->first();
-            $txt = DB::table($value->folder_TXT)
+            $txt = DB::table($value->folder_txt)
                 ->orderByDesc('time')->limit(12)->get();
             if (count($txt)>0) {
 	            $time =  $newTxt->time;
@@ -112,21 +112,21 @@ class dulieuTXTController extends Controller
 			////////////////////////////////
 		return view('User.trangChu', compact('results','key_view'));
 	}
-	public function dataKhuVuc($id_khuVuc, $startTime, $endTime){
-		$khuVucGetId = khuVuc::find($id_khuVuc);
-		$nhaMayGetId = nhaMay::find($khuVucGetId['id_nhaMay']);
-		$khuVuc = khuVuc::where('id_nhaMay',$khuVucGetId['id_nhaMay'])->get();
-		$alert = alert::where('id_khuVuc',$id_khuVuc)->get();
-		$camera = camera::where('id_khuVuc',$id_khuVuc)->get();
+	public function dataKhuVuc($id_khu_vuc, $startTime, $endTime){
+		$khuVucGetId = khuVuc::find($id_khu_vuc);
+		$nhaMayGetId = nhaMay::find($khuVucGetId['id_nha_may']);
+		$khuVuc = khuVuc::where('id_nha_may',$khuVucGetId['id_nha_may'])->get();
+		$alert = alert::where('id_khu_vuc',$id_khu_vuc)->get();
+		$camera = camera::where('id_khu_vuc',$id_khu_vuc)->get();
 		$results = []; $result_khuVuc = [];
 
 		if ($startTime=="NO" || $endTime=="NO") {
-			$txt = DB::table($khuVucGetId['folder_TXT'])
+			$txt = DB::table($khuVucGetId['folder_txt'])
                 ->orderByDesc('time')
                 ->limit(12)
                 ->get();
 		}else{
-			$txt = DB::table($khuVucGetId['folder_TXT'])
+			$txt = DB::table($khuVucGetId['folder_txt'])
                 ->orderByDesc('time')
                 ->whereBetween('time', [$startTime, $endTime])
                 ->get();
@@ -136,9 +136,9 @@ class dulieuTXTController extends Controller
 
 	    return $results;
 	}
-	public function showKhuVuc(Request $request,$id_khuVuc,$action){
+	public function showKhuVuc(Request $request,$id_khu_vuc,$action){
 		$show_Alert='';
-		$results = $this->dataKhuVuc($id_khuVuc,'NO','NO');
+		$results = $this->dataKhuVuc($id_khu_vuc,'NO','NO');
 		if ($action=='Alert') {
 			$result_txt = [];
 			$results['result_khuVuc'][0]['txt']=new Collection($result_txt);
@@ -146,7 +146,7 @@ class dulieuTXTController extends Controller
 		return view('User.khuVuc', compact('results','action','show_Alert',));
 	}
 
-	public function postShowKhuVuc(Request $request, $id_khuVuc,$action){
+	public function postShowKhuVuc(Request $request, $id_khu_vuc,$action){
 		$validator = Validator::make(
 		    $request->all(),
 		    [
@@ -162,7 +162,7 @@ class dulieuTXTController extends Controller
         }else{
         	$startTime = $request->startTime;
         	$endTime = $request->endTime;
-        	$results = $this->dataKhuVuc($id_khuVuc,$startTime,$endTime);
+        	$results = $this->dataKhuVuc($id_khu_vuc,$startTime,$endTime);
         	
 
         	if ($action=='Alert') {

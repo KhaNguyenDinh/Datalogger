@@ -5,7 +5,7 @@
 <?php
 	$nhaMayGetId = $results['nhaMayGetId'];
 	$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId'];
-	$id_khuVuc = $khuVucGetId['id_khuVuc'];
+	$id_khu_vuc = $khuVucGetId['id_khu_vuc'];
 
 	$camera = $results['camera'];
 	$alert = $results['result_khuVuc'][0]['alert'];
@@ -14,7 +14,7 @@
 @if($action === 'Camera')
     <div class="col-sm-12">@include('User.teamPlate.camera')</div>
 @elseif($action=='map')
-<?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['name_khuVuc']; ?> <hr>
+<?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['name_khu_vuc']; ?> <hr>
 <?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['link_map']; ?> <hr>
 @else
 	@include('User.teamPlate.time')
@@ -31,5 +31,6 @@
 	@endif
 </div>
 @endif
+
 
 @stop()

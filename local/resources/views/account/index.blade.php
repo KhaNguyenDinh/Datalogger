@@ -15,7 +15,7 @@
 	<tr>
 		<td>{{$key}}</td>
 		<td>{{$value->name_account}}</td>
-		<td>{{$value->name_nhaMay}}</td>
+		<td>{{$value->name_nha_may}}</td>
 		<td>{{$value->level}}</td>
 		<td>
 			<a href="{{URL::to('Admin/account/update/'.$value->id_account)}}" class="btn btn-primary">update</a>

@@ -7,7 +7,7 @@
 	$result_khuVuc = $results['result_khuVuc'];
 ?>
 <center><h1>Of : {{$nhaMayGetId->name_nhaMay}}</h1></center>
-<a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nhaMay)}}" class="btn btn-primary">insert</a>
+<a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nha_may)}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
 		<th>STT</th>
@@ -23,16 +23,16 @@
 @foreach ($khuVuc as $key => $value)
 	<tr>
 		<td>{{$key}}</td>
-		<td>{{$value->name_khuVuc}}</td>
-		<td>{{$value->folder_TXT}}</td>
+		<td>{{$value->name_khu_vuc}}</td>
+		<td>{{$value->folder_txt}}</td>
 		<td>{{$value->type}}</td>
-		<td>{{$value->Loai}}</td>
+		<td>{{$value->loai}}</td>
 		<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
-		<td><a href="{{URL::to('Admin/camera/'.$value->id_khuVuc)}}">show</a></td>
-		<td><a href="{{URL::to('Admin/alert/'.$value->id_khuVuc)}}">show</a></td>
+		<td><a href="{{URL::to('Admin/camera/'.$value->id_khu_vuc)}}">show</a></td>
+		<td><a href="{{URL::to('Admin/alert/'.$value->id_khu_vuc)}}">show</a></td>
 		<td>
-			<a href="{{URL::to('Admin/khuVuc/update/'.$value->id_khuVuc)}}" class="btn btn-primary">update</a>
-			<a href="{{URL::to('Admin/khuVuc/delete/'.$value->id_khuVuc)}}" class="btn btn-danger"
+			<a href="{{URL::to('Admin/khuVuc/update/'.$value->id_khu_vuc)}}" class="btn btn-primary">update</a>
+			<a href="{{URL::to('Admin/khuVuc/delete/'.$value->id_khu_vuc)}}" class="btn btn-danger"
 				onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">delete</a>
 		</td>
 	</tr>

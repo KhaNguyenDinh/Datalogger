@@ -13,9 +13,9 @@
 			<label>password</label>
 			<input type="text" name="pass_account" value="{{$data->pass_account}}" required class="form-control">
 			<label>Nha May</label>
-			<select name="id_nhaMay" class="form-control">
+			<select name="id_nha_may" class="form-control">
 				@foreach ($nhaMay as $key => $value)
-				<option value="{{$value->id_nhaMay}}" <?php if($data->id_nhaMay==$value['id_nhaMay'] ){ echo 'selected';} ?> >{{$value->name_nhaMay}}</option>
+				<option value="{{$value->id_nha_may}}" <?php if($data->id_nha_may==$value['id_nha_may'] ){ echo 'selected';} ?> >{{$value->name_nha_may}}</option>
 				@endforeach
 			</select>
 			<label>level</label>
