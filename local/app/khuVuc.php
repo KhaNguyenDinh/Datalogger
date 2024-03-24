@@ -23,9 +23,12 @@ class khuVuc extends Model
         static::deleted(function ($khuVuc) {
             Schema::drop($khuVuc->folder_txt);
 
-            camera::query()
+            $listCamera = camera::query()
                 ->where('id_khu_vuc', $khuVuc->id)
-                ->delete();
+                ->get();
+            foreach ($listCamera as $item) {
+                $item->delete();
+            }
         });
     }
 }

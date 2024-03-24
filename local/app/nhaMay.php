@@ -17,9 +17,13 @@ class nhaMay extends Model
         parent::boot();
 
         static::deleted(function ($nhaMay) {
-            khuVuc::query()
+            $listKhuVuc = khuVuc::query()
                 ->where('id_nha_may', $nhaMay->id_nha_may)
-                ->delete();
+                ->get();
+
+            foreach ($listKhuVuc as $item) {
+                $item->delete();
+            }
         });
     }
 }
