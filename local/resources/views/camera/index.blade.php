@@ -16,7 +16,7 @@
 	<tr>
 		<td>{{$key}}</td>
 		<td>{{$value->name_camera}}</td>
-		<td>{{$value->link_rtsp}}</td>
+		<td class="link">{{$value->link_rtsp}}</td>
 		<td>
 			<a href="{{URL::to('Admin/camera/update/'.$value->id_camera)}}" class="btn btn-primary">update</a>
 			<a href="{{URL::to('Admin/camera/delete/'.$value->id_camera)}}" class="btn btn-danger" 

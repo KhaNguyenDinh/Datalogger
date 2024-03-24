@@ -26,3 +26,11 @@
 </body>
 </html>
 
+<style type="text/css">
+.link{
+	white-space: nowrap; /* ngăn ngừa ngắt dòng */
+	overflow: hidden;
+	text-overflow: ellipsis; /* thêm dấu ba chấm khi chuỗi quá dài */
+	max-width: 100px; /* độ rộng tối đa của ô */
+}
+</style>

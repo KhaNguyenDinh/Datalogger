@@ -6,7 +6,7 @@
 	$khuVuc = $results['khuVuc'];
 	$result_khuVuc = $results['result_khuVuc'];
 ?>
-<center><h1>Of : {{$nhaMayGetId->name_nhaMay}}</h1></center>
+<center><h1>Of : {{$nhaMayGetId->name_nha_may}}</h1></center>
 <a href="{{URL::to('Admin/khuVuc/insert/'.$nhaMayGetId->id_nha_may)}}" class="btn btn-primary">insert</a>
 <table class="table table-bordered">
 	<tr>
@@ -27,7 +27,7 @@
 		<td>{{$value->folder_txt}}</td>
 		<td>{{$value->type}}</td>
 		<td>{{$value->loai}}</td>
-		<td style="max-width: 20px; overflow: hidden; text-overflow: ellipsis;">{{$value->link_map}}</td>
+		<td class="link">{{$value->link_map}}</td>
 		<td><a href="{{URL::to('Admin/camera/'.$value->id_khu_vuc)}}">show</a></td>
 		<td><a href="{{URL::to('Admin/alert/'.$value->id_khu_vuc)}}">show</a></td>
 		<td>
@@ -86,7 +86,7 @@
 			</tr>
 		</table>
 	@else
-		<h2>{{$nhaMayGetId->name_nhaMay}} NO TXT</h2>
+		<h2 style="color: red">{{$nhaMayGetId->name_nha_may}} : NO TXT</h2>
 	@endif
 	<!-- /////////////// -->
 @endforeach
