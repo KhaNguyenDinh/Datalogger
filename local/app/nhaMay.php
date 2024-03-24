@@ -11,5 +11,16 @@ class nhaMay extends Model
     protected $table = 'nhaMay';
     protected $fillable = ['id_nha_may','name_nha_may'];
     protected $primaryKey = 'id_nha_may';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($nhaMay) {
+            khuVuc::query()
+                ->where('id_nha_may', $nhaMay->id_nha_may)
+                ->delete();
+        });
+    }
 }
 ?>

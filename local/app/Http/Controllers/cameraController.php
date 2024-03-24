@@ -2,6 +2,7 @@
 // ok
 namespace App\Http\Controllers;
 use App\Services\CameraService;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -85,7 +86,6 @@ class cameraController extends Controller
     }
     public function delete($id_camera){
     	$data = camera::query()->where('id_camera', $id_camera)->firstOrFail();
-        $this->cameraService->delete($data->name_camera);
     	$data->delete();
         return Redirect()->back()->withInput();
     }
