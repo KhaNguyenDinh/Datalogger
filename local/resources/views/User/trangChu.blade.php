@@ -69,7 +69,7 @@
 				<td>{{$key+1}}</td>
 				<td>{{$value['khuVucGetId']['name_khu_vuc']}}</td>
 <!-- 				<td>{{$nhaMayGetId->name_nha_may}}</td> -->
-				<td>{{$value['khuVucGetId']['Loai']}}</td>
+				<td>{{$value['khuVucGetId']['loai']}}</td>
 				<td>
 					@if($value['status']=='norm')
 					<i class="a" style="background: <?=$color_great ?>">---</i> Đang hoạt động
