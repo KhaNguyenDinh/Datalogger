@@ -24,7 +24,7 @@ class khuVuc extends Model
             Schema::drop($khuVuc->folder_txt);
 
             $listCamera = camera::query()
-                ->where('id_khu_vuc', $khuVuc->id)
+                ->where('id_khu_vuc', $khuVuc->id_khu_vuc)
                 ->get();
             foreach ($listCamera as $item) {
                 $item->delete();
