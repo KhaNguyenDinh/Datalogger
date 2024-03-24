@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="col-sm-6">
-		<table class="table table-bordered">
+		<table class="table table-bordered tbl">
 			<tr>
 				<th>STT</th>
 				<th>Trạm</th>
@@ -135,6 +135,18 @@
   border-radius: 50%;
   background: red;
 }
+.tbl {
+  position: relative;
+  overflow-y:scroll;
+  overflow-x:scroll;
+  display:block;
+  height: 300px;
+}
+th{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+ }
 </style>
 <script type="text/javascript">
 setTimeout(function(){
