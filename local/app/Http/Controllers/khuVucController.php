@@ -45,10 +45,10 @@ class khuVucController extends Controller
         if ($validator->fails()) {
         	return response()->json(['error'=>$validator->errors()->all()]);
         }else{
-	    	$count = khuVuc::where('name_khu_vuc',$request->name_khu_vuc)->where('id_nha_may',$id_nha_may)->count();
+	    	$count = khuVuc::where('name_khu_vuc',strtolower($request->name_khu_vuc) )->where('id_nha_may',$id_nha_may)->count();
 	    	if ($count==0) {
-				$folderPath = 'public/TXT/'.$request->folder_txt; // Đường dẫn tới thư mục cần kiểm tra
-				$folderPath_move = 'public/TXT_mov/'.$request->folder_txt;
+				$folderPath = 'public/TXT/'.strtolower($request->folder_txt); // Đường dẫn tới thư mục cần kiểm tra
+				$folderPath_move = 'public/TXT_mov/'.strtolower($request->folder_txt);
 				$path=0;$path_new=0;
 				if (!Storage::exists($folderPath)) { $path=1;}
 				if (!Storage::exists($folderPath_move)) { $path_new=1;}	
@@ -60,7 +60,7 @@ class khuVucController extends Controller
 			    	$insert = new khuVuc();
 			    	$insert->id_nha_may = $id_nha_may;
 			    	$insert->name_khu_vuc = $request->name_khu_vuc;
-			    	$insert->folder_txt = $request->folder_txt;
+			    	$insert->folder_txt = strtolower($request->folder_txt);
 			    	$insert->type = $request->type;
 			    	$insert->loai = $request->loai;
 			    	$insert->link_map = $request->link_map;

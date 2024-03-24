@@ -19,7 +19,7 @@ class KhuVucCreated
     public function __construct(KhuVuc $khuVuc)
     {
         $this->khuVuc = $khuVuc;
-        $tableName = str_replace(' ', '_', $khuVuc->folder_txt);
+        $tableName = str_replace(' ', '_', strtolower($khuVuc->folder_txt));
 
         \Schema::create($tableName, function ($table) {
             $table->increments('id');
