@@ -34,7 +34,7 @@ if ($alert) {
 		<td>{{$value->time}}</td>
 		@foreach($arrayData as $key1 => $value1)
 		<?php 
-		$TrangThai= "trongnguong";$status = "sttnorm";
+		$TrangThai= "trongnguong1";$status = "sttnorm";
 			if (array_key_exists($value1['name'], $list_alert)) {
 				$value2 = $list_alert[$value1['name']];
 
@@ -61,3 +61,9 @@ if ($alert) {
 	</tr>
 	@endforeach
 </table>
+
+<style type="text/css">
+.trongnguong1{
+	background-image: linear-gradient(white, #def7ea 0%, -225deg 100%);
+}
+</style>
