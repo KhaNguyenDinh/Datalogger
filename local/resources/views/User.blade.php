@@ -94,6 +94,7 @@ $tab = "__";
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  margin: 2px;
 } 
 *{
   font-family: Arial, sans-serif;

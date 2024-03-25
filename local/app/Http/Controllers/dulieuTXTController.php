@@ -16,6 +16,7 @@ use App\khuVuc;
 use App\alert;
 use App\camera;
 use App\account;
+use App\viTri;
 use DateTime;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -55,6 +56,7 @@ class dulieuTXTController extends Controller
 
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
+			$viTri = viTri::where('id_khu_vuc', $value->id_khu_vuc)->orderBy('vitri', 'asc')->get();
 			$newTxt = DB::table($value->folder_txt)
                 ->orderByDesc('time')->first();
             $txt = DB::table($value->folder_txt)
@@ -73,9 +75,6 @@ class dulieuTXTController extends Controller
 					$total_error_connect = $total_error_connect+1;
 				}
 				/////////////////////////////////////////////////////
-				$data = $newTxt->data;
-				$arrayData = json_decode($data, true);
-
 				$arrayData = json_decode($newTxt->data, true);
 				$TrangThai=$status = "norm";
 				$list_alert = [];
@@ -86,25 +85,35 @@ class dulieuTXTController extends Controller
 						}
 					}
 				}
-				foreach ($arrayData as $key1 => $value1) {
-					if (array_key_exists($value1['name'], $list_alert)) {
-						$value2 = $list_alert[$value1['name']];
+				$check_error="NO"; $check_alert = "NO";
+					if ($check_error=="NO") {
+					foreach ($arrayData as $key1 => $value1) {
+						if (array_key_exists($value1['name'], $list_alert)) {
+							$value2 = $list_alert[$value1['name']];
 
-						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-							$TrangThai="error";
-							$total_error=$total_error+1;
-						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-							$TrangThai="alert";
-							$total_alert=$total_alert+1;
+							if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+								$TrangThai="error";
+								if ($check_error=="NO") {
+									$total_error=$total_error+1;
+								}
+								$check_error="YES";
+							}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+								$TrangThai="alert";
+								if ($check_alert=="NO") {
+									$total_alert=$total_alert+1;
+								}
+								$check_alert="YES";
+							}
 						}
 					}
 				}
+
 				switch ($value1['status']) {
 					// case 0:$status = 'norm';break;
 					case 1:$status = 'alert';break;
 					case 2:$status = 'error';break;
 				}
-				array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
+				array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
 			}	
 		}
 

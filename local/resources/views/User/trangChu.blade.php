@@ -15,28 +15,36 @@
 ?>
 <div class="row">
 	<div class="col-sm-6">
-		<div class="col-sm-6">
+		<div class="col-sm-4" style="font-size:15px ">
 			<center>
 				<h3>Tổng số trạm</h3>
 				<div class="circle" style="font-size: 40px"><?=$total?></div>
 			</center>
 			
-<style type="text/css">
-.circle {
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    border-radius: 50%;
-    background-color: #ffdf7e;
-}
-</style>
-			<i class="a" style="background: <?=$color_great ?>">---</i><span> {{$great}} Trong ngưỡng</span><br>
-			<i class="a" style="background: <?=$color_alert ?>">---</i><span> {{$total_alert}} Vượt ngưỡng NM </span><br>
-			<i class="a" style="background: <?=$color_error ?>">---</i><span> {{$total_error}} Vượt ngưỡng QCVN40</span><br>
-			<i class="a" style="background: <?=$color_connect ?>">---</i><span> {{$total_error_connect}} Mất tín hiệu</span><br>
+			<style type="text/css">
+			.circle {
+			    width: 60px;
+			    height: 60px;
+			    line-height: 60px;
+			    text-align: center;
+			    border-radius: 50%;
+			    background-color: #ffdf7e;
+			}
+			.err_connect{
+				background-image: linear-gradient(-225deg, #def7ea 0%, gray 100%);
+			}
+			</style>
+			<i class="status sttnorm">---</i> Bình thường <br>
+			<i class="status sttcal">---</i> Hiệu chuẩn  <br>
+			<i class="status stterror">---</i> Lỗi thiết bị  <br>
+			<i class="trongnguong">{{$great}} : Trong ngưỡng</i><br>
+			<i class="chuanbi">{{$total_alert}} : Chuẩn bị vượt</i><br>
+			<i class="vuotnguong">{{$total_error}} : Vượt ngưỡng</i><br>
+			<i class="err_connect">{{$total_error_connect}} : Mất tín hiệu</i><br>
+
+		  
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-8">
 			<div id="donut-chart" style="height: 250px;"></div>
 			<script type="text/javascript">
 			Morris.Donut({
@@ -54,7 +62,7 @@
 	</div>
 
 	<div class="col-sm-6">
-		<table class="table table-bordered tbl">
+		<table class="table table-bordered tbl" style=" font-weight: bold;">
 			<tr>
 				<th>STT</th>
 				<th>Trạm</th>
@@ -72,27 +80,27 @@
 				<td>{{$value['khuVucGetId']['loai']}}</td>
 				<td>
 					@if($value['status']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i> Đang hoạt động
+					<i class="status sttnorm">---</i> Bình thường
 					@elseif($value['status']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i> Hiệu Chuẩn
+					<i class="status sttcal">---</i> Hiệu chuẩn
 					@elseif($value['status']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i> Thiết bị lỗi
+					<i class="status stterror">---</i> Lỗi thiết bị
 					@endif
 				</td>
 				<td>
 					@if($value['TrangThai']=='norm')
-					<i class="a" style="background: <?=$color_great ?>">---</i> Trong ngưỡng
+					<i class="trongnguong">Trong ngưỡng</i>
 					@elseif($value['TrangThai']=='alert')
-					<i class="a" style="background: <?=$color_alert ?>">---</i> Chuẩn bị vượt
+					<i class="chuanbi">Chuẩn bị vượt</i>
 					@elseif($value['TrangThai']=='error')
-					<i class="a" style="background: <?=$color_error ?>">---</i> Vượt ngưỡng
+					<i class="vuotnguong">Vượt ngưỡng</i>
 					@endif
 				</td>
 				<td>
 					@if($value['connect']=='')
-						<i class="a" style="background: green">---</i> Hoạt động tốt
+						<i class="trongnguong">Hoạt động tốt</i>
 					@else
-						<i class="a" style="background: <?=$color_connect ?>">---</i> {{$value['connect']}}
+						<i class="err_connect" >{{$value['connect']}}</i> 
 					@endif
 				</td>
 			</tr>
@@ -101,6 +109,7 @@
 		</table>
 	</div>
 </div>  <!-- end row1 -->
+
 
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
@@ -115,6 +124,18 @@
 		@endforeach
 	</ul>
 	<div class="tab-content pt-2">
+<!-- /////////// -->
+<div class="col-sm-12">
+<div style="font-size:30px ">
+	@include('User.teamPlate.status')
+	<span>TXT mới nhất : </span>
+	<span>{{$result_khuVuc[0]['newTxt']->time}}</span>
+	@if ($result_khuVuc[0]['connect']=='Mất tín hiệu')
+		<span style="color: red">{{$result_khuVuc[0]['connect']}}</span>
+	@endif
+	@include('User.teamPlate.view_newtxt')
+</div>
+<!-- /////////////////////////		 -->
 	  	@foreach ($result_khuVuc as $key => $value)
 	  		@if($key==$key_view)
 		    	<?php 

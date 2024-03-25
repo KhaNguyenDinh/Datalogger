@@ -12,7 +12,7 @@
 	</tr>
 @foreach ($data as $key => $value)
 		<tr>
-			<td>{{$key}}</td>
+			<td>{{$key+1}}</td>
 			<td>{{$value->name_nha_may}}</td>
 			<td><a href="{{URL::to('Admin/khuVuc/'.$value->id_nha_may)}}">Show</a></td>
 			</td>

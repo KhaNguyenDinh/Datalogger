@@ -34,40 +34,30 @@ if ($alert) {
 		<td>{{$value->time}}</td>
 		@foreach($arrayData as $key1 => $value1)
 		<?php 
-			$status = 'green'; $background='white';
+		$TrangThai= "trongnguong";$status = "sttnorm";
 			if (array_key_exists($value1['name'], $list_alert)) {
 				$value2 = $list_alert[$value1['name']];
 
 					if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-						$background = 'red';
+						$TrangThai="vuotnguong";
 					}
 					if(($value1['number'] >$value2['minmin'] && $value1['number'] < $value2['min'] )
 							||($value1['number'] >$value2['max'] && $value1['number'] < $value2['maxmax'])){ 
-						$background = '#ff8400'; 
+						$TrangThai="chuanbi";
 					}
 			}
 
 			switch ($value1['status']) {
-				case 0:$status = 'green';break;
-				case 1:$status = '#ff8400';break;
-				case 2:$status = 'red';break;
+				case 1:$status = 'sttcal';break;
+				case 2:$status = 'stterror';break;
 			}
 		 ?>
-		<td style="background: {{$background}}">
+		<td class="<?=$TrangThai ?> ">
 			<div style="display: flex;justify-content: space-between;"><?=number_format($value1['number'],2) ?>  
-				<div id="status" style="background: {{$status}}"></div>		
+				<div class="status <?=$status ?> "></div>		
 			</div>
 		</td>
 		@endforeach
 	</tr>
 	@endforeach
 </table>
-
-<style type="text/css">
-
-#status{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-} 
-</style>

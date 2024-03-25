@@ -32,6 +32,14 @@ Route::group(['prefix'=>'Admin','middleware' => 'check-master'],function(){
     Route::get('resetTxt','dulieuTXTController@resetTxt');
     Route::get('show/{id_nha_may}','nhaMayController@show');
 
+	Route::group(['prefix'=>'viTri'],function(){
+		Route::get('/{id_khu_vuc}','vitriController@index');
+		Route::get('insert/{id_khu_vuc}','vitriController@insert');
+		Route::post('postinsert/{id_khu_vuc}','vitriController@postinsert');
+		Route::get('update/{id}','vitriController@update');
+		Route::post('postupdate/{id}','vitriController@postupdate');
+		Route::get('delete/{id}','vitriController@delete');
+	});
 	Route::group(['prefix'=>'nhaMay'],function(){
 		Route::get('/','nhaMayController@index');
 		Route::get('insert','nhaMayController@insert');

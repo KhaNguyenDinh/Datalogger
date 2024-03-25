@@ -18,7 +18,7 @@
 	</tr>
 @foreach ($data as $key => $value)
 	<tr>
-		<td>{{$key}}</td>
+		<td>{{$key+1}}</td>
 		<td>{{$value->name_alert}}</td>
 		<td>{{$value->minmin}}</td>
 		<td>{{$value->min}}</td>

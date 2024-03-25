@@ -14,7 +14,7 @@
 	</tr>
 @foreach ($data as $key => $value)
 	<tr>
-		<td>{{$key}}</td>
+		<td>{{$key+1}}</td>
 		<td>{{$value->name_camera}}</td>
 		<td class="link">{{$value->link_rtsp}}</td>
 		<td>
