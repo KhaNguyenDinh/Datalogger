@@ -125,16 +125,17 @@
 	</ul>
 	<div class="tab-content pt-2">
 <!-- /////////// -->
-<div class="col-sm-12">
-<div style="font-size:30px ">
-	@include('User.teamPlate.status')
-	<span>TXT mới nhất : </span>
-	<span>{{$result_khuVuc[0]['newTxt']->time}}</span>
-	@if ($result_khuVuc[0]['connect']=='Mất tín hiệu')
-		<span style="color: red">{{$result_khuVuc[0]['connect']}}</span>
-	@endif
-	@include('User.teamPlate.view_newtxt')
-</div>
+@if (!$result_khuVuc[0]['newTxt']->isEmpty())
+	<div class="col-sm-12">
+		<div style="font-size:30px ">
+			@include('User.teamPlate.status')
+			<span>TXT mới nhất : </span>
+			<span>{{$result_khuVuc[0]['newTxt']->time}}</span>
+			@if ($result_khuVuc[0]['connect']=='Mất tín hiệu')
+				<span style="color: red">{{$result_khuVuc[0]['connect']}}</span>
+			@endif
+			@include('User.teamPlate.view_newtxt')
+		</div>
 <!-- /////////////////////////		 -->
 	  	@foreach ($result_khuVuc as $key => $value)
 	  		@if($key==$key_view)
@@ -148,6 +149,7 @@
 		    @endif
 	    @endforeach
 	</div><!-- End Default Tabs -->
+@endif
 </div>
 
 <style type="text/css">
