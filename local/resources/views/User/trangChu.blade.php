@@ -125,7 +125,7 @@
 	</ul>
 	<div class="tab-content pt-2">
 <!-- /////////// -->
-@if ($result_khuVuc[0]['newTxt']!=null)
+@if ($result_khuVuc!=[])
 	<div class="col-sm-12">
 		<div style="font-size:30px ">
 			@include('User.teamPlate.status')
