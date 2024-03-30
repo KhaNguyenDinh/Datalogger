@@ -125,14 +125,14 @@
 	</ul>
 	<div class="tab-content pt-2">
 <!-- /////////// -->
-@if ($result_khuVuc!=[])
+@if ($value = Arr::first($result_khuVuc))
 	<div class="col-sm-12">
 		<div style="font-size:30px ">
 			@include('User.teamPlate.status')
 			<span>TXT mới nhất : </span>
-			<span>{{$result_khuVuc[0]['newTxt']->time}}</span>
-			@if ($result_khuVuc[0]['connect']=='Mất tín hiệu')
-				<span style="color: red">{{$result_khuVuc[0]['connect']}}</span>
+			<span>{{$value['newTxt']->time}}</span>
+			@if ($value['connect']=='Mất tín hiệu')
+				<span style="color: red">{{$value['connect']}}</span>
 			@endif
 			@include('User.teamPlate.view_newtxt')
 		</div>

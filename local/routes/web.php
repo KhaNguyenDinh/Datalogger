@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('relay/{id_nha_may}','dulieuTXTController@relay');
 
 Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');

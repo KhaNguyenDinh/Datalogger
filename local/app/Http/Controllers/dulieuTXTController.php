@@ -23,6 +23,64 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class dulieuTXTController extends Controller
 {
+	public function relay($id_nha_may){
+		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+		////////////////////////////
+		$nhaMayGetId = nhaMay::find($id_nha_may);
+		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
+		$total_alert=0; $total_error=0;$total_error_connect=0;
+
+		foreach ($khuVuc as $key => $value) {
+			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
+			$newTxt = DB::table($value->folder_txt)->orderByDesc('time')->first();
+
+            if (!empty($newTxt)) {
+				$arrayData = json_decode($newTxt->data, true);
+				$TrangThai=$status = "norm";
+				$list_alert = [];
+				if ($alert) {
+					foreach ($alert as $key => $value_alert) {
+						if ($value_alert['enable']=="YES") {
+							$list_alert[$value_alert['name_alert']]=$value_alert;
+						}
+					}
+				}
+				$check_error="NO"; $check_alert = "NO";
+					if ($check_error=="NO") {
+					foreach ($arrayData as $key1 => $value1) {
+						if (array_key_exists($value1['name'], $list_alert)) {
+							$value2 = $list_alert[$value1['name']];
+
+							if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+								$TrangThai="error";
+								if ($check_error=="NO") {
+									$total_error=$total_error+1;
+								}
+								$check_error="YES";
+							}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+								$TrangThai="alert";
+								if ($check_alert=="NO") {
+									$total_alert=$total_alert+1;
+								}
+								$check_alert="YES";
+							}
+						}
+					}
+				}
+
+				switch ($value1['status']) {
+					// case 0:$status = 'norm';break;
+					case 1:$status = 'alert';break;
+					case 2:$status = 'error';break;
+				}
+			}	
+		}
+		if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
+		if ($total_error>0) { $error = 'Vượt ngưỡng';}
+		echo $error;
+	}
 
     public function resetTxt(){
     	$khuVucAll = khuVuc::all();
