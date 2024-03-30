@@ -77,6 +77,7 @@ class dulieuTXTController extends Controller
 				}
 			}	
 		}
+		$error='';
 		if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
 		if ($total_error>0) { $error = 'Vượt ngưỡng';}
 		echo $error;
