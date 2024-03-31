@@ -31,12 +31,24 @@ class dulieuTXTController extends Controller
 		$nhaMayGetId = nhaMay::find($id_nha_may);
 		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
 		$total_alert=0; $total_error=0;$total_error_connect=0;
-
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
 			$newTxt = DB::table($value->folder_txt)->orderByDesc('time')->first();
 
             if (!empty($newTxt)) {
+            	$time =  $newTxt->time;
+	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+				$interval = $date1->diff($date2);
+				$connect = "";
+				if ($interval->y > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
+				} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
+				if ($connect!=='') {
+					$total_error_connect = $total_error_connect+1;
+				}
+				/////////
 				$arrayData = json_decode($newTxt->data, true);
 				$TrangThai=$status = "norm";
 				$list_alert = [];
@@ -80,6 +92,7 @@ class dulieuTXTController extends Controller
 		$error='';
 		if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
 		if ($total_error>0) { $error = 'Vượt ngưỡng';}
+		if ($$total_error_connect > 0) { $error = 'Không có tín dữ liệu TXT gửi lên website';}
 		echo $error;
 	}
 
@@ -120,7 +133,7 @@ class dulieuTXTController extends Controller
                 ->orderByDesc('time')->first();
             $txt = DB::table($value->folder_txt)
                 ->orderByDesc('time')->limit(12)->get();
-            if (count($txt)>0) {
+            if (!empty($txt)) {
 	            $time =  $newTxt->time;
 	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
 				$interval = $date1->diff($date2);
@@ -129,7 +142,7 @@ class dulieuTXTController extends Controller
 				} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
 				} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
 				} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
-				} elseif($interval->i > 150) {$connect = "Mất tín hiệu";}
+				} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
 				if ($connect!=='') {
 					$total_error_connect = $total_error_connect+1;
 				}
