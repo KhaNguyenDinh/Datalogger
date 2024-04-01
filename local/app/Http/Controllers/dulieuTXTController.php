@@ -90,9 +90,9 @@ class dulieuTXTController extends Controller
 			}	
 		}
 		$error='';
-		if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
+		// if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
 		if ($total_error>0) { $error = 'Vượt ngưỡng';}
-		if ($total_error_connect > 0) { $error = 'Không có dữ liệu TXT gửi lên website';}
+		// if ($total_error_connect > 0) { $error = 'Không có dữ liệu TXT gửi lên website';}
 		echo $error;
 	}
 
