@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('relay/{id_nha_may}','dulieuTXTController@relay');
 
+
+Route::get('/check-data/{id}', 'dulieuTXTController@checkData')->name('checkData');
+
 Route::get('/', 'accountController@login');
 Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');

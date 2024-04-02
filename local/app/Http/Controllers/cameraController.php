@@ -87,7 +87,7 @@ class cameraController extends Controller
     public function delete($id_camera){
     	$data = camera::query()->where('id_camera', $id_camera)->firstOrFail();
     	$data->delete();
-        // $name = ['demo','io','nguyen',];
+        // $name = ['demo','io','nguyen'];
         // foreach ($name as $key => $value) {
         //     $this->cameraService->delete($value);
         // }

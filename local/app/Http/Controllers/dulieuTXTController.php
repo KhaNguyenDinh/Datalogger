@@ -23,7 +23,30 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class dulieuTXTController extends Controller
 {
-	public function relay($id_nha_may){
+public function checkData($id_nha_may) {
+	$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+	$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+	$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+////////////
+	$nhaMayGetId = nhaMay::find($id_nha_may);
+	$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
+	$returm = 0;
+	foreach ($khuVuc as $key => $value) {
+		$newTxt = DB::table($value->folder_txt)
+            ->orderByDesc('time')->first();
+
+        if (!empty($newTxt)) {
+            $time =  $newTxt->time;
+            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+			$interval = $date1->diff($date2);
+			if ($interval->y== 0 && $interval->m == 0 && $interval->d == 0 && $interval->h == 0 && $interval->i<=1) {
+				$returm = 1;
+			}
+		}
+	}
+    return $returm;
+}
+    public function relay($id_nha_may){
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
 		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
@@ -188,7 +211,6 @@ class dulieuTXTController extends Controller
 				array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
 			}	
 		}
-
 		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
 			////////////////////////////////
 		return view('User.trangChu', compact('results','key_view'));
@@ -226,7 +248,6 @@ class dulieuTXTController extends Controller
 		}
 		return view('User.khuVuc', compact('results','action','show_Alert',));
 	}
-
 	public function postShowKhuVuc(Request $request, $id_khu_vuc,$action){
 		$validator = Validator::make(
 		    $request->all(),

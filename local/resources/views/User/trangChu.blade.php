@@ -171,9 +171,22 @@ th{
   top: 0px;
  }
 </style>
-<script type="text/javascript">
-setTimeout(function(){
-   window.location.reload(0);
-}, 300000);
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script>
+$(document).ready(function() {
+    setInterval(function() {
+		$.ajax({
+		    url: "{{ route('checkData', ['id' => $nhaMayGetId->id_nha_may]) }}",  // id_nha_may
+		    success: function(data) {
+		    	if (data==1) {
+		    		window.location.reload(0);
+		    	}
+		    },
+		});
+
+    }, 60000); // Thời gian kiểm tra sự thay đổi
+});
 </script>
+
 @stop()
