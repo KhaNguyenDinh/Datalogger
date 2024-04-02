@@ -147,7 +147,7 @@ public function checkData($id_nha_may) {
 
 		$results = [];
 		$result_khuVuc=[];
-		$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;
+		$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;$toal_load = 0;
 
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
@@ -168,6 +168,7 @@ public function checkData($id_nha_may) {
 				} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
 				if ($connect!=='') {
 					$total_error_connect = $total_error_connect+1;
+					$toal_load = $toal_load+1;
 				}
 				/////////////////////////////////////////////////////
 				$arrayData = json_decode($newTxt->data, true);
@@ -211,7 +212,11 @@ public function checkData($id_nha_may) {
 				array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
 			}	
 		}
-		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
+		$reload = 0;
+		if ($toal_load > 0 && $toal_load < $total) {
+			$reload = 1;
+		}
+		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'reload'=>$reload,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
 			////////////////////////////////
 		return view('User.trangChu', compact('results','key_view'));
 	}

@@ -12,6 +12,7 @@
 	$great = $total - $total_error - $total_alert;
 	$color_great='green'; $color_alert='#ff8400';$color_error="red";$color_connect='gray';
 	$tab = "__";
+	$reload = $results['reload'];
 ?>
 <div class="row">
 	<div class="col-sm-6">
@@ -171,27 +172,28 @@ th{
   top: 0px;
  }
 </style>
+<?php 
+echo $reload;
 
+ ?>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
 $(document).ready(function() {
+	var i=0; var reload = <?=$reload ?>;
     setInterval(function() {
 		$.ajax({
 		    url: "{{ route('checkData', ['id' => $nhaMayGetId->id_nha_may]) }}",  // id_nha_may
 		    success: function(data) {
 		    	if (data==1) {
 		    		window.location.reload(0);
+		    	}else{
+		    		if (i%10==0 && i!=0 && reload==1) { window.location.reload(0); }
+		    		i = i+1;
 		    	}
 		    },
 		});
-
-    }, 60000); // Thời gian kiểm tra sự thay đổi
+    }, 1000); // Thời gian kiểm tra sự thay đổi 60s
 });
-</script>
- <script type="text/javascript">
-    setTimeout(function() {
-        location.reload();
-    }, 600000);
 </script>
 
 @stop()
