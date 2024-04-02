@@ -188,5 +188,10 @@ $(document).ready(function() {
     }, 60000); // Thời gian kiểm tra sự thay đổi
 });
 </script>
+ <script type="text/javascript">
+    setTimeout(function() {
+        location.reload();
+    }, 600000);
+</script>
 
 @stop()
