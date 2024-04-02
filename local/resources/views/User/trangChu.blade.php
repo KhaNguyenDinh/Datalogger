@@ -172,11 +172,7 @@ th{
   top: 0px;
  }
 </style>
-<?php 
-echo $reload;
 
- ?>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
 $(document).ready(function() {
 	var i=0; var reload = <?=$reload ?>;
@@ -192,7 +188,7 @@ $(document).ready(function() {
 		    	}
 		    },
 		});
-    }, 1000); // Thời gian kiểm tra sự thay đổi 60s
+    }, 60000); // Thời gian kiểm tra sự thay đổi 60s
 });
 </script>
 
