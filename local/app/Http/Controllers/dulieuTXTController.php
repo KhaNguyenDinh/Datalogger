@@ -156,7 +156,7 @@ public function checkData($id_nha_may) {
                 ->orderByDesc('time')->first();
             $txt = DB::table($value->folder_txt)
                 ->orderByDesc('time')->limit(12)->get();
-            if (!empty($txt)) {
+            if (!empty($newTxt)) {
 	            $time =  $newTxt->time;
 	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
 				$interval = $date1->diff($date2);
@@ -344,3 +344,6 @@ public function checkData($id_nha_may) {
         }
     }
 }
+
+
+
