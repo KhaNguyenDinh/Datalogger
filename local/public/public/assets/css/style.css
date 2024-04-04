@@ -251,6 +251,7 @@ h6 {
 
 .card-body {
   padding: 0 20px 20px 20px;
+  height: 440px;
 }
 
 .card-img-overlay {
@@ -368,8 +369,8 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
-  margin-right: 6px;
+  max-height: 60px;
+  /*margin-right: 6px;*/
 }
 
 .logo span {

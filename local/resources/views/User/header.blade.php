@@ -4,7 +4,7 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
 
       <center class="logo d-flex align-items-center" style="position: absolute; left: 150px;">
-        <img src="{{asset('public/assets/img/logo.png')}}" style="width: 100px" alt="">
+        <img src="{{asset('public/assets/img/logo.ico')}}" alt="">
         <span> <b style="font-size: 16px;">TRUNG TÂM PHÂN TÍCH VÀ MÔI TRƯỜNG <br> PHẦN MỀM THEO GIÕI SỐ LIỆU </b> </span>
       </center>
     </div><!-- End Logo -->
