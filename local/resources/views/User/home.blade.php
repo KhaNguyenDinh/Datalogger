@@ -10,7 +10,7 @@
 	if ($list_total['connect']==0) {
 		$hdt = $list_total['total']-$list_total['E']-$list_total['C']-$list_total['error'];
 	}else{ $hdt = 0;}
-	$color = ['N'=>'green','C'=>'#ff8400','E'=>'red','bt'=>'green','alert'=>'blue','error'=>'#7a00ff','hdt'=>'#37db00','connect'=>'gray','tong'=>'#0d20ff63'];
+	$color = ['N'=>'green','C'=>'#ff8400','E'=>'red','bt'=>'green','alert'=>'#f8fb7a','error'=>'#fb7a7a','hdt'=>'#37db00','connect'=>'gray','tong'=>'#0d20ff63'];
 
 ?>
 @if ($result_khuVuc[0]['newTxt']!==null)
