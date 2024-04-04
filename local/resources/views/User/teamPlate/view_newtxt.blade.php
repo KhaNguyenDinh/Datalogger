@@ -70,7 +70,7 @@ foreach ($list_key as $key => $value) {
 <style type="text/css">
 .view_home{
 	display: flex;
-		flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 .row1{
 	display: flex;

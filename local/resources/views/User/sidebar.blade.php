@@ -1,12 +1,12 @@
 
-  <aside id="sidebar" class="sidebar" style="width: 195px;">
+  <aside id="sidebar" class="sidebar" style="width: 165px;">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
         <a class="nav-link " href="{{URL::to('User/'.$nhaMayGetId->id_nha_may.'/0')}}">
           <i class="bi bi-grid"></i>
-          <span>Trang chủ</span>
+          <b style="font-size: 20px;">Trang chủ</b>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -67,3 +67,8 @@
     </ul>
 
   </aside><!-- End Sidebar-->
+<style type="text/css">
+  span{
+    font-size: 12px;
+  }
+</style>

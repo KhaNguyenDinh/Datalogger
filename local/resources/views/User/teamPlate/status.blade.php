@@ -11,8 +11,6 @@
 .view_stt{
 	display: flex;
 	align-items: center;
-	border: solid #eeeeeebd;
-	border-width: bold;
 	font-size: 20px;
 }
 .view_stt i{

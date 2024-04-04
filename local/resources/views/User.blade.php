@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -80,7 +79,6 @@ $tab = "__";
 
 </html>
 
-
 <style type="text/css">
 .transparent {
             color: rgba(255, 255, 255, 0);
@@ -94,5 +92,6 @@ $tab = "__";
   height: 15px;
   border-radius: 50%;
   margin: 2px;
-} 
+}
+
 </style>

@@ -159,13 +159,6 @@
   border-radius: 50%;
   background: red;
 }
-.tbl {
-  position: relative;
-  overflow-y:scroll;
-  overflow-x:scroll;
-  display:block;
-  height: 333px;
-}
 th{
   position: -webkit-sticky;
   position: sticky;

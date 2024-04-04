@@ -47,6 +47,7 @@ h6 {
   margin-top: 60px;
   padding: 20px 30px;
   transition: all 0.3s;
+  background: #e5ebd03b;
 }
 
 @media (max-width: 1199px) {
@@ -635,7 +636,7 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 195px;
+    margin-left: 165px;
   }
 }
 
