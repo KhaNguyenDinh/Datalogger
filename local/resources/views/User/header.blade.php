@@ -1,11 +1,11 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{URL::to('/')}}" class="logo d-flex align-items-center">
-        <img src="{{asset('public/assets/img/logo.png')}}" style="width: 80px" alt="">
-        <span class="d-none d-lg-block">{{$nhaMayGetId->name_nha_may}}</span>
-      </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
+      <center class="logo d-flex align-items-center" style="position: relative; left: 130px;">
+        <img src="{{asset('public/assets/img/logo.png')}}" style="width: 100px" alt="">
+        <span> <b style="font-size: 16px;">TRUNG TÂM PHÂN TÍCH VÀ MÔI TRƯỜNG</b> <br> <i>Phần mềm theo dõi số liệu</i> </span>
+      </center>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">

@@ -1,5 +1,5 @@
 @if(isset($startTime))
-<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khu_vuc.'/'.$action)}}" enctype="multipart/form-data">
+<form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khu_vuc.'/'.$action)}}" enctype="multipart/form-data" class="export">
 	@csrf
 	<input type="hidden" name="action" value="execel">
 	<input type="hidden" name="startTime" value="{{$startTime}}">
@@ -8,7 +8,13 @@
 	<input type="submit"  value="Export execel" class="btn btn-primary">
 </form>
 @endif
-
+<style type="text/css">
+    .export{
+        position: absolute;
+        top: -35px;
+        right:135px;
+    }
+</style>
 <?php $th = json_decode($txt[0]->data, true); ?>
 <table id="myTable" class="table table-bordered table-hover">
   <thead >

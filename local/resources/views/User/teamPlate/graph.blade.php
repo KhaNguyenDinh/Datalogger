@@ -1,4 +1,5 @@
 <br>
+
 <?php 
   $data=[];$ykeys=[];$name=[];$units=[];
   $th = json_decode($txt[0]->data, true);
@@ -34,10 +35,18 @@
         }   
     }
 </script>
-
+<style type="text/css">
+    .export{
+        position: absolute;
+        top: -34px;
+        right: 327px;
+    }
+</style>
+<button onclick="saveImage()" class="export btn btn-primary">export image</button>
 <div class="graph">
   <div class="row">
-    <div id="myfirstchart" ondblclick="saveImage()" ></div>
+    <div id="myfirstchart"></div>
+    <!-- ondblclick="saveImage()" -->
   <script>
   var data = <?php echo json_encode($data); ?>;
   var ykeys = <?php echo json_encode($name); ?>;
@@ -58,7 +67,7 @@
     pointSize:0,
     lineWidth:2,
     resize:true,//bật tự động thay đổi kích thước khi phần tử chứa thay đổi kích thước
-    hideHover:false,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
+    hideHover:true,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
     goalStrokeWidth:0.1,//Chiều rộng, tính bằng pixel, của đường mục tiêu.
   });
   // Lưu trạng thái hiển thị line
@@ -91,7 +100,7 @@
       pointSize: 0,
       lineWidth: 2,
       resize:true,//bật tự động thay đổi kích thước khi phần tử chứa thay đổi kích thước
-      hideHover:false,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
+      hideHover:true,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
     });
   }
 

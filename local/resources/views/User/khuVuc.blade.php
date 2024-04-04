@@ -27,6 +27,7 @@
 	@elseif($action === 'Tables')
 		<div class="col-sm-12">@include('User.teamPlate.table')</div>
 	@elseif($action === 'Alert')
+		@include('User.teamPlate.status')
 		<div class="col-sm-12">@include('User.teamPlate.alert')</div>
 	@endif
 </div>

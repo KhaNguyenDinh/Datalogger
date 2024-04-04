@@ -46,20 +46,95 @@ public function checkData($id_nha_may) {
 	}
     return $returm;
 }
-    public function relay($id_nha_may){
+ //    public function arelay_vs1($id_nha_may){
+	// 	$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+	// 	$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+	// 	$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+	// 	////////////////////////////
+	// 	$nhaMayGetId = nhaMay::find($id_nha_may);
+	// 	$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
+	// 	$total_alert=0; $total_error=0;$total_error_connect=0;
+	// 	foreach ($khuVuc as $key => $value) {
+	// 		$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
+	// 		$newTxt = DB::table($value->folder_txt)->orderByDesc('time')->first();
+
+ //            if (!empty($newTxt)) {
+ //            	$time =  $newTxt->time;
+	//             $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+	// 			$interval = $date1->diff($date2);
+	// 			$connect = "";
+	// 			if ($interval->y > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
+	// 			if ($connect!=='') {
+	// 				$total_error_connect = $total_error_connect+1;
+	// 			}
+	// 			/////////
+	// 			$arrayData = json_decode($newTxt->data, true);
+	// 			$TrangThai=$status = "norm";
+	// 			$list_alert = [];
+	// 			if ($alert) {
+	// 				foreach ($alert as $key => $value_alert) {
+	// 					if ($value_alert['enable']=="YES") {
+	// 						$list_alert[$value_alert['name_alert']]=$value_alert;
+	// 					}
+	// 				}
+	// 			}
+	// 			$check_error="NO"; $check_alert = "NO";
+	// 				if ($check_error=="NO") {
+	// 				foreach ($arrayData as $key1 => $value1) {
+	// 					if (array_key_exists($value1['name'], $list_alert)) {
+	// 						$value2 = $list_alert[$value1['name']];
+
+	// 						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+	// 							$TrangThai="error";
+	// 							if ($check_error=="NO") {
+	// 								$total_error=$total_error+1;
+	// 							}
+	// 							$check_error="YES";
+	// 						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+	// 							$TrangThai="alert";
+	// 							if ($check_alert=="NO") {
+	// 								$total_alert=$total_alert+1;
+	// 							}
+	// 							$check_alert="YES";
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+
+	// 			switch ($value1['status']) {
+	// 				// case 0:$status = 'norm';break;
+	// 				case 1:$status = 'alert';break;
+	// 				case 2:$status = 'error';break;
+	// 			}
+	// 		}	
+	// 	}
+	// 	$error='';
+	// 	// if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
+	// 	if ($total_error>0) { $error = 'Vượt ngưỡng';}
+	// 	// if ($total_error_connect > 0) { $error = 'Không có dữ liệu TXT gửi lên website';}
+	// 	echo $error;
+	// }
+	public function relay($id_nha_may){
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
 		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
 		////////////////////////////
 		$nhaMayGetId = nhaMay::find($id_nha_may);
 		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
-		$total_alert=0; $total_error=0;$total_error_connect=0;
+		$list_total=['N'=>0,'C'=>0,'E'=>0,'bt'=>0,'alert'=>0,'error'=>0,'load'=>0,'connect'=>0,'total'=>count($khuVuc),'reload'=>0];
+		$name_status = ['N','C','E','bt','alert','error','load','connect'];
+
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
-			$newTxt = DB::table($value->folder_txt)->orderByDesc('time')->first();
-
+			$newTxt = DB::table($value->folder_txt)
+                ->orderByDesc('time')->first();
+            $list_check = ['N'=>0,'C'=>0,'E'=>0,'bt'=>0,'alert'=>0,'error'=>0,'load'=>0,'connect'=>0];
             if (!empty($newTxt)) {
-            	$time =  $newTxt->time;
+	            $time =  $newTxt->time;
 	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
 				$interval = $date1->diff($date2);
 				$connect = "";
@@ -69,56 +144,58 @@ public function checkData($id_nha_may) {
 				} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
 				} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
 				if ($connect!=='') {
-					$total_error_connect = $total_error_connect+1;
+					$list_check['load'] = $list_check['connect'] = 1;
 				}
-				/////////
-				$arrayData = json_decode($newTxt->data, true);
-				$TrangThai=$status = "norm";
-				$list_alert = [];
-				if ($alert) {
-					foreach ($alert as $key => $value_alert) {
-						if ($value_alert['enable']=="YES") {
-							$list_alert[$value_alert['name_alert']]=$value_alert;
+				/////////////////////////////////////////////////////
+				if ($list_check['connect']==0) {
+					$arrayData = json_decode($newTxt->data, true);
+					$list_alert = [];
+					if ($alert) {
+						foreach ($alert as $key => $value_alert) {
+							if ($value_alert['enable']=="YES") {
+								$list_alert[$value_alert['name_alert']]=$value_alert;
+							}
 						}
 					}
-				}
-				$check_error="NO"; $check_alert = "NO";
-					if ($check_error=="NO") {
 					foreach ($arrayData as $key1 => $value1) {
-						if (array_key_exists($value1['name'], $list_alert)) {
-							$value2 = $list_alert[$value1['name']];
-
-							if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-								$TrangThai="error";
-								if ($check_error=="NO") {
-									$total_error=$total_error+1;
+						if ($list_check['E'] == 0 ) {
+							if ($list_check['C'] == 0 ) {
+								switch ($value1['status']) {
+									case 0: $list_check['N'] = 1;
+										if (array_key_exists($value1['name'], $list_alert)) {
+											$value2 = $list_alert[$value1['name']];
+											if ($list_check['error']==0) {
+												if ($list_check['alert']==0) {
+													if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+														$list_check['error']=1;
+													}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+														$list_check['alert']=1;
+													}
+												}
+											}
+										}							
+										break;
+									case 1:$list_check['C'] = 1; break;
+									case 2:$list_check['E'] = 1; break;
 								}
-								$check_error="YES";
-							}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-								$TrangThai="alert";
-								if ($check_alert=="NO") {
-									$total_alert=$total_alert+1;
-								}
-								$check_alert="YES";
 							}
 						}
 					}
 				}
-
-				switch ($value1['status']) {
-					// case 0:$status = 'norm';break;
-					case 1:$status = 'alert';break;
-					case 2:$status = 'error';break;
-				}
 			}	
+			foreach ($name_status as $key => $value) {
+				$list_total[$value] += $list_check[$value];
+			}
 		}
-		$error='';
-		// if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
-		if ($total_error>0) { $error = 'Vượt ngưỡng';}
-		// if ($total_error_connect > 0) { $error = 'Không có dữ liệu TXT gửi lên website';}
+		$error = '';
+		$check = ['E','error','connect'];
+		foreach ($check as $key => $value) {
+			if ($list_total[$value]>0) {
+				$error = 'ERROR : '.$value;
+			}
+		}
 		echo $error;
 	}
-
     public function resetTxt(){
     	$khuVucAll = khuVuc::all();
     	foreach ($khuVucAll as $key => $khuVuc) {
@@ -147,7 +224,8 @@ public function checkData($id_nha_may) {
 
 		$results = [];
 		$result_khuVuc=[];
-		$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;$toal_load = 0;
+		$list_total=['N'=>0,'C'=>0,'E'=>0,'bt'=>0,'alert'=>0,'error'=>0,'load'=>0,'connect'=>0,'total'=>count($khuVuc),'reload'=>0];
+		$name_status = ['N','C','E','bt','alert','error','load','connect'];
 
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
@@ -156,6 +234,7 @@ public function checkData($id_nha_may) {
                 ->orderByDesc('time')->first();
             $txt = DB::table($value->folder_txt)
                 ->orderByDesc('time')->limit(12)->get();
+            $list_check = ['N'=>0,'C'=>0,'E'=>0,'bt'=>0,'alert'=>0,'error'=>0,'load'=>0,'connect'=>0];
             if (!empty($newTxt)) {
 	            $time =  $newTxt->time;
 	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
@@ -167,59 +246,140 @@ public function checkData($id_nha_may) {
 				} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
 				} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
 				if ($connect!=='') {
-					$total_error_connect = $total_error_connect+1;
-					$toal_load = $toal_load+1;
+					$list_check['load'] = $list_check['connect'] = 1;
 				}
 				/////////////////////////////////////////////////////
-				$arrayData = json_decode($newTxt->data, true);
-				$TrangThai=$status = "norm";
-				$list_alert = [];
-				if ($alert) {
-					foreach ($alert as $key => $value_alert) {
-						if ($value_alert['enable']=="YES") {
-							$list_alert[$value_alert['name_alert']]=$value_alert;
+				if ($list_check['connect']==0) {
+					$arrayData = json_decode($newTxt->data, true);
+					$list_alert = [];
+					if ($alert) {
+						foreach ($alert as $key => $value_alert) {
+							if ($value_alert['enable']=="YES") {
+								$list_alert[$value_alert['name_alert']]=$value_alert;
+							}
 						}
 					}
-				}
-				$check_error="NO"; $check_alert = "NO";
-					if ($check_error=="NO") {
 					foreach ($arrayData as $key1 => $value1) {
-						if (array_key_exists($value1['name'], $list_alert)) {
-							$value2 = $list_alert[$value1['name']];
-
-							if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-								$TrangThai="error";
-								if ($check_error=="NO") {
-									$total_error=$total_error+1;
+						if ($list_check['E'] == 0 ) {
+							if ($list_check['C'] == 0 ) {
+								switch ($value1['status']) {
+									case 0: $list_check['N'] = 1;
+										if (array_key_exists($value1['name'], $list_alert)) {
+											$value2 = $list_alert[$value1['name']];
+											if ($list_check['error']==0) {
+												if ($list_check['alert']==0) {
+													if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+														$list_check['error']=1;
+													}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+														$list_check['alert']=1;
+													}
+												}
+											}
+										}							
+										break;
+									case 1:$list_check['C'] = 1; break;
+									case 2:$list_check['E'] = 1; break;
 								}
-								$check_error="YES";
-							}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-								$TrangThai="alert";
-								if ($check_alert=="NO") {
-									$total_alert=$total_alert+1;
-								}
-								$check_alert="YES";
 							}
 						}
 					}
 				}
-
-				switch ($value1['status']) {
-					// case 0:$status = 'norm';break;
-					case 1:$status = 'alert';break;
-					case 2:$status = 'error';break;
-				}
-				array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
 			}	
+			array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'list_check'=>$list_check]);
+			foreach ($name_status as $key => $value) {
+				$list_total[$value] += $list_check[$value];
+			}
 		}
-		$reload = 0;
-		if ($toal_load > 0 && $toal_load < $total) {
-			$reload = 1;
+		if ($list_total['load']>0 && $list_total['load'] < $list_total['total']) {
+			$list_total['reload']=1;
 		}
-		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'reload'=>$reload,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
+		$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'result_khuVuc'=>$result_khuVuc,'list_total'=>$list_total]);
 			////////////////////////////////
-		return view('User.trangChu', compact('results','key_view'));
+		return view('User.home', compact('results','key_view'));
 	}
+	// public function showTrangChu_vs1($id_nha_may,$key_view){
+	// 	$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+	// 	$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+	// 	$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+	// 	////////////////////////////
+	// 	$nhaMayGetId = nhaMay::find($id_nha_may);
+	// 	$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
+
+	// 	$results = [];
+	// 	$result_khuVuc=[];
+	// 	$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;$toal_load = 0;
+
+	// 	foreach ($khuVuc as $key => $value) {
+	// 		$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
+	// 		$viTri = viTri::where('id_khu_vuc', $value->id_khu_vuc)->orderBy('vitri', 'asc')->get();
+	// 		$newTxt = DB::table($value->folder_txt)
+ //                ->orderByDesc('time')->first();
+ //            $txt = DB::table($value->folder_txt)
+ //                ->orderByDesc('time')->limit(12)->get();
+ //            if (!empty($newTxt)) {
+	//             $time =  $newTxt->time;
+	//             $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+	// 			$interval = $date1->diff($date2);
+	// 			$connect = "";
+	// 			if ($interval->y > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
+	// 			} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
+	// 			if ($connect!=='') {
+	// 				$total_error_connect = $total_error_connect+1;
+	// 				$toal_load = $toal_load+1;
+	// 			}
+	// 			/////////////////////////////////////////////////////
+	// 			$arrayData = json_decode($newTxt->data, true);
+	// 			$TrangThai=$status = "norm";
+	// 			$list_alert = [];
+	// 			if ($alert) {
+	// 				foreach ($alert as $key => $value_alert) {
+	// 					if ($value_alert['enable']=="YES") {
+	// 						$list_alert[$value_alert['name_alert']]=$value_alert;
+	// 					}
+	// 				}
+	// 			}
+	// 			$check_error="NO"; $check_alert = "NO";
+	// 				if ($check_error=="NO") {
+	// 				foreach ($arrayData as $key1 => $value1) {
+	// 					if (array_key_exists($value1['name'], $list_alert)) {
+	// 						$value2 = $list_alert[$value1['name']];
+
+	// 						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+	// 							$TrangThai="error";
+	// 							if ($check_error=="NO") {
+	// 								$total_error=$total_error+1;
+	// 							}
+	// 							$check_error="YES";
+	// 						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+	// 							$TrangThai="alert";
+	// 							if ($check_alert=="NO") {
+	// 								$total_alert=$total_alert+1;
+	// 							}
+	// 							$check_alert="YES";
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+
+	// 			switch ($value1['status']) {
+	// 				// case 0:$status = 'norm';break;
+	// 				case 1:$status = 'alert';break;
+	// 				case 2:$status = 'error';break;
+	// 			}
+	// 			array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
+	// 		}	
+	// 	}
+	// 	$reload = 0;
+	// 	if ($toal_load > 0 && $toal_load < $total) {
+	// 		$reload = 1;
+	// 	}
+	// 	$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'reload'=>$reload,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
+	// 		////////////////////////////////
+	// 	return view('User.trangChu', compact('results','key_view'));
+	// }
 	public function dataKhuVuc($id_khu_vuc, $startTime, $endTime){
 		$khuVucGetId = khuVuc::find($id_khu_vuc);
 		$nhaMayGetId = nhaMay::find($khuVucGetId['id_nha_may']);

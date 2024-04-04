@@ -52,14 +52,13 @@ $tab = "__";
   <!-- ======= Sidebar_menu ======= -->
 @include('User.sidebar')
   <!-- main -->
-  <main id="main" class="main">
-    <div class="pagetitle">
+  <main id="main" class="main" >
+    <!-- <div class="pagetitle"> -->
       <!-- <h1>{{$action}}</h1> -->
-    </div><!-- End Page Title -->
-    <section class="section dashboard">
-
+    <!-- </div>End Page Title -->
+    <!-- <section class="section dashboard"> -->
       <div class="row">@yield('content')</div>
-    </section>
+    <!-- </section> -->
 
   </main><!-- End #main -->
 <!-- yield('content') -->
@@ -96,8 +95,4 @@ $tab = "__";
   border-radius: 50%;
   margin: 2px;
 } 
-*{
-  font-family: Arial, sans-serif;
-}
-
 </style>

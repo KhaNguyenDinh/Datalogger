@@ -1,13 +1,13 @@
 <form method="post" action="{{URL::to('User/postKhuVuc/'.$id_khu_vuc.'/'.$action)}}" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
-		<div class="col-sm-4 center">
+		<div class="col-sm-3 center">
 			<label>startTime</label>
 			<input type="datetime-local" name="startTime" placeholder="startTime" 
 			value="<?php if(isset($startTime)){ echo $startTime; } ?>" 
 			required class="form-control">
 		</div>
-		<div class="col-sm-4 center">
+		<div class="col-sm-3 center">
 			<label>endTime</label>
 			<input type="datetime-local" name="endTime" placeholder="endTime"
 			value="<?php if(isset($endTime)){ echo $endTime; } ?>" 

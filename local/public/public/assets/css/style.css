@@ -12,7 +12,9 @@
 :root {
   scroll-behavior: smooth;
 }
-
+*{
+  font-family: "Times New Roman", Times, serif;
+}
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
@@ -360,7 +362,7 @@ h6 {
 
 @media (min-width: 1200px) {
   .logo {
-    width: 280px;
+    width: 730px;
   }
 }
 
@@ -389,7 +391,7 @@ h6 {
 
 .header .toggle-sidebar-btn {
   font-size: 32px;
-  padding-left: 10px;
+  /*padding-left: 10px;*/
   cursor: pointer;
   color: #012970;
 }
@@ -605,7 +607,7 @@ h6 {
   width: 300px;
   z-index: 996;
   transition: all 0.3s;
-  padding: 20px;
+  /*padding: 20px;*/
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
@@ -633,7 +635,7 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 300px;
+    margin-left: 195px;
   }
 }
 

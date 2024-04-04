@@ -14,56 +14,49 @@
 	$tab = "__";
 	$reload = $results['reload'];
 ?>
-<div class="row">
-	<div class="col-sm-6">
-		<div class="col-sm-4" style="font-size:15px ">
-			<center>
-				<h3>Tổng số trạm</h3>
-				<div class="circle" style="font-size: 40px"><?=$total?></div>
-			</center>
-			
-			<style type="text/css">
-			.circle {
-			    width: 60px;
-			    height: 60px;
-			    line-height: 60px;
-			    text-align: center;
-			    border-radius: 50%;
-			    background-color: #ffdf7e;
-			}
-			.err_connect{
-				background-image: linear-gradient(-225deg, #def7ea 0%, gray 100%);
-			}
-			</style>
-			<i class="status sttnorm">---</i> Bình thường <br>
-			<i class="status sttcal">---</i> Hiệu chuẩn  <br>
-			<i class="status stterror">---</i> Lỗi thiết bị  <br>
-			<i class="trongnguong">{{$great}} : Trong ngưỡng</i><br>
-			<i class="chuanbi">{{$total_alert}} : Chuẩn bị vượt</i><br>
-			<i class="vuotnguong">{{$total_error}} : Vượt ngưỡng</i><br>
-			<i class="err_connect">{{$total_error_connect}} : Mất tín hiệu</i><br>
+<div class="row" style="width: 120%">
+	<center class="col-sm-6" style="font-weight: bold;" >
+		<h2>Công ty : {{$nhaMayGetId->name_nha_may}} </h2>
+		<div id="donut-chart" style="height: 250px;"></div>
+		<h2>Tổng số trạm :{{$total}}</h2>
 
-		  
-		</div>
-		<div class="col-sm-8">
-			<div id="donut-chart" style="height: 250px;"></div>
-			<script type="text/javascript">
-			Morris.Donut({
-			    element: 'donut-chart',
-			    data: [
-			        {label: "Great", value: <?=$great?>},
-			        {label: "Alert", value: <?=$total_alert ?>},
-			        {label: "Error", value: <?=$total_error ?> },
-			        {label: "Diconnect", value: <?=$total_error_connect?>}
-			    ],
-			    colors: ['<?=$color_great ?>', '<?=$color_alert ?>','<?=$color_error ?>','<?=$color_connect ?>'],
-			});
-			</script>
-		</div>
-	</div>
-
+		<i class="status sttnorm">---</i> Hoat
+		<i class="status sttcal">---</i> Hiệu chuẩn  
+		<i class="status stterror">---</i> Lỗi thiết bị <br>
+		<i class="trongnguong">{{$great}} : Trong ngưỡng</i>
+		<i class="chuanbi">{{$total_alert}} : Chuẩn bị vượt</i>
+		<i class="vuotnguong">{{$total_error}} : Vượt ngưỡng</i>
+		<i class="err_connect">{{$total_error_connect}} : Mất tín hiệu</i>
+	</center>
+	<style type="text/css">
+	.circle {
+	    width: 60px;
+	    height: 60px;
+	    line-height: 60px;
+	    text-align: center;
+	    border-radius: 50%;
+	    background-color: #ffdf7e;
+	}
+	.err_connect{
+		background-image: linear-gradient(-225deg, #def7ea 0%, gray 100%);
+	}
+	</style>
+	<script type="text/javascript">
+		Morris.Donut({
+			element: 'donut-chart',
+			data: [
+				{label: "Great", value: <?=$great?>},
+				{label: "Alert", value: <?=$total_alert ?>},
+				{label: "Error", value: <?=$total_error ?> },
+				{label: "Diconnect", value: <?=$total_error_connect?>}
+				],
+			colors: ['<?=$color_great ?>', '<?=$color_alert ?>','<?=$color_error ?>','<?=$color_connect ?>'],
+		});
+	</script>
+	<!-- /////////// -->
 	<div class="col-sm-6">
-		<table class="table table-bordered tbl" style=" font-weight: bold;">
+		<h2>Danh sách trạm theo trạng thái</h2>
+		<table class="table table-bordered tbl" style=" font-weight: bold;text-align: center;">
 			<tr>
 				<th>STT</th>
 				<th>Trạm</th>
@@ -71,7 +64,7 @@
 				<th>Loại</th>
 				<th>Trạng thái</th>
 				<th>Tình trạng</th>
-				<th>connect</th>
+				<th>Tín hiệu </th>
 			</tr>
 			@foreach ($result_khuVuc as $key => $value)
 			<tr>
@@ -99,7 +92,7 @@
 				</td>
 				<td>
 					@if($value['connect']=='')
-						<i class="trongnguong">Hoạt động tốt</i>
+						<i class="trongnguong">Đang kết nối</i>
 					@else
 						<i class="err_connect" >{{$value['connect']}}</i> 
 					@endif
@@ -110,8 +103,8 @@
 		</table>
 	</div>
 </div>  <!-- end row1 -->
-
-
+<hr>
+<h2>TRẠM THEO THÀNH PHẦN MÔI TRƯỜNG</h2>
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
 		@foreach ($result_khuVuc as $key => $value)
@@ -130,7 +123,7 @@
 	<div class="col-sm-12">
 		<div style="font-size:30px ">
 			@include('User.teamPlate.status')
-			<span>TXT mới nhất : </span>
+			<span>Dữ liệu mới nhất : </span>
 			<span>{{$value['newTxt']->time}}</span>
 			@if ($value['connect']=='Mất tín hiệu')
 				<span style="color: red">{{$value['connect']}}</span>
@@ -144,8 +137,12 @@
 		    	$alert = $value['alert'];
 		    	$txt = $value['txt'];
 		    	 ?>
-		    	<div class="row">@include('User.teamPlate.graph')</div>
-		    	<div class="row">@include('User.teamPlate.status')</div>
+		    	<div class="row">
+		    		<hr><h2>Biểu đồ số liệu 1 giờ</h2>
+		    		@include('User.teamPlate.graph')</div>
+		    	<div class="row">
+		    		<hr><h2> Dữ liệu chi tiết 1 giờ</h2>
+		    		@include('User.teamPlate.status')</div>
 		    	<div class="row">@include('User.teamPlate.alert')</div>
 		    @endif
 	    @endforeach
@@ -154,6 +151,9 @@
 </div>
 
 <style type="text/css">
+.export{
+	display: none;
+}
 .a{
 	color: rgba(255, 255, 255, 0);
   border-radius: 50%;
@@ -164,7 +164,7 @@
   overflow-y:scroll;
   overflow-x:scroll;
   display:block;
-  height: 300px;
+  height: 333px;
 }
 th{
   position: -webkit-sticky;
