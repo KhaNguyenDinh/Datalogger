@@ -189,13 +189,13 @@ public function checkData($id_nha_may) {
 			$error='';
 			foreach ($name_check as $key => $name) {
 				if ($list_check[$name]>0) {
-					$error = 'ERROR : '.$name.' OF '.$value->name_khu_vuc;
+					$error = 'ERROR : '.$name.' OF '.$value->name_khu_vuc.'<br>';
 				}
 			}
 			$list_error[$value->name_khu_vuc]= $error;
 		}
 		foreach ($list_error as $key => $value) {
-			echo $value.'<br>';
+			echo $value;
 		}
 	}
     public function resetTxt(){
