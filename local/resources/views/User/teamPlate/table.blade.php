@@ -11,8 +11,8 @@
 <style type="text/css">
     .export{
         position: absolute;
-        top: -35px;
-        right:135px;
+        top: -39px;
+        right:15px;
     }
 </style>
 <?php $th = json_decode($txt[0]->data, true); ?>

@@ -38,8 +38,8 @@
 <style type="text/css">
     .export{
         position: absolute;
-        top: -34px;
-        right: 327px;
+        top: -39px;
+        right: 15px;
     }
 </style>
 <button onclick="saveImage()" class="export btn btn-primary">export image</button>

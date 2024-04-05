@@ -13,7 +13,7 @@
     .export{
         position: absolute;
         top: -69px;
-        right:34px;
+        right:15px;
     }
 </style>
 <?php $th = json_decode($txt[0]->data, true); ?>
