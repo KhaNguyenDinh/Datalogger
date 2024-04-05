@@ -126,6 +126,7 @@ public function checkData($id_nha_may) {
 		$nhaMayGetId = nhaMay::find($id_nha_may);
 		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
 		$list_total=['N'=>0,'C'=>0,'E'=>0,'bt'=>0,'alert'=>0,'error'=>0,'load'=>0,'connect'=>0,'total'=>count($khuVuc),'reload'=>0];
+		$list_error=[];
 		$name_status = ['N','C','E','bt','alert','error','load','connect'];
 
 		foreach ($khuVuc as $key => $value) {
@@ -181,20 +182,21 @@ public function checkData($id_nha_may) {
 							}
 						}
 					}
+
 				}
 			}	
-			foreach ($name_status as $key => $value) {
-				$list_total[$value] += $list_check[$value];
+			$name_check = ['E','error','connect'];
+			$error='';
+			foreach ($name_check as $key => $name) {
+				if ($list_check[$name]>0) {
+					$error = 'ERROR : '.$name.' OF '.$value->name_khu_vuc;
+				}
 			}
+			$list_error[$value->name_khu_vuc]= $error;
 		}
-		$error = '';
-		$check = ['E','error','connect'];
-		foreach ($check as $key => $value) {
-			if ($list_total[$value]>0) {
-				$error = 'ERROR : '.$value;
-			}
+		foreach ($list_error as $key => $value) {
+			echo $value.'<br>';
 		}
-		echo $error;
 	}
     public function resetTxt(){
     	$khuVucAll = khuVuc::all();
