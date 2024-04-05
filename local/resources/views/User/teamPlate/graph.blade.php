@@ -23,7 +23,7 @@
 <script type="text/javascript">
     function saveImage(){
         if (confirm("Save Image")) {
-            var chartCanvas = document.getElementById('myfirstchart');
+            var chartCanvas = document.getElementById('show_image');
             // Set white background for the canvas
             chartCanvas.style.backgroundColor = "white";
             html2canvas(chartCanvas).then(function(canvas) {
@@ -43,10 +43,12 @@
     }
 </style>
 <button onclick="saveImage()" class="export btn btn-primary">export image</button>
-<div class="graph">
+<center class="graph" id="show_image">
   <div class="row">
     <div id="myfirstchart"></div>
     <!-- ondblclick="saveImage()" -->
+  </div>
+</center> <!-- //graph -->
   <script>
   var data = <?php echo json_encode($data); ?>;
   var ykeys = <?php echo json_encode($name); ?>;
@@ -67,7 +69,7 @@
     pointSize:0,
     lineWidth:2,
     resize:true,//bật tự động thay đổi kích thước khi phần tử chứa thay đổi kích thước
-    hideHover:true,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
+    hideHover:false,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
     goalStrokeWidth:0.1,//Chiều rộng, tính bằng pixel, của đường mục tiêu.
   });
   // Lưu trạng thái hiển thị line
@@ -100,7 +102,7 @@
       pointSize: 0,
       lineWidth: 2,
       resize:true,//bật tự động thay đổi kích thước khi phần tử chứa thay đổi kích thước
-      hideHover:true,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
+      hideHover:false,//hiển thị chú giải di chuột khi con trỏ chuột ở trên biểu đồ.
     });
   }
 
@@ -140,10 +142,6 @@ var parentElement = document.querySelector('.graph');
 parentElement.appendChild(parentDiv);
 
   </script>
-  </div>
-
-</div> <!-- //graph -->
-
 <style>
 
 .graph{
