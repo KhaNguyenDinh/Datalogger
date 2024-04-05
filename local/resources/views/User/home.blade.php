@@ -10,11 +10,11 @@
 	if ($list_total['connect']==0) {
 		$hdt = $list_total['total']-$list_total['E']-$list_total['C']-$list_total['error'];
 	}else{ $hdt = 0;}
-	$color = ['N'=>'green','C'=>'#ff8400','E'=>'red','bt'=>'green','alert'=>'#f8fb7a','error'=>'#fb7a7a','hdt'=>'#37db00','connect'=>'gray','tong'=>'#0d20ff63'];
+	$color = ['N'=>'green','C'=>'yellow','E'=>'red','bt'=>'green','alert'=>'#f8fb7a','error'=>'#fb7a7a','hdt'=>'#37db00','connect'=>'gray','tong'=>'#0d20ff63'];
 
 ?>
 @if ($result_khuVuc[0]['newTxt']!==null)
-<div class="row"><center><h5 class="card-title">CÔNG TY : {{$nhaMayGetId->name_nha_may}}</h5> </center></div>
+<div class="row"><center><h4 class="card-title">CÔNG TY : {{$nhaMayGetId->name_nha_may}}</h4> </center></div>
 <!-- /////////////////// -->
 <section class="section">
       <div class="row">
@@ -194,7 +194,7 @@
 			    	$txt = $value['txt'];
 			    	 ?>
 			    	<div class="row dv">
-			    		<h5 class="card-title">BIỂU ĐỒ SỐ LIỆU 1 GIỜ</h5>
+			    		<h5 class="card-title">BIỂU ĐỒ DỮ LIỆU 1 GIỜ</h5>
 			    		@include('User.teamPlate.graph')</div><br>
 			    	<div class="row dv">
 			    		<h5 class="card-title">DỮ LIỆU CHI TIẾT 1 GIỜ</h5>

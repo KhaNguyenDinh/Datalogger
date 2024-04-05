@@ -359,7 +359,7 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 .logo {
-  line-height: 1;
+  line-height: 0.7;
 }
 
 @media (min-width: 1200px) {
@@ -384,8 +384,9 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   height: 60px;
-  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff;
+  /*box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);*/
+  background: #e8f98f;
+  /*background-color: #fff;*/
   padding-left: 20px;
   /* Toggle Sidebar Button */
   /* Search Bar */
