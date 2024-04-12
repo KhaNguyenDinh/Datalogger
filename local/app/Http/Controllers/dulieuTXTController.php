@@ -192,7 +192,7 @@ public function checkData($id_nha_may) {
 					if ($name=='connect') {
 						$error = 'Mất kết nối <br>';
 					}elseif($name=='error'){
-						$error = 'Vợt ngưỡng <br>';
+						$error = 'Vượt ngưỡng <br>';
 					}elseif($name=='E'){
 						$error = 'Lỗi thiết bị <br>';
 					}
