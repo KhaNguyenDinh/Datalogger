@@ -189,7 +189,13 @@ public function checkData($id_nha_may) {
 			$error='';
 			foreach ($name_check as $key => $name) {
 				if ($list_check[$name]>0) {
-					$error = 'Error';
+					if ($name=='connect') {
+						$error = 'Mất kết nối <br>';
+					}elseif($name=='error'){
+						$error = 'Vợt ngưỡng <br>';
+					}elseif($name=='E'){
+						$error = 'Lỗi thiết bị <br>';
+					}
 				}
 			}
 			$list_error[$value->name_khu_vuc]= $error;
