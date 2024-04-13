@@ -67,7 +67,7 @@
 @if(session('level')=='User')
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#alert-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gear"></i><span>alert</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gear"></i><span>Cảnh báo</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="alert-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           @foreach ($khuVuc as $key => $value)
