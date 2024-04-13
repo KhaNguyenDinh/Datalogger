@@ -20,7 +20,7 @@
 			<input type="text" name="name_account" placeholder="name" required class="form-control">
 			<br>
 			<!-- <label>password</label> -->
-			<input type="text" name="pass_account" placeholder="password" required class="form-control">
+			<input type="password" name="pass_account" placeholder="password" required class="form-control">
 			<br>
 			<input type="submit"  value="ĐĂNG NHẬP" style="width: 100%" class="btn btn-primary">
 			<br>
