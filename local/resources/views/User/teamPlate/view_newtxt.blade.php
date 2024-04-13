@@ -37,7 +37,7 @@ foreach ($list_key as $key => $value) {
 	$TrangThai= "trongnguong";$status = "sttnorm";
 	if (array_key_exists($value1['name'], $list_alert)) {
 		$value2 = $list_alert[$value1['name']];
-		$view_tt="Giới hạn: <".$value2['min']." , > ".$value2['max'];
+		$view_tt="Giới hạn: [".$value2['minmin']." , ".$value2['maxmax']."]";
 		if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
 			$TrangThai="vuotnguong";
 		}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
