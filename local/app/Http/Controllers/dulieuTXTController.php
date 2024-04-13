@@ -23,101 +23,29 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class dulieuTXTController extends Controller
 {
-public function checkData($id_nha_may) {
-	$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
-	$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
-	$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
-////////////
-	$nhaMayGetId = nhaMay::find($id_nha_may);
-	$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
-	$returm = 0;
-	foreach ($khuVuc as $key => $value) {
-		$newTxt = DB::table($value->folder_txt)
-            ->orderByDesc('time')->first();
+	public function checkData($id_nha_may) {
+		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+		$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
+		$nhaMayGetId = nhaMay::find($id_nha_may);
+		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
+		$returm = 0;
+		foreach ($khuVuc as $key => $value) {
+			$newTxt = DB::table($value->folder_txt)
+	            ->orderByDesc('time')->first();
 
-        if (!empty($newTxt)) {
-            $time =  $newTxt->time;
-            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
-			$interval = $date1->diff($date2);
-			if ($interval->y== 0 && $interval->m == 0 && $interval->d == 0 && $interval->h == 0 && $interval->i<=1) {
-				$returm = 1;
+	        if (!empty($newTxt)) {
+	            $time =  $newTxt->time;
+	            $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
+				$interval = $date1->diff($date2);
+				if ($interval->y== 0 && $interval->m == 0 && $interval->d == 0 && $interval->h == 0 && $interval->i<=1) {
+					$returm = 1;
+				}
 			}
 		}
+	    return $returm;
 	}
-    return $returm;
-}
- //    public function arelay_vs1($id_nha_may){
-	// 	$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
-	// 	$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
-	// 	$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
-	// 	////////////////////////////
-	// 	$nhaMayGetId = nhaMay::find($id_nha_may);
-	// 	$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
-	// 	$total_alert=0; $total_error=0;$total_error_connect=0;
-	// 	foreach ($khuVuc as $key => $value) {
-	// 		$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
-	// 		$newTxt = DB::table($value->folder_txt)->orderByDesc('time')->first();
 
- //            if (!empty($newTxt)) {
- //            	$time =  $newTxt->time;
-	//             $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
-	// 			$interval = $date1->diff($date2);
-	// 			$connect = "";
-	// 			if ($interval->y > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
-	// 			if ($connect!=='') {
-	// 				$total_error_connect = $total_error_connect+1;
-	// 			}
-	// 			/////////
-	// 			$arrayData = json_decode($newTxt->data, true);
-	// 			$TrangThai=$status = "norm";
-	// 			$list_alert = [];
-	// 			if ($alert) {
-	// 				foreach ($alert as $key => $value_alert) {
-	// 					if ($value_alert['enable']=="YES") {
-	// 						$list_alert[$value_alert['name_alert']]=$value_alert;
-	// 					}
-	// 				}
-	// 			}
-	// 			$check_error="NO"; $check_alert = "NO";
-	// 				if ($check_error=="NO") {
-	// 				foreach ($arrayData as $key1 => $value1) {
-	// 					if (array_key_exists($value1['name'], $list_alert)) {
-	// 						$value2 = $list_alert[$value1['name']];
-
-	// 						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-	// 							$TrangThai="error";
-	// 							if ($check_error=="NO") {
-	// 								$total_error=$total_error+1;
-	// 							}
-	// 							$check_error="YES";
-	// 						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-	// 							$TrangThai="alert";
-	// 							if ($check_alert=="NO") {
-	// 								$total_alert=$total_alert+1;
-	// 							}
-	// 							$check_alert="YES";
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-
-	// 			switch ($value1['status']) {
-	// 				// case 0:$status = 'norm';break;
-	// 				case 1:$status = 'alert';break;
-	// 				case 2:$status = 'error';break;
-	// 			}
-	// 		}	
-	// 	}
-	// 	$error='';
-	// 	// if ($total_alert>0) { $error = 'Chuẩn bị vượt ngưỡng';}
-	// 	if ($total_error>0) { $error = 'Vượt ngưỡng';}
-	// 	// if ($total_error_connect > 0) { $error = 'Không có dữ liệu TXT gửi lên website';}
-	// 	echo $error;
-	// }
 	public function relay($id_nha_may){
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
@@ -222,6 +150,78 @@ public function checkData($id_nha_may) {
     	}
     	return Redirect()->back()->withInput();
     }
+    // alert
+    public function deleteAlert($id){
+    	$data = alert::find($id)->delete();
+        return Redirect()->back()->withInput();
+    }
+    public function postinsert(Request $request, $id_khu_vuc){
+		$validator = Validator::make(
+		    $request->all(),
+		    [
+		        'name_alert' => 'required|min:1|max:100', // Đặt tên của trường và cung cấp quy tắc kiểm tra
+		        'minmin' => 'required',
+		        'min' => 'required',
+		        'max' => 'required',
+		        'maxmax' => 'required',
+		        'enable' => 'required'
+		    ]
+		);
+        if ($validator->fails()) {
+        	return response()->json(['error'=>$validator->errors()->all()]);
+        }else{
+	    	$count = alert::where('name_alert',$request->name_alert)->where('id_khu_vuc',$id_khu_vuc)->count();
+	    	if ($count==0) {
+		    	$insert = new alert();
+		    	$insert->id_khu_vuc = $id_khu_vuc;
+		    	$insert->name_alert = $request->name_alert;
+		    	$insert->minmin = $request->minmin;
+		    	$insert->min = $request->min;
+		    	$insert->max = $request->max;
+		    	$insert->maxmax = $request->maxmax;
+		    	$insert->enable = $request->enable;
+		    	$insert->save();
+		    	return Redirect()->back()->withInput();
+	    	}else{
+	    		return response()->json(['success'=>$request->name.' dang ton tai']);
+	    	}
+        }
+    }
+    public function postupdate(Request $request, $id_khu_vuc){
+		$validator = Validator::make(
+		    $request->all(),
+		    [
+		        'name_alert' => 'required|min:1|max:100', // Đặt tên của trường và cung cấp quy tắc kiểm tra
+		        'minmin' => 'required',
+		        'min' => 'required',
+		        'max' => 'required',
+		        'maxmax' => 'required',
+		        'enable' => 'required'
+		    ]
+		);
+        if ($validator->fails()) {
+        	return response()->json(['error'=>$validator->errors()->all()]);
+        }else{
+	    	for ($i=0; $i < count($request->id_alert) ; $i++) { 
+				$count = alert::where('name_alert',$request->name_alert[$i])->where('id_khu_vuc',$id_khu_vuc)->where('id_alert','!=',$request->id_alert[$i])->count();
+				$count=0;
+		    	if ($count==0) {
+			    	$update = alert::find($request->id_alert[$i]);
+			    	$update->name_alert = $request->name_alert[$i];
+			    	$update->minmin = $request->minmin[$i];
+			    	$update->min = $request->min[$i];
+			    	$update->max = $request->max[$i];
+			    	$update->maxmax = $request->maxmax[$i];
+			    	$update->enable = $request->enable[$i];
+			    	$update->save();
+		    	}else{
+		    		return response()->json(['success'=>$request->name.' dang ton tai']);
+		    	}
+	    	}
+	    	return Redirect()->back()->withInput();
+	        }
+    }
+    // end alert
 	public function showTrangChu($id_nha_may,$key_view){
 		$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
 		$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
@@ -305,89 +305,7 @@ public function checkData($id_nha_may) {
 			////////////////////////////////
 		return view('User.home', compact('results','key_view'));
 	}
-	// public function showTrangChu_vs1($id_nha_may,$key_view){
-	// 	$currentDateTime = new DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
-	// 	$formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
-	// 	$date1 = DateTime::createFromFormat('Y-m-d H:i:s',$formattedDateTime);
-	// 	////////////////////////////
-	// 	$nhaMayGetId = nhaMay::find($id_nha_may);
-	// 	$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
 
-	// 	$results = [];
-	// 	$result_khuVuc=[];
-	// 	$total_alert=0; $total_error=0;$total = count($khuVuc);$total_error_connect=0;$toal_load = 0;
-
-	// 	foreach ($khuVuc as $key => $value) {
-	// 		$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
-	// 		$viTri = viTri::where('id_khu_vuc', $value->id_khu_vuc)->orderBy('vitri', 'asc')->get();
-	// 		$newTxt = DB::table($value->folder_txt)
- //                ->orderByDesc('time')->first();
- //            $txt = DB::table($value->folder_txt)
- //                ->orderByDesc('time')->limit(12)->get();
- //            if (!empty($newTxt)) {
-	//             $time =  $newTxt->time;
-	//             $date2 = DateTime::createFromFormat('Y-m-d H:i:s', date("Y-m-d H:i:s",strtotime($time)));
-	// 			$interval = $date1->diff($date2);
-	// 			$connect = "";
-	// 			if ($interval->y > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
-	// 			} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
-	// 			if ($connect!=='') {
-	// 				$total_error_connect = $total_error_connect+1;
-	// 				$toal_load = $toal_load+1;
-	// 			}
-	// 			/////////////////////////////////////////////////////
-	// 			$arrayData = json_decode($newTxt->data, true);
-	// 			$TrangThai=$status = "norm";
-	// 			$list_alert = [];
-	// 			if ($alert) {
-	// 				foreach ($alert as $key => $value_alert) {
-	// 					if ($value_alert['enable']=="YES") {
-	// 						$list_alert[$value_alert['name_alert']]=$value_alert;
-	// 					}
-	// 				}
-	// 			}
-	// 			$check_error="NO"; $check_alert = "NO";
-	// 				if ($check_error=="NO") {
-	// 				foreach ($arrayData as $key1 => $value1) {
-	// 					if (array_key_exists($value1['name'], $list_alert)) {
-	// 						$value2 = $list_alert[$value1['name']];
-
-	// 						if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
-	// 							$TrangThai="error";
-	// 							if ($check_error=="NO") {
-	// 								$total_error=$total_error+1;
-	// 							}
-	// 							$check_error="YES";
-	// 						}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
-	// 							$TrangThai="alert";
-	// 							if ($check_alert=="NO") {
-	// 								$total_alert=$total_alert+1;
-	// 							}
-	// 							$check_alert="YES";
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-
-	// 			switch ($value1['status']) {
-	// 				// case 0:$status = 'norm';break;
-	// 				case 1:$status = 'alert';break;
-	// 				case 2:$status = 'error';break;
-	// 			}
-	// 			array_push($result_khuVuc,['khuVucGetId'=>$value,'alert'=>$alert,'viTri'=>$viTri,'newTxt'=>$newTxt,'txt'=>$txt,'TrangThai'=>$TrangThai,'status'=>$status,'connect'=>$connect]);
-	// 		}	
-	// 	}
-	// 	$reload = 0;
-	// 	if ($toal_load > 0 && $toal_load < $total) {
-	// 		$reload = 1;
-	// 	}
-	// 	$results = array_merge($results,['nhaMayGetId'=>$nhaMayGetId,'khuVuc'=>$khuVuc,'total'=>$total,'reload'=>$reload,'total_error'=>$total_error,'total_alert'=>$total_alert,'total_error_connect'=>$total_error_connect,'result_khuVuc'=>$result_khuVuc]);
-	// 		////////////////////////////////
-	// 	return view('User.trangChu', compact('results','key_view'));
-	// }
 	public function dataKhuVuc($id_khu_vuc, $startTime, $endTime){
 		$khuVucGetId = khuVuc::find($id_khu_vuc);
 		$nhaMayGetId = nhaMay::find($khuVucGetId['id_nha_may']);
@@ -413,13 +331,17 @@ public function checkData($id_nha_may) {
 	    return $results;
 	}
 	public function showKhuVuc(Request $request,$id_khu_vuc,$action){
+		if ($action=='updatealert') {
+			$data = alert::where('id_khu_vuc',$id_khu_vuc)->get();
+			return view('User.alert', compact('data','action','id_khu_vuc'));
+		}
 		$show_Alert='';
 		$results = $this->dataKhuVuc($id_khu_vuc,'NO','NO');
 		if ($action=='Alert') {
 			$result_txt = [];
 			$results['result_khuVuc'][0]['txt']=new Collection($result_txt);
 		}
-		return view('User.khuVuc', compact('results','action','show_Alert',));
+		return view('User.khuVuc', compact('results','action','show_Alert'));
 	}
 	public function postShowKhuVuc(Request $request, $id_khu_vuc,$action){
 		$validator = Validator::make(

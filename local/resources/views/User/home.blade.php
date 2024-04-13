@@ -44,7 +44,8 @@
 <?php $brd = 'white'; ?>
 <style type="text/css">
 	.tt{
-		border: ridge;
+		/*border: ridge;*/
+		border: 1px solid white;
 	}
 	.dv{
 	  border-style: solid;

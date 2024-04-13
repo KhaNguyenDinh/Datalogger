@@ -22,6 +22,11 @@ Route::post('postLogin','accountController@postLogin');
 Route::get('logout', 'accountController@logout');
 
 Route::group(['prefix'=>'User','middleware' => 'check-account'],function(){
+	//alert
+	Route::get('deleteAlert/{id_alert}','dulieuTXTController@deleteAlert');
+	Route::post('postinsert/{id_khu_vuc}','dulieuTXTController@postinsert');
+	Route::post('postupdate/{id_khu_vuc}','dulieuTXTController@postupdate');
+
 	Route::get('update', 'accountController@userUpdate');
 	Route::post('postUpdate/{id_account}', 'accountController@UserPostUpdate');
 	Route::get('/{id_nha_may}/{key_view}', 'dulieuTXTController@showTrangChu');
