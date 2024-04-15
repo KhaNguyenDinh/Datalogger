@@ -125,7 +125,7 @@ class LogService
 
 							$files = Storage::files($subDirectory);
 							if (empty($files)) {
-							    // Storage::deleteDirectory($subDirectory);
+							    Storage::deleteDirectory($subDirectory);
 							    // echo "Đã xóa thư mục $subDirectory vì không còn file trong đó.";
 							}
 						}
@@ -231,20 +231,20 @@ class LogService
 										}
 										$files = Storage::files($subDirectory2);
 										if (empty($files)) {
-										    // Storage::deleteDirectory($subDirectory2);
+										    Storage::deleteDirectory($subDirectory2);
 										    // echo "Đã xóa thư mục $subDirectory2 vì không còn file trong đó.";
 										}
 									}
 									$directories = Storage::directories($subDirectory1);
 									if (empty($directories)) {
-									    // Storage::deleteDirectory($subDirectory1);
+									    Storage::deleteDirectory($subDirectory1);
 									    // echo "Đã xóa thư mục $subDirectory1 vì không còn thư mục con trong đó.";
 									}
 								}
 							}
 							$directories = Storage::directories($subDirectory);
 							if (empty($directories)) {
-							    // Storage::deleteDirectory($subDirectory);
+							    Storage::deleteDirectory($subDirectory);
 							    // echo "Đã xóa thư mục $subDirectory1 vì không còn thư mục con trong đó.";
 							}
 				    	}
