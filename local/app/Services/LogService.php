@@ -118,7 +118,7 @@ class LogService
 
 									// Xóa file ở thư mục A nếu di chuyển thành công
 									if (File::exists($destinationPath)) {
-									    // File::delete($sourcePath);
+									    File::delete($sourcePath);
 									}
 								}
 							}
