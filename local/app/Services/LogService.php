@@ -118,7 +118,7 @@ class LogService
 
 									// Xóa file ở thư mục A nếu di chuyển thành công
 									if (File::exists($destinationPath)) {
-									    File::delete($sourcePath);
+									    // File::delete($sourcePath);
 									}
 								}
 							}
@@ -224,14 +224,14 @@ class LogService
 
 												// Xóa file ở thư mục A nếu di chuyển thành công
 												if (File::exists($destinationPath)) {
-												    // File::delete($sourcePath);
+												    File::delete($sourcePath);
 												}
 											}
 
 										}
 										$files = Storage::files($subDirectory2);
 										if (empty($files)) {
-										    Storage::deleteDirectory($subDirectory2);
+										    // Storage::deleteDirectory($subDirectory2);
 										    // echo "Đã xóa thư mục $subDirectory2 vì không còn file trong đó.";
 										}
 									}
