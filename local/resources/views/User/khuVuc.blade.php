@@ -12,23 +12,23 @@
 	$txt = $results['result_khuVuc'][0]['txt'];
  ?>
 @if($action === 'Camera')
-    <div class="col-sm-12">@include('User.teamPlate.camera')</div>
+    <div class="col-sm-12">@include('teamPlate.camera')</div>
 @elseif($action=='map')
 <?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['name_khu_vuc']; ?> <hr>
 <?=$khuVucGetId = $results['result_khuVuc'][0]['khuVucGetId']['link_map']; ?> <hr>
 @else
-	@include('User.teamPlate.time')
+	@include('teamPlate.time')
 @endif
 
 @if (!$txt->isEmpty())
 <div class="row">
 	@if($action === 'Charts')
-	    <div class="col-sm-12">@include('User.teamPlate.graph')</div>
+	    <div class="col-sm-12">@include('teamPlate.graph')</div>
 	@elseif($action === 'Tables')
-		<div class="col-sm-12">@include('User.teamPlate.table')</div>
+		<div class="col-sm-12">@include('teamPlate.table')</div>
 	@elseif($action === 'Alert')
-		@include('User.teamPlate.status')
-		<div class="col-sm-12">@include('User.teamPlate.alert')</div>
+		@include('teamPlate.status')
+		<div class="col-sm-12">@include('teamPlate.alert')</div>
 	@endif
 </div>
 @endif

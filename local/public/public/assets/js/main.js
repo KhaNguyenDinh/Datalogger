@@ -302,7 +302,7 @@
   const datatables = select('.datatable', true)
   datatables.forEach(datatable => {
     new simpleDatatables.DataTable(datatable, {
-      perPageSelect: [5, 10, 15, ["All", -1]],
+      perPageSelect: [12, 48, 288, ["All", -1]],
       columns: [{
           select: 2,
           sortSequence: ["desc", "asc"]

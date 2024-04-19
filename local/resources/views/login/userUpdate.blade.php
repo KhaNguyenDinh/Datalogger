@@ -11,20 +11,14 @@
 			<img class="show_logo" src="{{asset('public/assets/img/logo_remove.png')}}" alt="">
 			<h2 style="color: blue" >PHẦN MỀM QUẢN LÝ DỮ LIỆU QUAN TRẮC TỰ ĐỘNG </h2>
 		</center>
-		<form method="post" action="{{URL::to('User/postUpdate/'.$id_account)}}" enctype="multipart/form-data">
-			@csrf
-			<!-- <label>Name</label> --><br>
-			<input type="text" name="new_name_account" value="{{$name_account}}" required class="form-control">
-			<!-- <label>password</label> --><br>
-			<input type="text" name="pass_account"  placeholder="password" required class="form-control">
-			<!-- <label>new password</label> --><br>
-			<input type="text" name="new_pass_account" placeholder="new password" required class="form-control">
-			<br>
-			<input type="submit" value="update" class="btn btn-primary" style="width: 100%">
-			<br>
+		<form method="post" action="{{URL::to('User/user_postUpdate/'.$id_account)}}" enctype="multipart/form-data">
+			@csrf<br>
+			<input type="text" name="new_name_account" value="{{$name_account}}" required class="form-control"><br>
+			<input type="text" name="pass_account"  placeholder="password" required class="form-control"><br>
+			<input type="text" name="new_pass_account" placeholder="new password" required class="form-control"><br>
+			<input type="submit" value="update" class="btn btn-primary" style="width: 100%"><br>
 			<h5 style="font-size: 10px;color: white">TRUNG TÂM PHÂN TÍCH VÀ MÔI TRƯỜNG</h5>
 			<a href="/" class="btn btn-primary">Back</a>
-
 		</form>
 	</div>
 	<div class="col-sm-4"></div>

@@ -2,99 +2,104 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('relay/{id_nha_may}','dulieuTXTController@relay');
+// Route::group(['prefix'=>'Master','middleware' => 'check-admin'],function(){
+//     Route::get('show/{id_nha_may}','nhaMayController@show');
+// });
 
+Route::group(['prefix'=>'Master','middleware' => 'check-master'],function(){
+	
+    Route::get('resetTxt','masterController@resetTxt');
+    Route::get('show/{id_nha_may}','masterController@show');
+    // account
+	Route::group(['prefix'=>'account'],function(){
+		Route::get('/','masterController@account_index');
+		Route::post('postinsert','masterController@account_postinsert');
+		Route::post('postupdate','masterController@account_postupdate');
+		Route::get('delete/{id_account}','masterController@account_delete');
+	}); 
+	// nha May
+	Route::get('/','masterController@nhamay_index');
+	Route::group(['prefix'=>'nhaMay'],function(){
+		Route::get('/','masterController@nhamay_index');
+		Route::post('postinsert','masterController@nhamay_postinsert');
+		Route::post('postupdate','masterController@nhamay_postupdate');
+		Route::get('delete/{id_nha_may}','masterController@nhamay_delete');
+	});
+	// vanPhong
+	Route::group(['prefix'=>'vanPhong'],function(){
+		Route::get('/','masterController@vanphong_index');
+		Route::post('postinsert','masterController@vanphong_postinsert');
+		Route::post('postupdate','masterController@vanphong_postupdate');
+		Route::get('delete/{id_van_phong}','masterController@vanphong_delete');
+	});
+	// role
+	Route::group(['prefix'=>'role'],function(){
+		Route::get('/','masterController@role_index');
+		Route::post('postinsert','masterController@role_postinsert');
+		Route::post('postupdate','masterController@role_postupdate');
+		Route::get('delete/{id}','masterController@role_delete');
+	});
+	// khu vuc
+	Route::group(['prefix'=>'khuVuc'],function(){
+		Route::get('/{id_nha_may}','masterController@khuvuc_index');
+		Route::post('postinsert/{id_nha_may}','masterController@khuvuc_postinsert');
+		Route::post('postupdate/{id_nha_may}','masterController@khuvuc_postupdate');
+		Route::get('delete/{id_khu_vuc}','masterController@khuvuc_delete');
+	});
+	// camera
+	Route::group(['prefix'=>'camera'],function(){
+		Route::get('/{id_khu_vuc}','masterController@camera_index');
+		Route::post('postinsert/{id_khu_vuc}','masterController@camera_postinsert');
+		Route::post('postupdate/{id_khu_vuc}','masterController@camera_postupdate');
+		Route::get('delete/{id_camera}','masterController@camera_delete');
+	});
+	// alert
+	Route::group(['prefix'=>'alert'],function(){
+		Route::get('/{id_khu_vuc}','masterController@alert_index');
+		Route::post('postinsert/{id_khu_vuc}','masterController@alert_postinsert');
+		Route::post('postupdate/{id_khu_vuc}','masterController@alert_postupdate');
+		Route::get('delete/{id_alert}','masterController@alert_delete');
+	});
+	// vi tri
+	Route::group(['prefix'=>'viTri'],function(){
+		Route::get('/{id_khu_vuc}','masterController@vitri_index');
+		Route::post('postinsert/{id_khu_vuc}','masterController@vitri_postinsert');
+		Route::post('postupdate/{id_khu_vuc}','masterController@vitri_postupdate');
+		Route::get('delete/{id}','masterController@vitri_delete');
+	});
 
-Route::get('/check-data/{id}', 'dulieuTXTController@checkData')->name('checkData');
-
-Route::get('/', 'accountController@login');
-Route::post('postLogin','accountController@postLogin');
-Route::get('logout', 'accountController@logout');
-
+});//OK
 Route::group(['prefix'=>'User','middleware' => 'check-account'],function(){
 	//alert
-	Route::get('deleteAlert/{id_alert}','dulieuTXTController@deleteAlert');
-	Route::post('postinsert/{id_khu_vuc}','dulieuTXTController@postinsert');
-	Route::post('postupdate/{id_khu_vuc}','dulieuTXTController@postupdate');
-
-	Route::get('update', 'accountController@userUpdate');
-	Route::post('postUpdate/{id_account}', 'accountController@UserPostUpdate');
-	Route::get('/{id_nha_may}/{key_view}', 'dulieuTXTController@showTrangChu');
-	Route::get('khuVuc/{id_khu_vuc}/{action}', 'dulieuTXTController@showKhuVuc');
-	Route::post('postKhuVuc/{id_khu_vuc}/{action}', 'dulieuTXTController@postShowKhuVuc');
-});
-
-Route::group(['prefix'=>'Admin','middleware' => 'check-master'],function(){
-	
-	Route::get('/','nhaMayController@index');
-
-    Route::get('resetTxt','dulieuTXTController@resetTxt');
-    Route::get('show/{id_nha_may}','nhaMayController@show');
-
-	Route::group(['prefix'=>'viTri'],function(){
-		Route::get('/{id_khu_vuc}','vitriController@index');
-		Route::get('insert/{id_khu_vuc}','vitriController@insert');
-		Route::post('postinsert/{id_khu_vuc}','vitriController@postinsert');
-		Route::get('update/{id}','vitriController@update');
-		Route::post('postupdate/{id}','vitriController@postupdate');
-		Route::get('delete/{id}','vitriController@delete');
-	});
-	Route::group(['prefix'=>'nhaMay'],function(){
-		Route::get('/','nhaMayController@index');
-		Route::get('insert','nhaMayController@insert');
-		Route::post('postinsert','nhaMayController@postinsert');
-		Route::get('update/{id_nha_may}','nhaMayController@update');
-		Route::post('postupdate/{id_nha_may}','nhaMayController@postupdate');
-		Route::get('delete/{id_nha_may}','nhaMayController@delete');
-	});
-
-	Route::group(['prefix'=>'khuVuc'],function(){
-		Route::get('/{id_nha_may}','khuVucController@index');
-		Route::get('insert/{id_nha_may}','khuVucController@insert');
-		Route::post('postinsert/{id_nha_may}','khuVucController@postinsert');
-		Route::get('update/{id_khu_vuc}','khuVucController@update');
-		Route::post('postupdate/{id_khu_vuc}','khuVucController@postupdate');
-		Route::get('delete/{id_khu_vuc}','khuVucController@delete');
-	});
-
-	Route::group(['prefix'=>'camera'],function(){
-		Route::get('/{id_khu_vuc}','cameraController@index');
-		Route::get('insert/{id_khu_vuc}','cameraController@insert');
-		Route::post('postinsert/{id_khu_vuc}','cameraController@postinsert');
-		Route::get('update/{id_camera}','cameraController@update');
-		Route::post('postupdate/{id_camera}','cameraController@postupdate');
-		Route::get('delete/{id_camera}','cameraController@delete');
-	});
-
-	Route::group(['prefix'=>'alert'],function(){
-		Route::get('/{id_khu_vuc}','alertController@index');
-		Route::get('insert/{id_khu_vuc}','alertController@insert');
-		Route::post('postinsert/{id_khu_vuc}','alertController@postinsert');
-		Route::get('update/{id_alert}','alertController@update');
-		Route::post('postupdate/{id_alert}','alertController@postupdate');
-		Route::get('delete/{id_alert}','alertController@delete');
-	});
-
-	Route::group(['prefix'=>'account'],function(){
-		Route::get('/','accountController@index');
-		Route::get('insert','accountController@insert');
-		Route::post('postinsert','accountController@postinsert');
-		Route::get('update/{id_account}','accountController@update');
-		Route::post('postupdate/{id_account}','accountController@postupdate');
-		Route::get('delete/{id_account}','accountController@delete');
-	});
-});
+	Route::get('alert_delete/{id_alert}','viewController@alert_delete');
+	Route::post('alert_postinsert/{id_khu_vuc}','viewController@alert_postinsert');
+	Route::post('alert_postupdate/{id_khu_vuc}','viewController@alert_postupdate');
+	//user
+	Route::get('user_update', 'viewController@user_update');
+	Route::post('user_postUpdate/{id_account}', 'viewController@user_postUpdate');
+	// view
+	Route::get('/{id_nha_may}/{key_view}', 'viewController@showTrangChu');
+	Route::get('khuVuc/{id_khu_vuc}/{action}', 'viewController@showKhuVuc');
+	Route::post('postKhuVuc/{id_khu_vuc}/{action}', 'viewController@postShowKhuVuc');
+});// ok
 
 Route::group(['prefix'=>'Admin','middleware' => 'check-admin'],function(){
-    Route::get('show/{id_nha_may}','nhaMayController@show');
-});
+	Route::get('/','viewController@admin_home');
+});// ok
+Route::group(['prefix'=>'vanPhong','middleware' => 'check-vanPhong'],function(){
+	Route::get('/{id_van_phong}/{id_nha_may}','viewController@vanphong_home');
+});// ok
+// login
+Route::get('/', 'loginController@login');
+Route::post('postLogin','loginController@postLogin');
+Route::get('logout', 'loginController@logout');
+// relay
+Route::get('relay/{id_nha_may}','dulieuTXTController@relay');
+//check txt
+Route::get('/check-data/{id}', 'dulieuTXTController@checkData')->name('checkData');
+
+
+
+
+
+

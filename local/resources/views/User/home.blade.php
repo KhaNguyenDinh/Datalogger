@@ -1,5 +1,5 @@
 @extends('User')
-@section('title','trangChu')
+@section('title','home')
 @section('content')
 <?php
 	$nhaMayGetId = $results['nhaMayGetId'];
@@ -52,6 +52,9 @@
 	  border-color: <?=$brd?> <?=$brd?> <?=$brd?> #efdfb0d9;
 	  background: white;
 	}
+	table td{
+		border: 1px solid white;
+	}
 
 </style>
 <script type="text/javascript">
@@ -90,60 +93,70 @@
                   <div  class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
 
-<table class="table table-bordered tbl" style="width: 100%">
-	<tr>
-		<th>STT</th>
-		<th>Trạm</th>
-		<th>Loại</th>
-		<th>Trạng thái</th>
-		<th>Tình trạng</th>
-		<th>Tín hiệu</th>
-	</tr>
-	<?php 
-	foreach ($result_khuVuc as $key => $value) {
-		$list_check =$value['list_check'];
-	echo "<tr>";
-		echo "<td>".$key."</td>";
-		echo "<td>".$value['khuVucGetId']['name_khu_vuc']."</td>";
-		echo "<td >".$value['khuVucGetId']['loai']."</td>";
-		if ($list_check['E']==0) {
-			if ($list_check['C']==0) {
-				$status = 'Bình thường';
-				$background = $color['hdt'];
-			}else{ 
-				$status = 'Hiêu chuẩn';
-				$background = $color['C'];
-			}
-		}else{ 
-			$status = 'Lỗi thiết bị';
-			$background = $color['E'];
-		}
-		echo "<td style='background:".$background."'>".$status."</td>";
-		if ($list_check['error']==0) {
-			if ($list_check['alert']==0) {
-				$tt = 'Trong ngưỡng';
-				$background = $color['hdt'];
-			}else{ 
-				$tt = 'Chuẩn bị vượt';
-				$background = $color['alert'];
-			}
-		}else{ 
-			$tt = 'Vượt ngưỡng';
-			$background = $color['error'];
-		}
-		echo "<td style='background:".$background."'>".$tt."</td>";
-		if ($list_check['connect']==0) {
-			$connect = 'Đang kết nối';
-			$background = $color['hdt'];
-		}else{ 
-			$connect = 'Lỗi kết nối';
-			$background = $color['connect'];
-		}
-		echo "<td style='background:".$background."'>".$connect."</td>";
-	echo "</tr>";
-	}
-	 ?>
-</table>
+						<table class="table datatable tbl" style="width: 100%">
+							<thead>
+							<tr>
+								<th>STT</th>
+								<th>Trạm</th>
+								<th>Loại</th>
+								<th>Trạng thái</th>
+								<th>Tình trạng</th>
+								<th>Tín hiệu</th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php 
+							foreach ($result_khuVuc as $key => $value) {
+								$list_check =$value['list_check'];
+							echo "<tr>";
+								echo "<td>".$key."</td>";
+								echo "<td>".$value['khuVucGetId']['name_khu_vuc']."</td>";
+								echo "<td >".$value['khuVucGetId']['loai']."</td>";
+								if ($list_check['connect']==0) {
+									if ($list_check['E']==0) {
+										if ($list_check['C']==0) {
+											$status = 'Bình thường';
+											$background = $color['hdt'];
+										}else{ 
+											$status = 'Hiêu chuẩn';
+											$background = $color['C'];
+										}
+									}else{ 
+										$status = 'Lỗi thiết bị';
+										$background = $color['E'];
+									}
+
+									echo "<td style='background:".$background."'>".$status."</td>";
+								}else{ echo "<td></td>"; }
+									/////////
+								if ($list_check['connect']==0) {
+									if ($list_check['error']==0) {
+										if ($list_check['alert']==0) {
+											$tt = 'Trong ngưỡng';
+											$background = $color['hdt'];
+										}else{ 
+											$tt = 'Chuẩn bị vượt';
+											$background = $color['alert'];
+										}
+									}else{ 
+										$tt = 'Vượt ngưỡng';
+										$background = $color['error'];
+									}
+									echo "<td style='background:".$background."'>".$tt."</td>";
+								}else{ echo "<td></td>"; }
+								if ($list_check['connect']==0) {
+									$connect = 'Đang kết nối';
+									$background = $color['hdt'];
+								}else{ 
+									$connect = 'Lỗi kết nối';
+									$background = $color['connect'];
+								}
+								echo "<td style='background:".$background."'>".$connect."</td>";
+							echo "</tr>";
+							}
+							 ?>
+							</tbody>
+						</table>
                     </div>
                   </div>
                 </div>
@@ -177,7 +190,7 @@
 	@if ($value = Arr::first($result_khuVuc))
 		<div class="col-sm-12">
 			<div class="row dv">
-				@include('User.teamPlate.status')
+				@include('teamPlate.status')
 				<div style="display: flex;">
 					<h4>Dữ liệu mới nhất : </h4>
 					<h4>{{$value['newTxt']->time}}</h4>
@@ -185,7 +198,7 @@
 						<h4 style="color: red">  Lỗi kết nối  </h4>
 					@endif
 				</div>
-				@include('User.teamPlate.view_newtxt')
+				@include('teamPlate.view_newtxt')
 			</div>
 	<!-- /////////////////////////		 --><br>
 		  	@foreach ($result_khuVuc as $key => $value)
@@ -195,12 +208,10 @@
 			    	$txt = $value['txt'];
 			    	 ?>
 			    	<div class="row dv">
-			    		<h5 class="card-title">BIỂU ĐỒ DỮ LIỆU 1 GIỜ</h5>
-			    		@include('User.teamPlate.graph')</div><br>
+			    		<h5 class="card-title">DỮ LIỆU 1 GIỜ MỚI NHẤT</h5>
+			    		@include('teamPlate.graph')</div><br>
 			    	<div class="row dv">
-			    		<h5 class="card-title">DỮ LIỆU CHI TIẾT 1 GIỜ</h5>
-			    		@include('User.teamPlate.status')
-			    		@include('User.teamPlate.alert')
+			    		@include('teamPlate.alert')
 			    	</div>
 			    	
 			    @endif
@@ -211,26 +222,18 @@
 </div>
 @endif
 <style type="text/css">
-.export{
-	display: none;
-}
 .a{
 	color: rgba(255, 255, 255, 0);
   border-radius: 50%;
   background: red;
 }
-/*.tbl {
-  position: relative;
-  overflow-y:scroll;
-  overflow-x:scroll;
-  display:block;
-  height: 333px;
-}*/
-th{
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0px;
- }
+.scoll{
+  overflow-x: scroll;
+  display: block;
+}
+.export{
+    display: none;
+}
 </style>
 
 <script>
