@@ -1,4 +1,4 @@
-@extends('admin')
+@extends('Admin')
 @section('title','vanphong')
 @section('content')
 <section class="section">
