@@ -93,7 +93,7 @@
                   <div  class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
 
-						<table class="table datatable tbl" style="width: 100%">
+						<table class="table datatable scoll" style="width: 100%">
 							<thead>
 							<tr>
 								<th>STT</th>
@@ -127,7 +127,7 @@
 									}
 
 									echo "<td style='background:".$background."'>".$status."</td>";
-								}else{ echo "<td></td>"; }
+								}else{ echo "<td>---</td>"; }
 									/////////
 								if ($list_check['connect']==0) {
 									if ($list_check['error']==0) {
@@ -143,7 +143,7 @@
 										$background = $color['error'];
 									}
 									echo "<td style='background:".$background."'>".$tt."</td>";
-								}else{ echo "<td></td>"; }
+								}else{ echo "<td>---</td>"; }
 								if ($list_check['connect']==0) {
 									$connect = 'Đang kết nối';
 									$background = $color['hdt'];

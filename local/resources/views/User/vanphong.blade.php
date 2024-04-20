@@ -17,7 +17,7 @@
             <thead>
               <tr>
         				<th>Nhà máy</th>
-        				<th>Tín hiệu</th>
+        				<th>Mất tín hiệu</th>
         				<th>Thiết bị lỗi</th>
         				<th>Hiệu chuẩn</th>
         				<th>Vượt chỉ tiêu</th>
@@ -30,17 +30,13 @@
         				@foreach($results['list_nhaMay'] as $key => $value)
         				<tr>
         				  <td>{{$value['nhaMay']['name_nha_may']}}</td>
-                  @if($value['status_nhamay']['connect']==0)
-                    @for ($i=0; $i < count($name) ; $i++)
-                      @if($value['status_nhamay'][$name[$i]]==0)
-                      <td style="background: #83f783;">Bình thường</td>
-                      @else
-                      <td style="background: #afabab;color: red">Lỗi</td>
-                      @endif
-                    @endfor
-                  @else
-                  <td style="background: #afabab;color: red">Mất kết nối</td><td></td><td></td><td></td><td></td>
-                  @endif
+                  @for ($i=0; $i < count($name) ; $i++)
+                    @if($value['status_nhamay'][$name[$i]]==0)
+                    <td> ---- </td>
+                    @else
+                    <td style="background: red">-- ERROR--</td>
+                    @endif
+                  @endfor
         				  <td><a href="{{URL::to('vanPhong/'.$vanPhong->id_van_phong.'/'.$value['nhaMay']['id_nha_may'])}}" class="btn-primary btn">show</a></td>
         				</tr>
         				@endforeach

@@ -13,8 +13,8 @@
           <table class="table datatable">
             <thead>
               <tr>
-                <th>Văn phòng</th>
-                <th>Tín hiệu</th>
+                <th >Văn phòng</th>
+                <th>Mất tín hiệu</th>
                 <th>Thiết bị lỗi</th>
                 <th>Hiệu chuẩn</th>
                 <th>Vượt chỉ tiêu</th>
@@ -26,18 +26,14 @@
               <?php $name = ['connect','E','C','error','alert']; ?>
         				@foreach($results['list_vanphong'] as $key => $value)
         				<tr>
-        				  <td>{{$value['vanPhong']['name_van_phong']}}</td>
-                  @if($value['status_vanPhong']['connect']==0)
-                    @for ($i=0; $i < count($name) ; $i++)
-                      @if($value['status_vanPhong'][$name[$i]]==0)
-                      <td style="background: #83f783;">Bình thường</td>
-                      @else
-                      <td style="background: #afabab;color: red">Lỗi</td>
-                      @endif
-                    @endfor
-                  @else
-                  <td style="background: #afabab;color: red">Mất kết nối</td><td></td><td></td><td></td><td></td>
-                  @endif
+        				  <td >{{$value['vanPhong']['name_van_phong']}}</td>
+                  @for ($i=0; $i < count($name) ; $i++)
+                    @if($value['status_vanPhong'][$name[$i]]==0)
+                    <td> --- </td>
+                    @else
+                    <td style="background: red;">ERROR</td>
+                    @endif
+                  @endfor
         				  <td><a href="{{URL::to('vanPhong/'.$value['vanPhong']['id_van_phong'].'/0')}}" class="btn btn-primary">show</a></td>
         				</tr>
         				@endforeach
