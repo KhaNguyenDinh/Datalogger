@@ -1,4 +1,4 @@
-<div class="view_stt">
+<div class="view_stt ">
   <i class="status sttnorm"></i> Đang đo 
   <i class="status sttcal"></i> Hiệu chuẩn  
   <i class="status stterror"></i> Lỗi thiết bị  
