@@ -39,3 +39,8 @@
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
+<style type="text/css">
+.logo {
+  line-height: 1;
+}
+</style>

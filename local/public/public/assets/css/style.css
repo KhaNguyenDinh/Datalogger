@@ -15,7 +15,9 @@
 *{
   font-family: "Times New Roman", Times, serif;
 }
-
+.datatable-dropdown{
+  display: none;
+}
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
@@ -360,7 +362,7 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 .logo {
-  line-height: 0.7;
+  line-height: 1;
 }
 
 @media (min-width: 1200px) {
@@ -935,11 +937,11 @@ h6 {
 }
 
 .dashboard .recent-sales .dataTable-top {
-  padding: 0 0 10px 0;
+  /*padding: 0 0 10px 0;*/
 }
 
 .dashboard .recent-sales .dataTable-bottom {
-  padding: 10px 0 0 0;
+  /*padding: 10px 0 0 0;*/
 }
 
 /* Top Selling */

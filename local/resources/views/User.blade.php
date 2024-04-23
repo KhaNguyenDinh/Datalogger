@@ -65,8 +65,8 @@ if (!isset($action)) {
 
 <style type="text/css">
 .transparent {
-            color: rgba(255, 255, 255, 0);
-        }
+  color: rgba(255, 255, 255, 0);
+}
 .background{
   width: 20px;
   height: 20px;
@@ -77,12 +77,12 @@ if (!isset($action)) {
   border-radius: 50%;
   margin: 2px;
 }
-.scroll{
+/*.scroll{
   min-width: 100%;
   table-layout: fixed;
   text-align: center;
   overflow-x: scroll;
-  /*overflow-y: scroll;*/
+  overflow-y: scroll;
   display: block;
-}
+}*/
 </style>
