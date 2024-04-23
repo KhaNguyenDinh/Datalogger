@@ -227,10 +227,10 @@
   border-radius: 50%;
   background: red;
 }
-.scoll{
+/*.scoll{
   overflow-x: scroll;
   display: block;
-}
+}*/
 .export{
     display: none;
 }
