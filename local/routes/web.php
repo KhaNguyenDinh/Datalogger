@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::group(['prefix'=>'Master','middleware' => 'check-admin'],function(){
-//     Route::get('show/{id_nha_may}','nhaMayController@show');
-// });
-
 Route::group(['prefix'=>'Master','middleware' => 'check-master'],function(){
 	
     Route::get('resetTxt','masterController@resetTxt');
@@ -90,6 +86,8 @@ Route::group(['prefix'=>'vanPhong','middleware' => 'check-vanPhong'],function(){
 	Route::get('/{id_van_phong}/{id_nha_may}','viewController@vanphong_home');
 });// ok
 // login
+// Route::get('/', 'viewController@admin');
+
 Route::get('/', 'loginController@login');
 Route::post('postLogin','loginController@postLogin');
 Route::get('logout', 'loginController@logout');

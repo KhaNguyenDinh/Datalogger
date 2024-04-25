@@ -42,12 +42,6 @@
 </div>
 <br>
   @yield('content')
-  <style type="text/css">
-    table,tr,th{
-    font-weight: bold;
-    border: 1px solid #ebebeb;
-  }
-  </style>
   <!-- Vendor JS Files -->
   <script src="{{asset('public/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
   <script src="{{asset('public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

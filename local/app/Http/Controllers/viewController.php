@@ -40,87 +40,199 @@ class viewController extends Controller
 		} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
 		} elseif($interval->i > 30) {$connect = "Mất tín hiệu";}
 		return $connect;
-	}
-	public function data_vanphong_home($id_van_phong){
+	} //ok
+	public function data_all(){
+		$results = [];
 		$name_status = ['connect','E','C','error','alert'];
-		$status=['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0];
+		$status = ['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0,'total'=>0];
+		$vanPhongs = vanPhong::select('id_van_phong')->get();
+		$status['total'] = count($vanPhongs);
+        $list_vanPhong =[];
+        foreach ($vanPhongs as $key => $vanPhong) {
+        	$data_vanPhong = $this->data_vanPhong($vanPhong->id_van_phong);
+        	foreach ($name_status as $key => $name) {
+				$status[$name] += $data_vanPhong['status_vanPhong'][$name];
+			}
+			array_push($list_vanPhong, $data_vanPhong);
+        }
+        $results = array_merge(['status'=>$status,'list_vanPhong'=>$list_vanPhong]);
+        return $results;
+	} // ok
+	public function data_vanPhong($id_van_phong){
+		$results = [];
+		$name_status = ['connect','E','C','error','alert'];
+		$status_vanPhong = ['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0,'total'=>0];
+		$vanPhong = vanPhong::find($id_van_phong);
 		$nhaMays = nhaMay::join('role', 'role.id_nha_may', '=', 'nhaMay.id_nha_may')
                     ->join('vanPhong', 'vanPhong.id_van_phong', '=', 'role.id_van_phong')
                     ->where('vanPhong.id_van_phong', $id_van_phong)
-                    ->select('nhaMay.*')
+                    ->select('nhaMay.id_nha_may')
                     ->orderBy('nhaMay.id_nha_may')
                     ->get();
-		$list_nhaMay=[];
-		foreach ($nhaMays as $key => $nhaMay) {
-			$status_nhamay=['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0];
-			$results=[];
-			$khuVucs = khuVuc::where('id_nha_may',$nhaMay->id_nha_may)->get();
-			
-			foreach ($khuVucs as $key => $khuVuc) {
-				$alert =alert::where('id_khu_vuc', $khuVuc->id_khu_vuc)->get();
-				$list_alert = [];
-				if ($alert) {
-					foreach ($alert as $key => $value_alert) {
-						if ($value_alert['enable']=="YES") {
-							$list_alert[$value_alert['name_alert']]=$value_alert;
-						}
-					}
-				}
-				//
-				$viTri = viTri::where('id_khu_vuc', $khuVuc->id_khu_vuc)->orderBy('vitri', 'asc')->get();
-				$list_vitri=[];
-				if ($viTri) {
-					foreach ($viTri as $key => $value_vitri) {
-						$list_vitri[$value_vitri['name']]=$value_vitri;
-					}
-				}
-				//
-				$status_khuvuc=['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0];
-				$newTxt = DB::table($khuVuc->folder_txt)->orderByDesc('time')->first();
-				$time = $newTxt->time;
-				$connect = $this->connect($time);
-				if ($connect=='') {
-					$arrayData = json_decode($newTxt->data, true);
-					foreach ($arrayData as $key1 => $data) {
-						if ($status_khuvuc['E'] == 0 ) {
-							if ($status_khuvuc['C'] == 0 ) {
-								switch ($data['status']) {
-									case 0: 
-										if (array_key_exists($data['name'], $list_alert)) {
-											$value2 = $list_alert[$data['name']];
-											if ($status_khuvuc['error']==0) {
-												if ($status_khuvuc['alert']==0) {
-													if ($data['number']<$value2['minmin']||$data['number']>$value2['maxmax']) {
-														$status_khuvuc['error']=1;
-													}elseif ($data['number']<$value2['min']||$data['number']>$value2['max']) {
-														$status_khuvuc['alert']=1;
-													}
-												}
-											}
-										}							
-										break;
-									case 1:$status_khuvuc['C'] = 1; break;
-									case 2:$status_khuvuc['E'] = 1; break;
-								}
-							}
-						}
-
-					}
-				}else{
-					$status_khuvuc['connect']=1;
-				}
-				foreach ($name_status as $key => $name) {
-					$status_nhamay[$name] += $status_khuvuc[$name];
-				}
+        $status_vanPhong['total'] = count($nhaMays);
+        $list_nhaMay =[];
+        foreach ($nhaMays as $key => $nhaMay) {
+        	$data_nhaMay = $this->data_nhaMay($nhaMay->id_nha_may);
+        	foreach ($name_status as $key => $name) {
+				$status_vanPhong[$name] += $data_nhaMay['status_nhaMay'][$name];
 			}
-			array_push($list_nhaMay,['nhaMay'=>$nhaMay, 'status_nhamay'=>$status_nhamay]);
+			array_push($list_nhaMay, $data_nhaMay);
+        }
+        $results = array_merge(['vanPhong'=>$vanPhong,'status_vanPhong'=>$status_vanPhong,'list_nhaMay'=>$list_nhaMay]);
+        return $results;
+	} // ok
+	public function data_nhaMay($id_nha_may){
+		$results = [];
+		$name_status = ['connect','E','C','error','alert'];
+		$nhaMay = nhaMay::find($id_nha_may);
+		$status_nhaMay = ['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0,'total'=>0];
+
+		$khuVucs = khuVuc::where('id_nha_may',$id_nha_may)->select('id_khu_vuc')->get();
+		$status_nhaMay['total'] = count($khuVucs);
+		$list_khuVuc = [];
+		foreach ($khuVucs as $key => $khuVuc) {
+			$data_khuVuc = $this->data_khuVuc($khuVuc->id_khu_vuc);
 			foreach ($name_status as $key => $name) {
-				$status[$name] += $status_nhamay[$name];
+				$status_nhaMay[$name] += $data_khuVuc['status_khuVuc'][$name];
+			}
+			array_push($list_khuVuc, $data_khuVuc);
+		}
+		$results = array_merge(['nhaMay'=>$nhaMay,'status_nhaMay'=>$status_nhaMay,'list_khuVuc'=>$list_khuVuc]);
+		return $results;
+	} //ok
+	public function data_khuVuc($id_khu_vuc){
+		$results = [];
+		$khuVuc = khuVuc::find($id_khu_vuc);
+		$table_txt = $khuVuc->folder_txt;
+		$status_khuVuc = ['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0];
+
+		$alerts =alert::where('id_khu_vuc', $id_khu_vuc)->get();
+		$list_alert = [];
+		if ($alerts) {
+			foreach ($alerts as $key => $alert) {
+				if ($alert['enable']=="YES") {
+					$list_alert[$alert['name_alert']]=$alert;
+				}
 			}
 		}
-		$results = array_merge(['status'=>$status,'list_nhaMay'=>$list_nhaMay]);
+		$newTxt = DB::table($table_txt)->orderByDesc('time')->first();
+
+        
+        if (!empty($newTxt)) {
+            $time =  $newTxt->time;
+            $connect = $this->connect($time);
+
+			if ($connect=='') {
+				$arrayData = json_decode($newTxt->data, true);
+
+				foreach ($arrayData as $key1 => $value1) {
+					if ($status_khuVuc['E'] == 0 ) {
+						if ($status_khuVuc['C'] == 0 ) {
+							switch ($value1['status']) {
+								case 0: $status_khuVuc['N'] = 1;
+									if (array_key_exists($value1['name'], $list_alert)) {
+										$value2 = $list_alert[$value1['name']];
+										if ($status_khuVuc['error']==0) {
+											if ($status_khuVuc['alert']==0) {
+												if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+													$status_khuVuc['error']=1;
+												}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+													$status_khuVuc['alert']=1;
+												}
+											}
+										}
+									}							
+									break;
+								case 1:$status_khuVuc['C'] = 1; break;
+								case 2:$status_khuVuc['E'] = 1; break;
+							}
+						}
+					}
+				}
+			}else{
+				$status_khuVuc['connect']=1;
+			}
+		}
+		$results = array_merge(['khuVuc'=>$khuVuc,'status_khuVuc'=>$status_khuVuc,'list_alert'=>$list_alert,'newTxt'=>$newTxt]);
 		return $results;
+	} //ok
+
+	////////view
+	public function admin(){
+		$results = [];
+		$total = khuVuc::select('id_khu_vuc')->count();
+		$name_status = ['connect','E','C','error','alert'];
+		$status = ['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0,'total'=>$total];
+		$vanPhongs = vanPhong::all();
+		foreach ($vanPhongs as $key => $vanPhong) {
+			$id_van_phong = $vanPhong->id_van_phong;
+			$nhaMays = nhaMay::join('role', 'role.id_nha_may', '=', 'nhaMay.id_nha_may')
+                    ->join('vanPhong', 'vanPhong.id_van_phong', '=', 'role.id_van_phong')
+                    ->where('vanPhong.id_van_phong', $id_van_phong)
+                    // ->select('nhaMay.id_nha_may')
+                    ->orderBy('nhaMay.id_nha_may')
+                    ->get();
+            foreach ($nhaMays as $key => $nhaMay) {
+            	$khuVucs = khuVuc::where('id_nha_may',$nhaMay->id_nha_may)->get();
+            	foreach ($khuVucs as $key => $khuVuc) {
+					$status_khuVuc = ['connect'=>0,'E'=>0,'C'=>0,'error'=>0,'alert'=>0];
+					$alerts =alert::where('id_khu_vuc', $khuVuc->id_khu_vuc)->get();
+					$list_alert = [];
+					if ($alerts) {
+						foreach ($alerts as $key => $alert) {
+							if ($alert['enable']=="YES") {
+								$list_alert[$alert['name_alert']]=$alert;
+							}
+						}
+					}
+					$newTxt = DB::table($khuVuc->folder_txt)->orderByDesc('time')->first();
+			        if (!empty($newTxt)) {
+			            $time =  $newTxt->time;
+			            $connect = $this->connect($time);
+
+						if ($connect=='') {
+							$arrayData = json_decode($newTxt->data, true);
+
+							foreach ($arrayData as $key1 => $value1) {
+								if ($status_khuVuc['E'] == 0 ) {
+									if ($status_khuVuc['C'] == 0 ) {
+										switch ($value1['status']) {
+											case 0: $status_khuVuc['N'] = 1;
+												if (array_key_exists($value1['name'], $list_alert)) {
+													$value2 = $list_alert[$value1['name']];
+													if ($status_khuVuc['error']==0) {
+														if ($status_khuVuc['alert']==0) {
+															if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
+																$status_khuVuc['error']=1;
+															}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
+																$status_khuVuc['alert']=1;
+															}
+														}
+													}
+												}							
+												break;
+											case 1:$status_khuVuc['C'] = 1; break;
+											case 2:$status_khuVuc['E'] = 1; break;
+										}
+									}
+								}
+							}
+						}else{
+							$status_khuVuc['connect']=1;
+						}
+					}
+					foreach ($name_status as $key => $name) {
+						$status[$name] += $status_khuVuc[$name];
+					}
+					array_push($results,['name_van_phong'=>$vanPhong->name_van_phong,'name_nha_may'=> $nhaMay->name_nha_may,'name_khu_vuc'=>$khuVuc->name_khu_vuc,'status_khuVuc'=>$status_khuVuc,'list_alert'=>$list_alert,'newTxt'=>$newTxt]);
+            	}
+            }
+            
+		}
+		return view('User.admin', compact('results','status','name_status'));
 	}
+
+	///////////
 	public function admin_home(){
 		$name_status = ['connect','E','C','error','alert'];
 		$results = [];
