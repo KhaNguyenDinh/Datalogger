@@ -30,8 +30,8 @@
 	</td>
 	<td>
 		<select name="loai" required class="form-control">
-			<option value="Nước Thải">Nước Thải</option>
-			<option value="Khí Thải">Khí Thải</option>
+			<option value="NT">Nước Thải</option>
+			<option value="KT">Khí Thải</option>
 		</select>
 	</td>
 	<td><input type="text" name="link_map" placeholder="link_map" required class="form-control"></td>
@@ -55,8 +55,8 @@
 		</td>
 		<td>
 			<select name="loai[]" required class="form-control">
-				<option value="Nước Thải" <?php if($value->nuoc_khi=='Nước Thải'){ echo 'selected';} ?>>Nước Thải</option>
-				<option value="Khí Thải" <?php if($value->nuoc_khi=='Khí Thải'){ echo 'selected';} ?>>Khí Thải</option>
+				<option value="NT" <?php if($value->loai=='NT'){ echo 'selected';} ?>>Nước Thải</option>
+				<option value="KT" <?php if($value->loai=='KT'){ echo 'selected';} ?>>Khí Thải</option>
 			</select>
 		</td>
 		<td><input type="text" name="link_map[]" value="{{$value->link_map}}" required class="form-control"></td>

@@ -157,6 +157,7 @@ class viewController extends Controller
 		return $results;
 	} //ok
 
+
 	////////view
 	public function admin(){
 		$results = [];
@@ -231,7 +232,6 @@ class viewController extends Controller
 		}
 		return view('User.admin', compact('results','status','name_status'));
 	}
-
 	///////////
 	public function admin_home(){
 		$name_status = ['connect','E','C','error','alert'];
