@@ -55,6 +55,9 @@
 	table td{
 		border: 1px solid white;
 	}
+	.dstt .datatable-top{
+		display: none;
+	}
 
 </style>
 <script type="text/javascript">
@@ -83,7 +86,7 @@
 
         <div class="col-lg-6">
 
-          <div class="card">
+          <div class="card dstt">
             <div class="card-body">
               <h5 class="card-title">DANH SÁCH TRẠM THEO TRẠNG THÁI</h5>
 
