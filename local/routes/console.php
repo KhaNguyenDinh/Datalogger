@@ -21,6 +21,10 @@ Artisan::command('log_db', function () {
 	app(App\Services\LogService::class)->loadTxtAll();
 })->describe('Display an inspiring quote');
 
+Artisan::command('log_email', function () {
+	app(App\Services\LogService::class)->email();
+})->describe('Display an inspiring quote');
+
 Artisan::command('reset_db', function () {
 	app(App\Services\LogService::class)->resetTxt();
 })->describe('Display an inspiring quote');

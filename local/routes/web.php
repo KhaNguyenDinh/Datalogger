@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Route::get('check_email','dulieuTXTController@mail');
+
 Route::group(['prefix'=>'Master','middleware' => 'check-master'],function(){
 	
     Route::get('resetTxt','masterController@resetTxt');
@@ -12,6 +14,13 @@ Route::group(['prefix'=>'Master','middleware' => 'check-master'],function(){
 		Route::post('postinsert','masterController@account_postinsert');
 		Route::post('postupdate','masterController@account_postupdate');
 		Route::get('delete/{id_account}','masterController@account_delete');
+	}); 
+	//mail
+	Route::group(['prefix'=>'mail'],function(){
+		Route::get('/','masterController@mail_index');
+		Route::post('postinsert','masterController@mail_postinsert');
+		Route::post('postupdate','masterController@mail_postupdate');
+		Route::get('delete/{id}','masterController@mail_delete');
 	}); 
 	// nha May
 	Route::get('/','masterController@nhamay_index');

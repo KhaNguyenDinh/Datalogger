@@ -20,14 +20,64 @@ use App\alert;
 use App\camera;
 use App\account;
 use App\viTri;
-
 use App\vanPhong;
 use App\role;
+use App\email;
 use DateTime;
 
 
 class masterController extends Controller
 {
+    public function mail_index(){
+        $data = email::join('nhaMay', 'mail.id_nha_may', '=', 'nhaMay.id_nha_may')
+                    ->select('mail.*', 'nhaMay.*')
+                    ->orderBy('id','desc')
+                    ->get();
+        $nhaMay = nhaMay::all();
+        return view('Master.mail')->with(compact('data','nhaMay'));
+    }
+    public function mail_postinsert(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            ['email' => 'required|min:1|max:100'],
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }else{
+            $count = email::where('email',$request->email)->count();
+            if ($count==0) {
+                $insert = new email();
+                $insert->id_nha_may = $request->id_nha_may;
+                $insert->email = $request->email;
+                $insert->save();
+                return Redirect()->back()->withInput();
+            }else{
+                return response()->json(['success'=>$request->email.' dang ton tai']);
+            }
+        }
+    }
+    public function mail_postupdate(Request $request){
+        for ($i=0; $i < count($request->id) ; $i++) { 
+            $count = email::where('email',$request->email[$i])
+                        ->where('id','!=',$request->id[$i])->count();
+            if ($count==0) {
+                $update = email::find($request->id[$i]);
+                $update->email = $request->email[$i];
+                $update->id_nha_may = $request->id_nha_may[$i];
+                $update->save();
+            }else{
+                return response()->json(['success'=>$request->email[$i].' dang ton tai']);
+            }
+        }
+        return Redirect()->back()->withInput();
+    }
+    public function mail_delete($id){
+        $data = email::find($id)->delete();
+        return Redirect()->back()->withInput();
+    }
+
+
+
     public function resetTxt(){
         $khuVucAll = khuVuc::all();
         foreach ($khuVucAll as $key => $khuVuc) {
