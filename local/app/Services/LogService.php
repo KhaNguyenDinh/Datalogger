@@ -40,7 +40,7 @@ class LogService
 				} elseif($interval->i > 30) {$connect = true;}
 				if ($connect) {
 					$list_check['load'] = $list_check['connect'] = 1;
-					$comment = $comment.'TQT :'.$value->name_khu_vuc.'_MẤT TÍN HIỆU';
+					$comment = $comment.'_MẤT TÍN HIỆU';
 				}
 				/////////////////////////////////////////////////////
 				if ($list_check['connect']==0) {
@@ -84,7 +84,7 @@ class LogService
 				}
 			}	
 			if ($comment) {
-				$comment = $time.':'.$comment;
+				$comment = $time.'TQT:'.$value->name_khu_vuc.'_'.$comment;
 			}
 		}
 

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::get('check_email','dulieuTXTController@mail');
 
 Route::group(['prefix'=>'Master','middleware' => 'check-master'],function(){
 	
