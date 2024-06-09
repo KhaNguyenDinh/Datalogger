@@ -40,7 +40,7 @@ class LogService
 				} elseif($interval->i > 30) {$connect = true;}
 				if ($connect) {
 					$list_check['load'] = $list_check['connect'] = 1;
-					$comment = $comment.'_MẤT TÍN HIỆU';
+					$comment = $comment.'MẤT TÍN HIỆU';
 				}
 				/////////////////////////////////////////////////////
 				if ($list_check['connect']==0) {
@@ -83,16 +83,13 @@ class LogService
 
 				}
 			}	
-			if ($comment) {
-				$comment = $time.'TQT:'.$value->name_khu_vuc.'_'.$comment;
-			}
+			$value = ['time'=>$time,'TQT'=>$value->name_khu_vuc,'comment'=>$comment];
 		}
 
-		return $comment;
+		return $value;
 	}
-	public function sent_mail($comment,$email){
-        // $comment = 'comment';
-        Mail::send('mail',compact('comment'), function($email) use($comment){
+	public function sent_mail($time,$TQT,$comment,$email){
+        Mail::send('mail',compact('time','TQT','comment'), function($email) use($comment){
             $email->subject('CANH BAO');
             $email->to('nguyendinhkha95@gmail.com','Canh Bao');
         });
@@ -102,9 +99,9 @@ class LogService
     	foreach ($data as $key => $value) {
     		$id_nha_may = $value->id_nha_may;
     		$email = $value->email;
-    		$comment = $this->check_sent_mail($id_nha_may);
-    		if ($comment!='') {
-    			$this->sent_mail($comment,$email);
+    		$value = $this->check_sent_mail($id_nha_may);
+    		if ($value['comment']!='') {
+    			$this->sent_mail($value['time'],$value['TQT'],$value['comment'],$email);
     		}
     	}
     }
