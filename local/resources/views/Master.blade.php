@@ -14,7 +14,7 @@
 	  	@if(session('level')=='Master')
 	    <li><a href="{{URL::to('Master/nhaMay')}}">nhaMay</a></li>
 	    <li><a href="{{URL::to('Master/account')}}">account</a></li>
-	    <li><a href="{{URL::to('Master/mail')}}">mail</a></li>
+	    <li><a href="{{URL::to('Master/mail')}}">email</a></li>
 	    <!-- <li><a href="{{URL::to('Master/vanPhong')}}">vanPhong</a></li> -->
 	    <!-- <li><a href="{{URL::to('Master/role')}}">role</a></li> -->
 	    <li><a href="{{URL::to('Master/resetTxt')}}">reset Txt</a></li>

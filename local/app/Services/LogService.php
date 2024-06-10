@@ -21,6 +21,7 @@ class LogService
 		$nhaMayGetId = nhaMay::find($id_nha_may);
 		$khuVuc = khuVuc::where('id_nha_may', $id_nha_may)->orderBy('id_khu_vuc')->get();
 		$comment = '';
+		$value=[];
 
 		foreach ($khuVuc as $key => $value) {
 			$alert =alert::where('id_khu_vuc', $value->id_khu_vuc)->get();
@@ -83,25 +84,27 @@ class LogService
 
 				}
 			}	
-			$value = ['time'=>$time,'TQT'=>$value->name_khu_vuc,'comment'=>$comment];
+			$value_khuvuc = ['time'=>$time,'TQT'=>$value->name_khu_vuc,'comment'=>$comment];
+			$value = array_merge($value_khuvuc);
 		}
 
 		return $value;
 	}
-	public function sent_mail($time,$TQT,$comment,$email){
-        Mail::send('mail',compact('time','TQT','comment'), function($email) use($comment){
+	public function sent_mail($time,$TQT,$comment,$mail_sent){
+        Mail::send('mail',compact('time','TQT','comment','mail_sent'), function($email) use($comment,$mail_sent){
             $email->subject('CANH BAO');
-            $email->to('nguyendinhkha95@gmail.com','Canh Bao');
+            $email->to($mail_sent,'Canh Bao');
         });
     }
     public function email(){
-    	$data = email::all();
+    	$data = email::select('id_nha_may')->distinct()->pluck('id_nha_may')->all();
     	foreach ($data as $key => $value) {
-    		$id_nha_may = $value->id_nha_may;
-    		$email = $value->email;
-    		$value = $this->check_sent_mail($id_nha_may);
-    		if ($value['comment']!='') {
-    			$this->sent_mail($value['time'],$value['TQT'],$value['comment'],$email);
+    		$error = $this->check_sent_mail($value);
+    		if ($error['comment']!='') {
+    			$datas = email::where('id_nha_may',$value)->select('email')->distinct()->pluck('email')->all();
+    			foreach ($datas as $key => $email) {
+    				$this->sent_mail($error['time'],$error['TQT'],$error['comment'],$email);
+    			}
     		}
     	}
     }
