@@ -92,8 +92,8 @@ class LogService
 	}
 	public function sent_mail($time,$TQT,$comment,$mail_sent){
         Mail::send('mail',compact('time','TQT','comment','mail_sent'), function($email) use($comment,$mail_sent){
-            $email->subject('CANH BAO');
-            $email->to($mail_sent,'Canh Bao');
+            $email->subject('Canh Bao');
+            $email->to($mail_sent);
         });
     }
     public function email(){
