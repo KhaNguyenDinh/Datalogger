@@ -133,13 +133,13 @@ class viewController extends Controller
 									if (array_key_exists($value1['name'], $list_alert)) {
 										$value2 = $list_alert[$value1['name']];
 										if ($status_khuVuc['error']==0) {
-											if ($status_khuVuc['alert']==0) {
+											// if ($status_khuVuc['alert']==0) {
 												if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
 													$status_khuVuc['error']=1;
 												}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
 													$status_khuVuc['alert']=1;
 												}
-											}
+											// }
 										}
 									}							
 									break;
@@ -202,13 +202,13 @@ class viewController extends Controller
 												if (array_key_exists($value1['name'], $list_alert)) {
 													$value2 = $list_alert[$value1['name']];
 													if ($status_khuVuc['error']==0) {
-														if ($status_khuVuc['alert']==0) {
+														// if ($status_khuVuc['alert']==0) {
 															if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
 																$status_khuVuc['error']=1;
 															}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
 																$status_khuVuc['alert']=1;
 															}
-														}
+														// }
 													}
 												}							
 												break;
@@ -313,13 +313,13 @@ class viewController extends Controller
 										if (array_key_exists($value1['name'], $list_alert)) {
 											$value2 = $list_alert[$value1['name']];
 											if ($list_check['error']==0) {
-												if ($list_check['alert']==0) {
+												// if ($list_check['alert']==0) {
 													if ($value1['number']<$value2['minmin']||$value1['number']>$value2['maxmax']) {
 														$list_check['error']=1;
 													}elseif ($value1['number']<$value2['min']||$value1['number']>$value2['max']) {
 														$list_check['alert']=1;
 													}
-												}
+												// }
 											}
 										}							
 										break;
