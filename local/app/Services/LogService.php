@@ -152,25 +152,27 @@ class LogService
 							    
 							    foreach ($lines as $line) {
 							    	$elements = explode("\t", $line);
-									$txt = [
-										'id_khu_vuc' => $id_khu_vuc,
-										'name' => $elements[0],
-										'number' => $elements[1],
-										'unit' => $elements[2],
-										'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
-										'status' => $elements[4],
-									];
-									if ($time==false) {
-										$time = date("Y-m-d H:i",strtotime($elements[3]));
-									}
-									if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
-										array_push($data, $txt);
-									}else{
-										array_push($datas, $data);
-										$data = [];
-										array_push($data, $txt);
-										$time = date("Y-m-d H:i",strtotime($elements[3]));
+							    	if (isset($elements[4])) {
+										$txt = [
+											'id_khu_vuc' => $id_khu_vuc,
+											'name' => $elements[0],
+											'number' => $elements[1],
+											'unit' => $elements[2],
+											'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
+											'status' => $elements[4],
+										];
+										if ($time==false) {
+											$time = date("Y-m-d H:i",strtotime($elements[3]));
+										}
+										if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
+											array_push($data, $txt);
+										}else{
+											array_push($datas, $data);
+											$data = [];
+											array_push($data, $txt);
+											$time = date("Y-m-d H:i",strtotime($elements[3]));
 
+										}
 									}
 							    }
 							    array_push($datas, $data);
@@ -243,26 +245,29 @@ class LogService
 										    
 										    foreach ($lines as $line) {
 										    	$elements = explode("\t", $line);
-												$txt = [
-													'id_khu_vuc' => $id_khu_vuc,
-													'name' => $elements[0],
-													'number' => $elements[1],
-													'unit' => $elements[2],
-													'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
-													'status' => $elements[4],
-												];
-												if ($time==false) {
-													$time = date("Y-m-d H:i",strtotime($elements[3]));
-												}
-												if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
-													array_push($data, $txt);
-												}else{
-													array_push($datas, $data);
-													$data = [];
-													array_push($data, $txt);
-													$time = date("Y-m-d H:i",strtotime($elements[3]));
+										    	if (isset($elements[4])) {
+													$txt = [
+														'id_khu_vuc' => $id_khu_vuc,
+														'name' => $elements[0],
+														'number' => $elements[1],
+														'unit' => $elements[2],
+														'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
+														'status' => $elements[4],
+													];
+													if ($time==false) {
+														$time = date("Y-m-d H:i",strtotime($elements[3]));
+													}
+													if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
+														array_push($data, $txt);
+													}else{
+														array_push($datas, $data);
+														$data = [];
+														array_push($data, $txt);
+														$time = date("Y-m-d H:i",strtotime($elements[3]));
 
-												}
+													}										    		
+										    	}
+
 										    }
 										    array_push($datas, $data);
 										    foreach ($datas as $key  => $array) {
