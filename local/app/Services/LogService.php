@@ -133,7 +133,6 @@ class LogService
 			$type = $khuVuc->type;
 			$id_khu_vuc = $khuVuc->id_khu_vuc;
 			$folder_txt = $khuVuc->folder_txt;
-
 			if ($type=='ymd') {
 				$directoryPath = 'public/TXT/'.$folder_txt;
 				$subDirectories = Storage::directories($directoryPath);
@@ -144,59 +143,45 @@ class LogService
 				    	$folderName = basename($subDirectory);
 				    	if (strlen($folderName)!=4) {
 							$files = Storage::files($subDirectory);
-
 							foreach ($files as $file) {
-								$time_file = substr($file,strlen($file)-18,14);
-								$key =date("Y-m-d H:i",strtotime($time_file));
-							    $fileContents = Storage::disk('local')->get($file);
 
-				    			$existingRecord = DB::table($folder_txt)
-								    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
-								    ->select('time')->first();
-								if ($existingRecord) {	$available = "YES";
-								}else{ $available="NO";}
-							// Tách nội dung thành các dòng
+							    $fileContents = Storage::disk('local')->get($file);
 							    $lines = explode("\n", $fileContents);
 							    // Xử lý từng dòng
-							    $mov=''; $time_txt = '';
-							    $array = [];
+							    $datas=[];$data=[];$time=false;
+							    
 							    foreach ($lines as $line) {
 							    	$elements = explode("\t", $line);
-							    	if (isset($elements[4])) {
-							    		if ($mov=='') {
-							    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
-									    		$mov = "NO";
-									    	}else{
-									    		$mov = "YES";
-									    	}
-							    		}
-							    		if ($available=="NO") {
-							    			$array[] = [
-												'id_khu_vuc' => $id_khu_vuc,
-												'name' => $elements[0],
-												'number' => $elements[1],
-												'unit' => $elements[2],
-												'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
-												'status' => $elements[4],
-											];
-											if ($time_txt=='') {
-												$time_txt = date("Y-m-d H:i:s", strtotime($elements[3]) );
-											}
-							    		}
+									$txt = [
+										'id_khu_vuc' => $id_khu_vuc,
+										'name' => $elements[0],
+										'number' => $elements[1],
+										'unit' => $elements[2],
+										'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
+										'status' => $elements[4],
+									];
+									if ($time==false) {
+										$time = date("Y-m-d H:i",strtotime($elements[3]));
+									}
+									if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
+										array_push($data, $txt);
+									}else{
+										array_push($datas, $data);
+										$data = [];
+										array_push($data, $txt);
+										$time = date("Y-m-d H:i",strtotime($elements[3]));
 
-							    	}
+									}
 							    }
-
-
-							    if ($mov =='YES') {
-							    	if ($available=="NO") {
-							    		$dataToInsert= [
-											'id_khu_vuc' => $id_khu_vuc,
-											'time'=>$time_txt,
-											'data'=>json_encode($array)
-										];
-									    DB::table($folder_txt)->insert($dataToInsert);
-							    	}
+							    array_push($datas, $data);
+							    foreach ($datas as $key  => $array) {
+						    		$dataToInsert= [
+										'id_khu_vuc' => $array[0]["id_khu_vuc"],
+										'time'=>$array[0]['time'],
+										'data'=>json_encode($array)
+									];
+								    DB::table($folder_txt)->insert($dataToInsert);	
+							    }
 									// Tách đoạn đường dẫn dựa trên dấu /
 									$parts = explode('/', $file);
 									// Lấy tên file
@@ -221,12 +206,11 @@ class LogService
 									if (File::exists($destinationPath)) {
 									    File::delete($sourcePath);
 									}
-								}
 							}
 
 							$files = Storage::files($subDirectory);
 							if (empty($files)) {
-							    // Storage::deleteDirectory($subDirectory);
+							    Storage::deleteDirectory($subDirectory);
 							    // echo "Đã xóa thư mục $subDirectory vì không còn file trong đó.";
 							}
 						}
@@ -251,58 +235,44 @@ class LogService
 
 										$files = Storage::files($subDirectory2);
 										foreach ($files as $file) {
-											$time_file = substr($file,strlen($file)-18,14);
-											$key =date("Y-m-d H:i",strtotime($time_file));
-
-											$existingRecord = DB::table($folder_txt)
-											    ->where('time', date("Y-m-d H:i:s",strtotime($time_file)))
-											    ->select('time')->first();
-											if ($existingRecord) {	$available = "YES";
-											}else{ $available="NO";}
 
 										    $fileContents = Storage::disk('local')->get($file);
-
-
-										 	    // Tách nội dung thành các dòng
 										    $lines = explode("\n", $fileContents);
 										    // Xử lý từng dòng
-										    $mov=''; ;$time_txt = '';
-										    $array = [];
+										    $datas=[];$data=[];$time=false;
+										    
 										    foreach ($lines as $line) {
 										    	$elements = explode("\t", $line);
-										    	if (isset($elements[4])) {
-										    		if ($mov=='') {
-										    			if (date("Y-m-d H:i",strtotime($elements[3])) !== $key) {
-												    		$mov = "NO";
-												    	}else{
-												    		$mov = "YES";
-												    	}
-										    		}
-										    		if ($available=="NO") {
-										    			$array[] = [
-															'id_khu_vuc' => $id_khu_vuc,
-															'name' => $elements[0],
-															'number' => $elements[1],
-															'unit' => $elements[2],
-															'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
-															'status' => $elements[4],
-														];
-														if ($time_txt=='') {
-															$time_txt = date("Y-m-d H:i:s", strtotime($elements[3]) );
-														}
-										    		}
+												$txt = [
+													'id_khu_vuc' => $id_khu_vuc,
+													'name' => $elements[0],
+													'number' => $elements[1],
+													'unit' => $elements[2],
+													'time' => date("Y-m-d H:i:s", strtotime($elements[3])),
+													'status' => $elements[4],
+												];
+												if ($time==false) {
+													$time = date("Y-m-d H:i",strtotime($elements[3]));
+												}
+												if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
+													array_push($data, $txt);
+												}else{
+													array_push($datas, $data);
+													$data = [];
+													array_push($data, $txt);
+													$time = date("Y-m-d H:i",strtotime($elements[3]));
 
-										    	}
+												}
 										    }
-										    if ($mov =='YES') {
-										    	if ($available=="NO") {
-										    		$dataToInsert= [
-														'id_khu_vuc' => $id_khu_vuc,
-														'time'=>$time_txt,
-														'data'=>json_encode($array)
-													];
-												    DB::table($folder_txt)->insert($dataToInsert);
-										    	}
+										    array_push($datas, $data);
+										    foreach ($datas as $key  => $array) {
+									    		$dataToInsert= [
+													'id_khu_vuc' => $array[0]["id_khu_vuc"],
+													'time'=>$array[0]['time'],
+													'data'=>json_encode($array)
+												];
+											    DB::table($folder_txt)->insert($dataToInsert);	
+										    }
 												// Tách đoạn đường dẫn dựa trên dấu /
 												$parts = explode('/', $file);
 												// Lấy tên file
@@ -327,26 +297,25 @@ class LogService
 												if (File::exists($destinationPath)) {
 												    File::delete($sourcePath);
 												}
-											}
 
 										}
 										$files = Storage::files($subDirectory2);
 										if (empty($files)) {
-										    // Storage::deleteDirectory($subDirectory2);
-										    // echo "Đã xóa thư mục $subDirectory2 vì không còn file trong đó.";
+										    Storage::deleteDirectory($subDirectory2);
+										    //echo "Đã xóa thư mục $subDirectory2 vì không còn file trong đó.";
 										}
 									}
 									$directories = Storage::directories($subDirectory1);
 									if (empty($directories)) {
-									    // Storage::deleteDirectory($subDirectory1);
-									    // echo "Đã xóa thư mục $subDirectory1 vì không còn thư mục con trong đó.";
+									    Storage::deleteDirectory($subDirectory1);
+									    //echo "Đã xóa thư mục $subDirectory1 vì không còn thư mục con trong đó.";
 									}
 								}
 							}
 							$directories = Storage::directories($subDirectory);
 							if (empty($directories)) {
-							    // Storage::deleteDirectory($subDirectory);
-							    // echo "Đã xóa thư mục $subDirectory1 vì không còn thư mục con trong đó.";
+							    Storage::deleteDirectory($subDirectory);
+							    //echo "Đã xóa thư mục $subDirectory1 vì không còn thư mục con trong đó.";
 							}
 				    	}
 					}
