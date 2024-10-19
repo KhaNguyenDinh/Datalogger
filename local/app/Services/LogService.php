@@ -162,28 +162,31 @@ class LogService
 											'status' => $elements[4],
 										];
 										if ($time==false) {
-											$time = date("Y-m-d H:i",strtotime($elements[3]));
+											$time = date("Y-m-d H:i:s",strtotime($elements[3]));
 										}
-										if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
+										if ($time==date("Y-m-d H:i:s",strtotime($elements[3]))) {
 											array_push($data, $txt);
 										}else{
 											array_push($datas, $data);
 											$data = [];
 											array_push($data, $txt);
-											$time = date("Y-m-d H:i",strtotime($elements[3]));
+											$time = date("Y-m-d H:i:s",strtotime($elements[3]));
 
-										}
-									}
+										}										    		
+							    	}
+
 							    }
 							    array_push($datas, $data);
-							    foreach ($datas as $key  => $array) {
-						    		$dataToInsert= [
-										'id_khu_vuc' => $array[0]["id_khu_vuc"],
-										'time'=>$array[0]['time'],
-										'data'=>json_encode($array)
-									];
-								    DB::table($folder_txt)->insert($dataToInsert);	
-							    }
+								foreach ($datas as $key => $array) {
+								    if (!empty($array) && is_array($array) && isset($array[0])) {
+								        $dataToInsert = [
+								            'id_khu_vuc' => $array[0]["id_khu_vuc"],
+								            'time' => $array[0]['time'],
+								            'data' => json_encode($array)
+								        ];
+								        DB::table($folder_txt)->insert($dataToInsert);
+								    }
+								}
 									// Tách đoạn đường dẫn dựa trên dấu /
 									$parts = explode('/', $file);
 									// Lấy tên file
@@ -255,29 +258,32 @@ class LogService
 														'status' => $elements[4],
 													];
 													if ($time==false) {
-														$time = date("Y-m-d H:i",strtotime($elements[3]));
+														$time = date("Y-m-d H:i:s",strtotime($elements[3]));
 													}
-													if ($time==date("Y-m-d H:i",strtotime($elements[3]))) {
+													if ($time==date("Y-m-d H:i:s",strtotime($elements[3]))) {
 														array_push($data, $txt);
 													}else{
 														array_push($datas, $data);
 														$data = [];
 														array_push($data, $txt);
-														$time = date("Y-m-d H:i",strtotime($elements[3]));
+														$time = date("Y-m-d H:i:s",strtotime($elements[3]));
 
 													}										    		
 										    	}
 
 										    }
 										    array_push($datas, $data);
-										    foreach ($datas as $key  => $array) {
-									    		$dataToInsert= [
-													'id_khu_vuc' => $array[0]["id_khu_vuc"],
-													'time'=>$array[0]['time'],
-													'data'=>json_encode($array)
-												];
-											    DB::table($folder_txt)->insert($dataToInsert);	
-										    }
+											foreach ($datas as $key => $array) {
+											    if (!empty($array) && is_array($array) && isset($array[0])) {
+											        $dataToInsert = [
+											            'id_khu_vuc' => $array[0]["id_khu_vuc"],
+											            'time' => $array[0]['time'],
+											            'data' => json_encode($array)
+											        ];
+											        DB::table($folder_txt)->insert($dataToInsert);
+											    }
+											}
+
 												// Tách đoạn đường dẫn dựa trên dấu /
 												$parts = explode('/', $file);
 												// Lấy tên file

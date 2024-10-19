@@ -297,7 +297,7 @@ class viewController extends Controller
 				} elseif($interval->m > 0) {$connect = "Mất tín hiệu";
 				} elseif($interval->d > 0) {$connect = "Mất tín hiệu";
 				} elseif($interval->h > 0) {$connect = "Mất tín hiệu";
-				} elseif($interval->i > 10) {$connect = "Mất tín hiệu";}
+				} elseif($interval->i > 30) {$connect = "Mất tín hiệu";}
 				if ($connect!=='') {
 					$list_check['load'] = $list_check['connect'] = 1;
 				}
